@@ -15,15 +15,14 @@ try:
     # Calculate aspect ratio first
     aspect_ratio = img.width / img.height
     
-    # Fill the entire card width with the logo (minimal padding)
-    # This forces the "large image" preview style instead of thumbnail+text
-    padding = 40  # Small padding on edges
-    new_width = target_size[0] - (padding * 2)  # 1120px width
+    # Fill the entire card with minimal padding to force large image preview
+    padding = 10  # Minimal padding - was 40px, now 10px
+    new_width = target_size[0] - (padding * 2)  # 1180px width
     new_height = int(new_width / aspect_ratio)
     
     # If height exceeds card, scale by height instead
     if new_height > target_size[1] - (padding * 2):
-        new_height = target_size[1] - (padding * 2)
+        new_height = target_size[1] - (padding * 2)  # 610px height
         new_width = int(new_height * aspect_ratio)
     
     resized_logo = img.resize((new_width, new_height), Image.Resampling.LANCZOS)

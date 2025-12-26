@@ -1,0 +1,149 @@
+{
+  "page_title": "Wish Group",
+  "nav_about": "About Us",
+  "nav_services": "Services",
+  "nav_culture": "Culture",
+  "nav_testimonials": "Testimonials",
+  "nav_contact": "Contact Us",
+  "hero": {
+    "title": "Your One-Stop Financial Partner",
+    "subtitle": "All-in-one solution for growth and protection under one roof",
+    "getStarted": "Contact Us Today"
+  },
+  "about": {
+    "title": "About Us",
+    "intro_text": "Established in 2013 and backed by years of collective professional expertise, Wish Group Resources is Malaysia’s leading \"One-Stop Financial Solution\" provider. We have empowered thousands of Malaysians through our comprehensive suite of integrated services—ranging from banking and finance to risk management, legal and tax consultancy, investment, and estate planning. Our mission is to instill confidence in our clients, enabling them to invest wisely and secure their wealth for generations to come.",
+    "mission_title": "Our Mission",
+    "mission_text": "To provide peace of mind through comprehensive, personalized financial and insurance planning, build long-term trust with clients, and uphold the highest levels of professionalism and ethical standards.",
+    "vision_title": "Our Vision",
+    "vision_text": "To be a leading young financial services agency in Malaysia — the preferred partner for both clients and business leaders. We train leaders, not staff.",
+    "values_title": "Our Core Values",
+    "values_text_paragraph": "We're a young financial agency in Malaysia, focused on being the top choice for clients and future leaders.",
+    "value1": "Gratefulness",
+    "value2": "Team Spirit",
+    "value3": "Excellence",
+    "value4": "Foresight",
+    "value5": "Dedication"
+  },
+  "events": {
+    "title": "Life at Wish Group",
+    "tab_celebration": "Celebration",
+    "tab_team": "Team Building",
+    "tab_training": "Training",
+    "celebration_desc1": "Wish Annual Dinner",
+    "team_desc1": "🏓 Pickleball",
+    "team_desc2": "Outdoor team bonding activities.",
+    "training_desc1": "💡 Learn, Laugh & Level Up"
+  },
+  "testimonials": {
+    "title": "Why Client Trust Us",
+    "subtitle": "Honest advice, professional guidance",
+    "client1_name": "Bobby Zhang",
+    "client1_role": "Office Worker",
+    "client1_text": "\"Everything was clear and professional - I trust them with my family's protection.\"",
+    "client2_name": "Emily Wong",
+    "client2_role": "Homemaker",
+    "client2_text": "\"They explained everything so clearly. Now I understand and even recommend them to friends.\"",
+    "client3_name": "Jason Hiew",
+    "client3_role": "Office Worker",
+    "client3_text": "\"I wasn't interested at first, but later i found them truly trustworthy.\""
+  },
+  "stories": {
+    "title": "Wish for Good",
+    "story1_title": "15 Years<br>One Mission: Save Lives",
+    "know_more": "Know More",
+    "story2_title": "One Kindness A Month",
+    "story3_title": "A New Year,<br>A Gift of Love",
+    "story1": {
+      "text": "Full story text for Story 1 goes here..."
+    },
+    "story2": {
+      "text": "Full story text for Story 2 goes here..."
+    },
+    "story3": {
+      "text": "Full story text for Story 3 goes here..."
+    }
+  },
+  "story_popup": {
+    "video_unsupported": "Your browser does not support the video tag.",
+    "speed_label": "Speed:"
+  },
+  "services": {
+    "title": "Our Services",
+    "banking": {
+      "title": "Banking & Finance",
+      "item1": "Loan consultation",
+      "item2": "Mortgage planning",
+      "item3": "Debt restructuring"
+    },
+    "risk": {
+      "title": "Risk Management",
+      "item1": "Insurance analysis",
+      "item2": "Protection planning",
+      "item3": "Critical illness coverage"
+    },
+    "legal": {
+      "title": "Legal Advisory (via trusted partners)",
+      "item1": "Legal documentation support",
+      "item2": "Contract review",
+      "item3": "Will writing"
+    },
+    "tax": {
+      "title": "Tax Planning",
+      "item1": "Personal tax planning",
+      "item2": "Business tax consultation",
+      "item3": "Tax optimization"
+    },
+    "investment": {
+      "title": "Investment Planning",
+      "item1": "Portfolio design",
+      "item2": "Unit trust investment",
+      "item3": "Retirement planning"
+    },
+    "estate": {
+      "title": "Estate Planning",
+      "item1": "Will planning & trust setup",
+      "item2": "Asset distribution",
+      "item3": "Inheritance protection"
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "description": "Leave us your details and we'll be in touch!",
+    "form_title": "Get In Touch",
+    "category_label": "Interested Category",
+    "category_option_default": "Select an option",
+    "category_option1": "Banking Solutions",
+    "category_option2": "Risk Management",
+    "category_option3": "Legal Advisory",
+    "category_option4": "Tax Planning",
+    "category_option5": "Investment Planning",
+    "category_option6": "Estate Planning",
+    "category_option_other": "Other",
+    "other_category_placeholder": "Please specify"
+  },
+  "form": {
+    "name_placeholder": "Your Name",
+    "email_placeholder": "Your Email",
+    "phone_placeholder": "Phone Number",
+    "message_placeholder_contact": "Optional Message",
+    "submit_btn": "Submit"
+  },
+  "join": {
+    "story6": {
+      "text": "Story 6 text..."
+    },
+    "title": "Join Us",
+    "description": "Build Your Future With Us",
+    "form_title": "Send Us Your CV",
+    "message_placeholder": "Any Message To Our Company",
+    "cv_label": "Attach your CV Here",
+    "choose_file": "Choose A File",
+    "no_file_chosen": "No File Chosen"
+  },
+  "footer": {
+    "address": "32A-1, Jalan Nautika B U20/B,<br />Pusat Komersial TSB,<br />47000 Shah Alam, Selangor",
+    "follow_us": "FOLLOW US",
+    "copyright": "&copy;2025 Wish Group. All rights reserved."
+  }
+}

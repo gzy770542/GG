@@ -1,0 +1,152 @@
+{
+  "page_title": "Wish Group",
+  "nav_about": "关于我们",
+  "nav_services": "服务",
+  "nav_culture": "文化",
+  "nav_testimonials": "客户评价",
+  "nav_contact": "联系我们",
+  "hero": {
+    "title": "您的一站式金融合作伙伴",
+    "subtitle": "一站式增长与保障解决方案",
+    "getStarted": "立即联系我们"
+  },
+  "about": {
+    "title": "关于我们",
+    "intro_text": "Wish Group Resources 成立于 2013 年，拥有多年的综合专业经验，是马来西亚领先的“一站式金融解决方案”提供商。我们已指导数千名马来西亚人通过银行与金融、风险管理、法律与税务咨询、投资及遗产规划等全方位整合服务，实现财富增长。我们的使命是赋予客户信心，助其明智投资并保障未来财富。",
+    "mission_title": "我们的使命",
+    "mission_text": "通过全面、个性化的财务与保险规划，为客户提供安心保障，与客户建立长期信任关系，并恪守最高水平的专业精神与道德标准",
+    "vision_title": "我们的愿景",
+    "vision_text": "成为马来西亚领先的年轻金融服务机构——客户与商业领袖的首选合作伙伴。我们培养的是领导者，而非普通员工。",
+    "values_title": "我们的核心价值观",
+    "values_text": "我们是一家位于马来西亚的年轻金融机构，致力于成为客户和未来领袖的首选。"
+  },
+  "events": {
+    "title": "Wish Group 的生活",
+    "tab_celebration": "庆典活动",
+    "tab_team": "团队建设",
+    "tab_training": "培训",
+    "celebration_desc1": "Wish 年度晚宴",
+    "team_desc1": "🏓 匹克球",
+    "team_desc2": "户外团队凝聚活动",
+    "training_desc1": "💡 学习，欢笑与提升",
+    "tab_charity": "慈善公益",
+    "charity_desc1": "慈善活动"
+  },
+  "testimonials": {
+    "title": "客户为何信任我们",
+    "subtitle": "诚恳建议，专业指导",
+    "client1_name": "Bobby Zhang",
+    "client1_role": "办公室职员",
+    "client1_text": "“一切都清晰专业——我放心将家人的安全托付给他们。”",
+    "client2_name": "Emily Wong",
+    "client2_role": "家庭主妇",
+    "client2_text": "“他们解释得清清楚楚，现在我完全明白了，甚至向朋友们推荐他们。”",
+    "client3_name": "Jason Hiew",
+    "client3_role": "办公室职员",
+    "client3_text": "“起初我并不感兴趣，但后来发现他们确实值得信赖。”"
+  },
+  "stories": {
+    "title": "Wish for Good",
+    "story1_title": "15年，一个使命：拯救生命",
+    "know_more": "了解更多",
+    "story2_title": "每月一善",
+    "story3_title": "新年伊始,爱意相赠",
+    "story1": {
+      "text": "故事1全文..."
+    },
+    "story2": {
+      "text": "故事2全文..."
+    },
+    "story3": {
+      "text": " 故事3全文..."
+    }
+  },
+  "story_popup": {
+    "video_unsupported": "您的浏览器不支持视频标签。",
+    "speed_label": "速度："
+  },
+  "services": {
+    "title": "我们的服务",
+    "banking": {
+      "title": "银行业与金融业",
+      "item1": "贷款咨询",
+      "item2": "房贷规划",
+      "item3": "债务重组"
+    },
+    "risk": {
+      "title": "风险管理",
+      "item1": "保险分析",
+      "item2": "保障规划",
+      "item3": "重大疾病保障"
+    },
+    "legal": {
+      "title": "法律咨询服务（与信赖合作伙伴）",
+      "item1": "法律文件支持",
+      "item2": "合同审核",
+      "item3": "遗嘱撰写"
+    },
+    "tax": {
+      "title": "税务规划",
+      "item1": "个人税务规划",
+      "item2": "企业税务咨询",
+      "item3": "税务优化"
+    },
+    "investment": {
+      "title": "投资规划",
+      "item1": "投资组合设计",
+      "item2": "单位信托投资",
+      "item3": "退休规划"
+    },
+    "estate": {
+      "title": "遗产规划",
+      "item1": "遗嘱规划与信托设立",
+      "item2": "资产分配",
+      "item3": "遗产继承保障"
+    }
+  },
+  "contact": {
+    "title": "联系我们",
+    "description": "我们随时为您提供帮助",
+    "form_title": "取得联系",
+    "category_label": "感兴趣的类别",
+    "category_option_default": "选择一个选项",
+    "category_option1": "银行业与金融业",
+    "category_option2": "风险管理",
+    "category_option3": "法律咨询",
+    "category_option4": "税务规划",
+    "category_option5": "投资规划",
+    "category_option6": "遗产规划",
+    "category_option_other": "其他",
+    "other_category_placeholder": "请注明"
+  },
+  "form": {
+    "name_placeholder": "请输入您的姓名",
+    "email_placeholder": "输入您的电子邮箱",
+    "phone_placeholder": "输入您的手机号码",
+    "message_placeholder_contact": "留言",
+    "submit_btn": "提交"
+  },
+  "join": {
+    "story4": {
+      "text": "故事4文本..."
+    },
+    "story5": {
+      "text": "故事5文本..."
+    },
+    "story6": {
+      "text": "故事6文本..."
+    },
+    "title": "加入我们",
+    "description": "与我们携手共创未来",
+    "form_title": "请发送您的简历",
+    "message_placeholder": "是否有任何信息要传达给本公司？",
+    "cv_label": "在此附上您的简历",
+    "choose_file": "选择文件",
+    "no_file_chosen": "未选择文件"
+  },
+  "footer": {
+    "address": "32A-1, Jalan Nautika B U20/B,<br />Pusat Komersial TSB,<br />47000 Shah Alam, Selangor",
+    "follow_us": "关注我们",
+    "copyright": "&copy;2025 Wish Group. 版权所有。"
+  }
+}

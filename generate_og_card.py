@@ -12,11 +12,19 @@ try:
     # Create new background
     new_img = Image.new("RGB", target_size, bg_color)
     
-    # Resize source image to fill most of the card
-    # Target height is 630. Make the logo height 580 to be more prominent
+    # Calculate aspect ratio first
     aspect_ratio = img.width / img.height
-    new_height = 580
-    new_width = int(new_height * aspect_ratio)
+    
+    # Fill the entire card width with the logo (minimal padding)
+    # This forces the "large image" preview style instead of thumbnail+text
+    padding = 40  # Small padding on edges
+    new_width = target_size[0] - (padding * 2)  # 1120px width
+    new_height = int(new_width / aspect_ratio)
+    
+    # If height exceeds card, scale by height instead
+    if new_height > target_size[1] - (padding * 2):
+        new_height = target_size[1] - (padding * 2)
+        new_width = int(new_height * aspect_ratio)
     
     resized_logo = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
     
@@ -25,7 +33,7 @@ try:
     y_pos = (target_size[1] - new_height) // 2
     
     # Paste
-    new_img.paste(resized_logo, (x_pos, y_pos))
+    new_img.paste(resized_logo, (x_pos, y_pos), resized_logo if img.mode == 'RGBA' else None)
     
     # Save
     new_img.save(output_path, quality=95)

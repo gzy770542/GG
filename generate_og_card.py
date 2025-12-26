@@ -12,10 +12,10 @@ try:
     # Create new background
     new_img = Image.new("RGB", target_size, bg_color)
     
-    # Resize source image to fit within height (minus padding)
-    # Target height is 630. Let's make the logo height 500 to leave some padding.
+    # Resize source image to fill most of the card
+    # Target height is 630. Make the logo height 580 to be more prominent
     aspect_ratio = img.width / img.height
-    new_height = 550
+    new_height = 580
     new_width = int(new_height * aspect_ratio)
     
     resized_logo = img.resize((new_width, new_height), Image.Resampling.LANCZOS)

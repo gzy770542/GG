@@ -874,198 +874,174 @@
     </div>
   </section>
 
-  <section id="contact" class="py-[80px] bg-[#DBD3D6]">
-    <div class="px-[5%] py-[10px] relative">
-      <h2 class="text-center text-[2.5rem] text-[#222] mb-5 font-bold" data-i18n="contact.title">
-        Contact Us
-      </h2>
-      <p class="text-center text-[1.1rem] text-[#555] max-w-[800px] 
-        mx-auto mb-[50px] leading-[1.6] px-[10px]" data-i18n="contact.description">
-        We're Here to Help You
-      </p>
+  <!-- Unified Connect Section (Contact + Join Us) -->
+  <section id="contact" class="py-[100px] bg-[#fdfdfd] h-scroll-anchor">
+    <div id="join" class="absolute top-[-100px]"></div>
+    <div class="container max-w-[1200px] mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-[2.5rem] md:text-[3.5rem] text-[#1a1a1a] font-bold mb-4" data-i18n="connect.title">Let's Connect
+        </h2>
+        <p class="text-[1.2rem] text-[#666]" data-i18n="connect.subtitle">Reach out or join our team.</p>
+      </div>
 
-      <div class="flex flex-wrap max-w-[850px] mx-auto mt-10 bg-white 
-        rounded-[16px] shadow-[0_6px_20px_rgba(0,0,0,0.1)] 
-        overflow-hidden md:flex-row flex-col">
+      <div
+        class="max-w-[1000px] mx-auto bg-white rounded-[40px] shadow-[0_20px_60px_rgba(0,0,0,0.05)] overflow-hidden flex flex-col md:flex-row min-h-[600px] border border-[#f0f0f0]">
 
-        <!-- Image Section (Left) -->
-        <div class="w-full md:w-1/2 md:h-auto h-[250px] bg-[#e6f0ff] flex items-center justify-center">
-          <img src="images/contactus.webp" alt="Contact Us" class="w-full h-full object-cover" />
-        </div>
+        <!-- Left Side: Dynamic Form Panel -->
+        <div class="w-full md:w-[60%] p-8 md:p-12 relative">
 
-        <!-- Form Section (Right) -->
-        <div class="w-full md:w-1/2 p-8 bg-white">
-          <h3 class="text-center text-[1.6rem] md:text-[1.8rem] mb-[30px] 
-            md:mb-6 text-[#2563EB] font-bold" data-i18n="contact.form_title">
-            Get In Touch
-          </h3>
-          <form id="contactForm" action="submit_contact.php" method="POST" class="flex flex-col gap-4">
-
-            <!-- Name -->
-            <div class="flex flex-col gap-1">
-              <label for="contact_name" class="font-bold text-[#333]">Name</label>
-              <input class="w-full border border-[#cfe3ff] rounded-md 
-                px-4 py-2 bg-white text-[#2C2C2C] placeholder:text-[#99a3ad] 
-                focus:outline-none focus:ring-2 focus:ring-[#b9d6ff]" type="text" id="contact_name" name="name"
-                placeholder="Enter Your Name" required data-i18n-placeholder="form.name_placeholder" />
-            </div>
-
-            <!-- Email -->
-            <div class="flex flex-col gap-1">
-              <label for="contact_email" class="font-bold text-[#333]">Email</label>
-              <input class="w-full border border-[#cfe3ff] rounded-md px-4 py-2 
-                bg-white text-[#2C2C2C] placeholder:text-[#99a3ad] focus:outline-none 
-                focus:ring-2 focus:ring-[#b9d6ff]" type="email" id="contact_email" name="email"
-                placeholder="Enter Your Email" required data-i18n-placeholder="form.email_placeholder" />
-            </div>
-
-            <!-- Phone Number -->
-            <div class="flex flex-col gap-1">
-              <label for="contact_phone" class="font-bold text-[#333]">Phone Number</label>
-              <input class="w-full border border-[#cfe3ff] rounded-md px-4 py-2 bg-white 
-                text-[#2C2C2C] placeholder:text-[#99a3ad] focus:outline-none focus:ring-2 
-                focus:ring-[#b9d6ff]" type="tel" id="contact_phone" name="phone" placeholder="Enter Your Phone Number"
-                required data-i18n-placeholder="form.phone_placeholder" />
-            </div>
-
-            <!-- Interested Category -->
-            <div class="flex flex-col gap-1">
-              <label for="category" class="font-bold italic text-[#2563EB]"
-                data-i18n="contact.category_label">Interested
-                Category
-              </label>
-              <div class="flex flex-col gap-2">
-                <select name="category" id="category" required class="w-full border border-[#cfe3ff] rounded-md px-4 py-2 
-                  bg-white text-[#2C2C2C] focus:outline-none focus:ring-2 focus:ring-[#b9d6ff]">
-                  <option value="" selected disabled class="text-[#2C2C2C]" data-i18n="contact.category_option_default">
-                    Select An Option
-                  </option>
-                  <option value="Banking & Finance" data-i18n="contact.category_option1">
-                    Banking & Finance
-                  </option>
-                  <option value="Risk Management" data-i18n="contact.category_option2">
-                    Risk Management
-                  </option>
-                  <option value="Legal Advisory" data-i18n="contact.category_option3">
-                    Legal Advisory
-                  </option>
-                  <option value="Tax Advisory" data-i18n="contact.category_option4">
-                    Tax Advisory
-                  </option>
-                  <option value="Investment" data-i18n="contact.category_option5">
-                    Investment
-                  </option>
-                  <option value="Estate Planning" data-i18n="contact.category_option6">
-                    Estate Planning
-                  </option>
+          <!-- Contact Form (Visible by Default) -->
+          <div id="contactFormContainer" class="form-container transition-all duration-500 opacity-100 translate-x-0">
+            <h3 class="text-[2rem] font-bold text-[#1a1a1a] mb-8 text-center md:text-left" data-i18n="contact.title">
+              Contact Us</h3>
+            <form id="contactForm" action="submit_contact.php" method="POST"
+              class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input
+                class="md:col-span-1 border border-[#eee] bg-[#fafafa] rounded-xl px-4 py-4 focus:bg-white focus:border-[#0073e6] outline-none transition-all"
+                type="text" name="name" placeholder="Full Name" required
+                data-i18n-placeholder="form.name_placeholder" />
+              <input
+                class="md:col-span-1 border border-[#eee] bg-[#fafafa] rounded-xl px-4 py-4 focus:bg-white focus:border-[#0073e6] outline-none transition-all"
+                type="email" name="email" placeholder="Email Address" required
+                data-i18n-placeholder="form.email_placeholder" />
+              <input
+                class="md:col-span-2 border border-[#eee] bg-[#fafafa] rounded-xl px-4 py-4 focus:bg-white focus:border-[#0073e6] outline-none transition-all"
+                type="tel" name="phone" placeholder="Phone Number" required
+                data-i18n-placeholder="form.phone_placeholder" />
+              <div class="md:col-span-2">
+                <select name="category" required
+                  class="w-full border border-[#eee] bg-[#fafafa] rounded-xl px-4 py-4 focus:bg-white focus:border-[#0073e6] outline-none transition-all appearance-none cursor-pointer">
+                  <option value="" selected disabled data-i18n="contact.category_option_default">Select Interested
+                    Category</option>
+                  <option value="Banking & Finance" data-i18n="contact.category_option1">Banking & Finance</option>
+                  <option value="Risk Management" data-i18n="contact.category_option2">Risk Management</option>
+                  <option value="Legal Advisory" data-i18n="contact.category_option3">Legal Advisory</option>
+                  <option value="Tax Advisory" data-i18n="contact.category_option4">Tax Advisory</option>
+                  <option value="Investment" data-i18n="contact.category_option5">Investment</option>
+                  <option value="Estate Planning" data-i18n="contact.category_option6">Estate Planning</option>
                 </select>
               </div>
-            </div>
-
-            <!-- Message -->
-            <textarea class="w-full min-h-[100px] border border-[#cfe3ff] rounded-md px-4 
-              py-2 bg-white text-[#2C2C2C] placeholder:text-[#99a3ad] focus:outline-none 
-              focus:ring-2 focus:ring-[#b9d6ff] resize-none" name="message" placeholder="Optional Message"
-              maxlength="250" data-i18n-placeholder="form.message_placeholder_contact"></textarea>
-
-            <button type="submit" class="bg-[#0073e6] text-white p-3 border-0 rounded-lg cursor-pointer text-[1rem] font-bold
-              transition-colors duration-300 hover:bg-[#005bb5]" data-i18n="form.submit_btn">
-              Submit
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="join" class="py-[80px]" style="background: linear-gradient(180deg, #F9F9F9 0%, #AB8D6C 100%);">
-    <div class="px-[5%] py-[10px] relative">
-      <h2 class="text-center text-[2.5rem] text-[#222] mb-5 font-bold" data-i18n="join.title">
-        Join Us
-      </h2>
-      <p class="text-center text-[1.1rem] text-[#555] max-w-[800px] 
-        mx-auto mb-[50px] leading-[1.6] px-[10px]" data-i18n="join.description">
-        Build Your Future With Us
-      </p>
-
-      <div class="flex flex-wrap max-w-[850px] mx-auto mt-10 bg-white 
-        rounded-[16px] shadow-[0_6px_20px_rgba(0,0,0,0.1)] 
-        overflow-hidden md:flex-row flex-col">
-
-        <!-- Image Section (Left) -->
-        <div class="w-full md:w-1/2 md:h-auto h-[250px] bg-[#e6f0ff] flex items-center justify-center">
-          <img src="images/joinus.webp" alt="Join Us" class="w-full h-full object-cover" />
-        </div>
-
-        <!-- Form Section (Right) -->
-        <div class="w-full md:w-1/2 p-8 bg-white">
-          <h3 class="text-center text-[1.6rem] md:text-[1.8rem] mb-[30px] 
-            md:mb-6 text-[#2563EB] font-bold" data-i18n="join.form_title">
-            Send Us Your CV
-          </h3>
-          <form id="joinForm" action="submit_cv.php" method="POST" enctype="multipart/form-data"
-            class="flex flex-col gap-4">
-
-            <!-- Name -->
-            <div class="flex flex-col gap-1">
-              <label for="join_name" class="font-bold text-[#333]">Name</label>
-              <input class="w-full border border-[#cfe3ff] rounded-md 
-                px-4 py-2 bg-white text-[#2C2C2C] placeholder:text-[#99a3ad] 
-                focus:outline-none focus:ring-2 focus:ring-[#b9d6ff]" type="text" id="join_name" name="name"
-                placeholder="Enter Your Name" required data-i18n-placeholder="form.name_placeholder" />
-            </div>
-
-            <!-- Email -->
-            <div class="flex flex-col gap-1">
-              <label for="join_email" class="font-bold text-[#333]">Email</label>
-              <input class="w-full border border-[#cfe3ff] rounded-md px-4 py-2 
-                bg-white text-[#2C2C2C] placeholder:text-[#99a3ad] focus:outline-none 
-                focus:ring-2 focus:ring-[#b9d6ff]" type="email" id="join_email" name="email"
-                placeholder="Enter Your Email" required data-i18n-placeholder="form.email_placeholder" />
-            </div>
-
-            <!-- Phone Number -->
-            <div class="flex flex-col gap-1">
-              <label for="join_phone" class="font-bold text-[#333]">Phone Number</label>
-              <input class="w-full border border-[#cfe3ff] rounded-md px-4 py-2 bg-white 
-                text-[#2C2C2C] placeholder:text-[#99a3ad] focus:outline-none focus:ring-2 
-                focus:ring-[#b9d6ff]" type="tel" id="join_phone" name="phone" placeholder="Enter Your Phone Number"
-                required data-i18n-placeholder="form.phone_placeholder" />
-            </div>
-
-            <!-- Message -->
-            <div class="flex flex-col gap-1">
-              <textarea class="w-full min-h-[100px] border border-[#cfe3ff] rounded-md px-4 
-                py-2 bg-white text-[#2C2C2C] placeholder:text-[#99a3ad] focus:outline-none 
-                focus:ring-2 focus:ring-[#b9d6ff] resize-none" name="message" placeholder="Any Message To Our Company"
-                data-i18n-placeholder="join.message_placeholder"></textarea>
-            </div>
-
-            <!-- CV Upload -->
-            <div class="flex flex-col gap-1 mt-2">
-              <label for="cv_upload" class="font-bold text-[#2563EB]" data-i18n="join.cv_label">Attach your CV
-                Here</label>
-              <div class="flex items-center gap-3 mt-1">
-                <label for="cv_upload"
-                  class="cursor-pointer bg-[#2563EB] text-white px-4 py-2 rounded border border-[#ccc] text-sm hover:bg-[#005bb5]"
-                  data-i18n="join.choose_file">
-                  Choose A File
-                </label>
-                <span id="file-chosen" class="text-gray-500 text-sm italic" data-i18n="join.no_file_chosen">No File
-                  Chosen</span>
-                <input type="file" id="cv_upload" name="cv" class="hidden" accept=".pdf,.doc,.docx" />
+              <textarea
+                class="md:col-span-2 border border-[#eee] bg-[#fafafa] rounded-xl px-4 py-4 focus:bg-white focus:border-[#0073e6] outline-none transition-all min-h-[120px] resize-none"
+                name="message" placeholder="Your Message"
+                data-i18n-placeholder="form.message_placeholder_contact"></textarea>
+              <div class="md:col-span-2 text-center md:text-left">
+                <button type="submit"
+                  class="bg-[#5c7ef7] hover:bg-[#4a6cf0] text-white px-10 py-4 rounded-full font-bold shadow-lg shadow-blue-100 transition-all active:scale-95"
+                  data-i18n="form.submit_btn">Send Message</button>
               </div>
-            </div>
+            </form>
+          </div>
 
-            <button type="submit" class="bg-[#0073e6] text-white p-3 border-0 rounded-lg cursor-pointer text-[1rem] font-bold
-              transition-colors duration-300 hover:bg-[#005bb5] mt-4" data-i18n="form.submit_btn">
-              Submit
-            </button>
-          </form>
+          <!-- Join Form (Hidden by Default) -->
+          <div id="joinFormContainer"
+            class="form-container absolute top-0 left-0 w-full h-full p-8 md:p-12 transition-all duration-500 opacity-0 translate-x-[50px] pointer-events-none">
+            <h3 class="text-[2rem] font-bold text-[#1a1a1a] mb-8 text-center md:text-left" data-i18n="join.title">Apply
+              Now</h3>
+            <form id="joinForm" action="submit_cv.php" method="POST" enctype="multipart/form-data"
+              class="flex flex-col gap-4">
+              <input
+                class="border border-[#eee] bg-[#fafafa] rounded-xl px-4 py-4 focus:bg-white focus:border-[#0073e6] outline-none transition-all"
+                type="text" name="name" placeholder="Name" required data-i18n-placeholder="form.name_placeholder" />
+              <input
+                class="border border-[#eee] bg-[#fafafa] rounded-xl px-4 py-4 focus:bg-white focus:border-[#0073e6] outline-none transition-all"
+                type="email" name="email" placeholder="Email" required data-i18n-placeholder="form.email_placeholder" />
+              <input
+                class="border border-[#eee] bg-[#fafafa] rounded-xl px-4 py-4 focus:bg-white focus:border-[#0073e6] outline-none transition-all"
+                type="tel" name="phone" placeholder="Phone Number" required
+                data-i18n-placeholder="form.phone_placeholder" />
+              <div
+                class="border-2 border-dashed border-[#ddd] rounded-xl p-6 text-center hover:border-[#0073e6] transition-all relative">
+                <input type="file" name="cv" id="cv_upload" class="absolute inset-0 opacity-0 cursor-pointer"
+                  required />
+                <div class="text-[#888]">
+                  <i class="fas fa-cloud-upload-alt text-2xl mb-2 text-[#5c7ef7]"></i>
+                  <p class="text-sm">Click or drag to upload CV (PDF/DOCX)</p>
+                </div>
+              </div>
+              <textarea
+                class="border border-[#eee] bg-[#fafafa] rounded-xl px-4 py-4 focus:bg-white focus:border-[#0073e6] outline-none transition-all min-h-[100px] resize-none"
+                name="message" placeholder="Message to hiring team"
+                data-i18n-placeholder="join.message_placeholder"></textarea>
+              <div class="text-center md:text-left">
+                <button type="submit"
+                  class="bg-[#1a1a1a] hover:bg-[#333] text-white px-10 py-4 rounded-full font-bold transition-all active:scale-95"
+                  data-i18n="join.form_btn">Submit Application</button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+
+        <!-- Right Side: Info Panel / Switcher -->
+        <div id="formSwitcher"
+          class="w-full md:w-[40%] bg-[#efede4] p-8 md:p-12 flex flex-col justify-center items-center text-center transition-colors duration-500">
+
+          <!-- State: To Join -->
+          <div id="infoJoin" class="transition-all duration-500">
+            <h3 class="text-[2rem] font-bold text-[#1a1a1a] mb-6" data-i18n="join.title">Join Our Team</h3>
+            <p class="text-[1.1rem] text-[#555] mb-8 leading-relaxed" data-i18n="join.description">We're always looking
+              for talented individuals to grow with us.</p>
+            <button onclick="toggleForm('join')"
+              class="bg-white text-[#1a1a1a] px-8 py-3 rounded-full font-bold shadow-md hover:shadow-xl transition-all"
+              data-i18n="join.apply_btn">Apply Now</button>
+          </div>
+
+          <!-- State: To Contact -->
+          <div id="infoContact" class="hidden opacity-0 transition-all duration-500">
+            <h3 class="text-[2rem] font-bold text-[#1a1a1a] mb-6" data-i18n="contact.title">Need Help?</h3>
+            <p class="text-[1.1rem] text-[#555] mb-8 leading-relaxed" data-i18n="contact.description">Have a specific
+              request? Our team is ready to assist you.</p>
+            <button onclick="toggleForm('contact')"
+              class="bg-white text-[#1a1a1a] px-8 py-3 rounded-full font-bold shadow-md hover:shadow-xl transition-all"
+              data-i18n="contact.form_btn">Contact Us</button>
+          </div>
+
         </div>
       </div>
     </div>
   </section>
+
+  <script>
+    function toggleForm(state) {
+      const contactForm = document.getElementById('contactFormContainer');
+      const joinForm = document.getElementById('joinFormContainer');
+      const infoJoin = document.getElementById('infoJoin');
+      const infoContact = document.getElementById('infoContact');
+      const switcher = document.getElementById('formSwitcher');
+
+      if (state === 'join') {
+        // Switch to Join Form
+        contactForm.classList.replace('opacity-100', 'opacity-0');
+        contactForm.classList.add('translate-x-[-50px]', 'pointer-events-none');
+
+        joinForm.classList.replace('opacity-0', 'opacity-100');
+        joinForm.classList.remove('translate-x-[50px]', 'pointer-events-none');
+        joinForm.classList.add('translate-x-0');
+
+        infoJoin.classList.add('hidden', 'opacity-0');
+        infoContact.classList.remove('hidden');
+        setTimeout(() => infoContact.classList.add('opacity-100'), 10);
+
+        switcher.style.backgroundColor = '#e5e9f0'; // Slight blue tint for Join state
+      } else {
+        // Switch back to Contact Form
+        joinForm.classList.replace('opacity-100', 'opacity-0');
+        joinForm.classList.add('translate-x-[50px]', 'pointer-events-none');
+        joinForm.classList.remove('translate-x-0');
+
+        contactForm.classList.replace('opacity-0', 'opacity-100');
+        contactForm.classList.remove('translate-x-[-50px]', 'pointer-events-none');
+        contactForm.classList.add('translate-x-0');
+
+        infoContact.classList.add('hidden', 'opacity-0');
+        infoJoin.classList.remove('hidden');
+        setTimeout(() => infoJoin.classList.add('opacity-100'), 10);
+
+        switcher.style.backgroundColor = '#efede4'; // Original tan color
+      }
+    }
+  </script>
 
   <footer id="find-us" class="site-footer bg-[#1A1A1A] text-white py-[100px] px-[5%]">
     <div class="footer-container max-w-[1200px] mx-auto flex flex-wrap 

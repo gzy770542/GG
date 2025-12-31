@@ -801,57 +801,74 @@
     </a>
   </div>
 
-  <section id="testimonials" class="testimonials-section py-[100px] px-[5%]"
-    style="background: linear-gradient(180deg, rgba(30, 58, 138, 0.1) 0%, #FFFFFF 47%, #282828 100%);">
+  <section id="testimonials" class="testimonials-section py-[100px] px-[5%] bg-[#FDFDFD]">
     <div class="container max-w-[1200px] mx-auto">
       <h2 class="section-title text-center text-[2.5rem] mb-4 text-[#222] font-bold" data-i18n="testimonials.title">
         Why Client Trust Us
       </h2>
-      <p class="text-center text-[1.2rem] text-[#555] mb-[100px]" data-i18n="testimonials.subtitle">
+      <p class="text-center text-[1.2rem] text-[#555] mb-[80px]" data-i18n="testimonials.subtitle">
         Honest advice, professional guidance
       </p>
 
-      <div class="testimonials-grid flex flex-wrap justify-center gap-[30px]">
-
-        <!-- Card 1 -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+        <!-- Card 1: Large (Bobby Zhang) -->
         <div
-          class="testimonial-card flex flex-col w-full max-w-[350px] md:w-[300px] bg-[#f5f5f5] rounded-[12px] overflow-hidden shadow-[0_4px_10px_rgba(0,0,0,0.08)] transition-transform duration-300 text-center pb-[20px] hover:-translate-y-[5px]">
-          <img class="w-full h-[250px] object-cover object-top" src="images/client1.webp" alt="Bobby Zhang" />
-          <div class="p-5 flex flex-col flex-grow justify-center">
-            <h4 class="text-[1.2rem] font-bold text-[#333] mb-1" data-i18n="testimonials.client1_name">Bobby Zhang</h4>
-            <p class="text-[0.9rem] text-[#666] mb-4 font-medium" data-i18n="testimonials.client1_role">Office Worker
-            </p>
-            <p class="text-[0.95rem] text-[#444] italic leading-relaxed" data-i18n="testimonials.client1_text">
-              "Everything was clear and professional - I
-              trust them with my family's protection."</p>
+          class="md:col-span-8 bg-white rounded-[40px] p-8 md:p-12 mb-0 shadow-[0_10px_40px_rgba(0,0,0,0.04)] flex flex-col justify-between transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)]">
+          <div>
+            <div
+              class="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-white shadow-lg mb-8 md:mb-12">
+              <img class="w-full h-full object-cover object-top" src="images/client1.webp" alt="Bobby Zhang" />
+            </div>
+            <h3 class="text-[1.8rem] md:text-[2.2rem] font-bold text-[#1a1a1a] leading-tight mb-8"
+              data-i18n="testimonials.client1_text">
+              "Everything was clear and professional - I trust them with my family's protection."
+            </h3>
+          </div>
+          <div>
+            <h4 class="text-[1.25rem] font-bold text-[#222] mb-1" data-i18n="testimonials.client1_name">Bobby Zhang</h4>
+            <p class="text-[1rem] text-[#888] font-medium" data-i18n="testimonials.client1_role">Office Worker</p>
           </div>
         </div>
 
-        <!-- Card 2 -->
-        <div
-          class="testimonial-card flex flex-col w-full max-w-[350px] md:w-[300px] bg-[#f5f5f5] rounded-[12px] overflow-hidden shadow-[0_4px_10px_rgba(0,0,0,0.08)] transition-transform duration-300 text-center pb-[20px] hover:-translate-y-[5px]">
-          <img class="w-full h-[250px] object-cover object-center" src="images/client2.webp" alt="Emily Wong" />
-          <div class="p-5 flex flex-col flex-grow justify-center">
-            <h4 class="text-[1.2rem] font-bold text-[#333] mb-1" data-i18n="testimonials.client2_name">Emily Wong</h4>
-            <p class="text-[0.9rem] text-[#666] mb-4 font-medium" data-i18n="testimonials.client2_role">Homemaker</p>
-            <p class="text-[0.95rem] text-[#444] italic leading-relaxed" data-i18n="testimonials.client2_text">"They
-              explained everything so clearly. Now I
-              understand and even recommend them to friends."</p>
-          </div>
-        </div>
+        <!-- Right Column (Small Cards) -->
+        <div class="md:col-span-4 flex flex-col gap-8">
 
-        <!-- Card 3 -->
-        <div
-          class="testimonial-card flex flex-col w-full max-w-[350px] md:w-[300px] bg-[#f5f5f5] rounded-[12px] overflow-hidden shadow-[0_4px_10px_rgba(0,0,0,0.08)] transition-transform duration-300 text-center pb-[20px] hover:-translate-y-[5px]">
-          <img class="w-full h-[250px] object-cover object-top" src="images/client3.webp" alt="Jason Hiew" />
-          <div class="p-5 flex flex-col flex-grow justify-center">
-            <h4 class="text-[1.2rem] font-bold text-[#333] mb-1" data-i18n="testimonials.client3_name">Jason Hiew</h4>
-            <p class="text-[0.9rem] text-[#666] mb-4 font-medium" data-i18n="testimonials.client3_role">Office Worker
-            </p>
-            <p class="text-[0.95rem] text-[#444] italic leading-relaxed" data-i18n="testimonials.client3_text">"I wasn't
-              interested at first, but later i
-              found them truly trustworthy."</p>
+          <!-- Card 2: Emily Wong -->
+          <div
+            class="bg-white rounded-[32px] p-8 shadow-[0_10px_40px_rgba(0,0,0,0.04)] flex flex-col justify-between transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] relative overflow-hidden group">
+            <div>
+              <span
+                class="text-[60px] leading-none text-gray-100 font-serif block mb-2 transition-colors group-hover:text-gray-200">“</span>
+              <p class="text-[1.05rem] text-[#444] leading-relaxed mb-8 relative z-10"
+                data-i18n="testimonials.client2_text">
+                "They explained everything so clearly. Now I even recommend them to friends."
+              </p>
+            </div>
+            <div class="flex justify-end">
+              <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-white shadow-md">
+                <img class="w-full h-full object-cover object-center" src="images/client2.webp" alt="Emily Wong" />
+              </div>
+            </div>
           </div>
+
+          <!-- Card 3: Jason Hiew -->
+          <div
+            class="bg-white rounded-[32px] p-8 shadow-[0_10px_40px_rgba(0,0,0,0.04)] flex flex-col justify-between transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] relative overflow-hidden group">
+            <div>
+              <span
+                class="text-[60px] leading-none text-gray-100 font-serif block mb-2 transition-colors group-hover:text-gray-200">“</span>
+              <p class="text-[1.05rem] text-[#444] leading-relaxed mb-8 relative z-10"
+                data-i18n="testimonials.client3_text">
+                "I wasn't interested at first, but later I found them truly trustworthy."
+              </p>
+            </div>
+            <div class="flex justify-end">
+              <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-white shadow-md">
+                <img class="w-full h-full object-cover object-top" src="images/client3.webp" alt="Jason Hiew" />
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

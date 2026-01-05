@@ -3,6 +3,104 @@ document.addEventListener('DOMContentLoaded', function () {
     const header = document.querySelector('header');
     const navLinks = document.querySelectorAll('.nav-link');
 
+    // ==========================================
+    // GLOBAL WISH STORIES LOGIC (Top Level)
+    // ==========================================
+    // ==========================================
+    // GLOBAL WISH STORIES LOGIC (Top Level)
+    // ==========================================
+    // Initialize with defaults to ensure it's never empty
+    window.wishStories = [
+        {
+            id: 1,
+            title: "15 Years<br>One Mission: Save Lives",
+            desc: "For over 15 years, we have organized blood donation drives to support our local hospitals and save lives. Join us in our mission to make a difference.",
+            fullText: "For over 15 years, we have organized blood donation drives to support our local hospitals and save lives. Join us in our mission to make a difference.",
+            image: "images/bdonation.webp",
+            video: "videos/donation.webm",
+            poster: "images/bdonation.webp"
+        },
+        {
+            id: 2,
+            title: "One Kindness<br>A Month",
+            desc: "We believe in consistency. Our 'One Kindness A Month' initiative encourages our team and community to perform at least one charitable act every month.",
+            fullText: "We believe in consistency. Our 'One Kindness A Month' initiative encourages our team and community to perform at least one charitable act every month.",
+            image: "images/mdonation.webp",
+            video: "videos/mdonation.webm",
+            poster: "images/mdonation.webp"
+        },
+        {
+            id: 3,
+            title: "A New Year,<br>A Gift of Love",
+            desc: "As we welcome the New Year, we share love and essential supplies with underprivileged families, ensuring everyone can celebrate with joy and dignity.",
+            fullText: "As we welcome the New Year, we share love and essential supplies with underprivileged families, ensuring everyone can celebrate with joy and dignity.",
+            image: "images/ydonation.webp",
+            video: "videos/ydonation.webm",
+            poster: "images/ydonation.webp"
+        }
+    ];
+    window.wishSliderActiveIndex = 0;
+
+    window.handleKnowMoreClick = function () {
+        console.log("handleKnowMoreClick TRIGGERED. Index:", window.wishSliderActiveIndex);
+        try {
+            const index = window.wishSliderActiveIndex;
+            const story = window.wishStories[index];
+            const storyPopup = document.getElementById("storyPopup");
+            const storyVideo = document.getElementById("storyVideo");
+            const popupTitle = document.getElementById("popupTitle");
+            const storyTextContent = document.getElementById("storyText");
+
+            if (storyPopup && story) {
+                console.log("Opening story index:", index, story);
+                storyVideo.src = story.video;
+                storyVideo.poster = story.poster;
+                popupTitle.innerHTML = story.title;
+                storyTextContent.innerHTML = story.fullText;
+
+                // Force Styles Directly to ensure visibility
+                storyPopup.classList.remove('hidden');
+                storyPopup.classList.add('flex');
+                storyPopup.style.display = 'flex';
+                storyPopup.style.zIndex = '100000'; // Super high Z-index
+
+                storyVideo.play().catch(err => console.log('Video play error:', err));
+            } else {
+                console.error("Popup elements or story not found. Index:", index);
+            }
+        } catch (err) {
+            console.error("Popup Error:", err);
+        }
+    };
+
+    window.closeWishStory = function () {
+        console.log("Global closeWishStory triggered.");
+        const storyPopup = document.getElementById("storyPopup");
+        const storyVideo = document.getElementById("storyVideo");
+
+        if (storyPopup) {
+            storyPopup.classList.add('hidden');
+            storyPopup.classList.remove('flex');
+            storyPopup.style.display = 'none'; // Force hide
+        }
+
+        if (storyVideo) {
+            console.log("Stopping video playback.");
+            try {
+                storyVideo.pause();
+                storyVideo.currentTime = 0;
+                storyVideo.src = "";     // clear source
+                storyVideo.removeAttribute("src"); // clear attribute
+                storyVideo.load();       // force unload
+            } catch (e) {
+                console.error("Error stopping video:", e);
+            }
+        }
+    };
+
+    // Remove old openWishStory if exists (handled by handleKnowMoreClick now)
+    window.openWishStory = window.handleKnowMoreClick;
+
     // Debug: Check if elements are found
     console.log("Header found:", !!header);
     console.log("Nav links found:", navLinks.length);
@@ -14,6 +112,8 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log("Nav link clicked:", this.getAttribute('href'));
 
             const targetId = this.getAttribute('href');
+            const formState = this.getAttribute('data-form-state'); // Join or Contact
+
             if (targetId === '#top') {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 return;
@@ -32,6 +132,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     top: offsetPosition,
                     behavior: 'smooth'
                 });
+
+                // If it's a form toggle link, trigger the switch
+                if (formState && typeof toggleForm === 'function') {
+                    toggleForm(formState);
+                }
 
                 navLinks.forEach(nav => nav.classList.remove('active'));
                 this.classList.add('active');
@@ -159,13 +264,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 "story2_title": "One Kindness A Month",
                 "story3_title": "A New Year,<br>A Gift of Love",
                 "story1": {
-                    "text": "Full story text for Story 1 goes here..."
+                    "text": "For over 15 years, we have organized blood donation drives to support our local hospitals and save lives. Join us in our mission to make a difference."
                 },
                 "story2": {
-                    "text": "Full story text for Story 2 goes here..."
+                    "text": "We believe in consistency. Our 'One Kindness A Month' initiative encourages our team and community to perform at least one charitable act every month."
                 },
                 "story3": {
-                    "text": "Full story text for Story 3 goes here..."
+                    "text": "As we welcome the New Year, we share love and essential supplies with underprivileged families, ensuring everyone can celebrate with joy and dignity."
                 }
             },
             "story_popup": {
@@ -238,7 +343,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     "text": "Story 6 text..."
                 },
                 "title": "Join Us",
-                "description": "Build Your Future With Us",
+                "description": "Become part of our team and build your future with us!",
                 "form_title": "Send Us Your CV",
                 "message_placeholder": "Any Message To Our Company",
                 "cv_label": "Attach your CV Here",
@@ -308,13 +413,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 "story2_title": "每月一善",
                 "story3_title": "新年伊始,爱意相赠",
                 "story1": {
-                    "text": "故事1全文..."
+                    "text": "15年来，我们一直致力于组织无偿献血活动，以支持当地医院并拯救生命。加入我们，一起做出改变。"
                 },
                 "story2": {
-                    "text": "故事2全文..."
+                    "text": "我们相信坚持的力量。“每月一善”倡议鼓励我们的团队和社区每个月至少做一件善事。"
                 },
                 "story3": {
-                    "text": " 故事3全文..."
+                    "text": "在新年来临之际，我们与贫困家庭分享爱心和生活必需品，确保每个人都能有尊严地庆祝节日。"
                 }
             },
             "story_popup": {
@@ -393,8 +498,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     "text": "故事6文本..."
                 },
                 "title": "加入我们",
-                "description": "与我们携手共创未来",
-                "form_title": "请发送您的简历",
+                "description": "加入我们的团队，共创未来！",
+                "form_title": "发送您的简历",
                 "message_placeholder": "是否有任何信息要传达给本公司？",
                 "cv_label": "在此附上您的简历",
                 "choose_file": "选择文件",
@@ -452,85 +557,415 @@ document.addEventListener('DOMContentLoaded', function () {
         return key.split(".").reduce((o, i) => (o ? o[i] : null), obj);
     }
 
+    // State for Testimonials (Needs to persist across language toggles)
+    if (typeof window.activeTestimonialIndex === 'undefined') {
+        window.activeTestimonialIndex = 0;
+    }
+
     // This new function will be called every time the language changes.
     function updateDynamicContent(translations) {
-        // ========== Story and Intern Video Popup ==========
-        const stories = {
-            1: {
+        // ========== Wish Premium Slider & Popup Logic ==========
+        // Update GLOBAL stories array with current language data
+        window.wishStories = [
+            {
+                id: 1,
+                title: getNestedTranslation(translations, "stories.story1_title") || "15 Years<br>One Mission: Save Lives",
+                desc: (getNestedTranslation(translations, "stories.story1.text") || "For over 15 years, we have organized blood donation drives to support our local hospitals and save lives. Join us in our mission to make a difference.").substring(0, 150),
+                fullText: getNestedTranslation(translations, "stories.story1.text") || "For over 15 years, we have organized blood donation drives to support our local hospitals and save lives. Join us in our mission to make a difference.",
+                image: "images/bdonation.jpeg",
                 video: "videos/donation.webm",
-                poster: "images/donation.webp",
-                text: getNestedTranslation(translations, "stories.story1.text"),
+                poster: "images/bdonation.jpeg"
             },
-            2: {
+            {
+                id: 2,
+                title: getNestedTranslation(translations, "stories.story2_title") || "One Kindness<br>A Month",
+                desc: (getNestedTranslation(translations, "stories.story2.text") || "We believe in consistency. Our 'One Kindness A Month' initiative encourages our team and community to perform at least one charitable act every month.").substring(0, 150),
+                fullText: getNestedTranslation(translations, "stories.story2.text") || "We believe in consistency. Our 'One Kindness A Month' initiative encourages our team and community to perform at least one charitable act every month.",
+                image: "images/mdonation.jpeg",
                 video: "videos/mdonation.webm",
-                poster: "images/mdonation.webp",
-                text: getNestedTranslation(translations, "stories.story2.text"),
+                poster: "images/mdonation.jpeg"
             },
-            3: {
+            {
+                id: 3,
+                title: getNestedTranslation(translations, "stories.story3_title") || "A New Year,<br>A Gift of Love",
+                desc: (getNestedTranslation(translations, "stories.story3.text") || "As we welcome the New Year, we share love and essential supplies with underprivileged families, ensuring everyone can celebrate with joy and dignity.").substring(0, 150),
+                fullText: getNestedTranslation(translations, "stories.story3.text") || "As we welcome the New Year, we share love and essential supplies with underprivileged families, ensuring everyone can celebrate with joy and dignity.",
+                image: "images/ydonation.jpg",
                 video: "videos/ydonation.webm",
-                poster: "images/ydonation.webp",
-                text: getNestedTranslation(translations, "stories.story3.text"),
-            },
-            4: {
-                video: "videos/11.mp4",
-                poster: "images/office.jpg",
-                text: getNestedTranslation(translations, "join.story4.text"),
-            },
-            5: {
-                video: "videos/11.mp4",
-                poster: "images/office.jpg",
-                text: getNestedTranslation(translations, "join.story5.text"),
-            },
-            6: {
-                video: "videos/11.mp4",
-                poster: "images/office.jpg",
-                text: getNestedTranslation(translations, "join.story6.text"),
-            },
-        };
-        const storyCards = document.querySelectorAll(".story-card");
-        const storyVideo = document.getElementById("storyVideo");
-        const storyText = document.getElementById("storyText");
-        const storyPopup = document.getElementById("storyPopup");
-        const closeStory = document.getElementById("closeStory");
-        const speedSelect = document.getElementById("speed");
-
-        if (storyCards.length && storyPopup && storyVideo && storyText && closeStory) {
-            // Remove previous event listeners to avoid duplicates
-            storyCards.forEach(card => {
-                card.replaceWith(card.cloneNode(true));
-            });
-            const newStoryCards = document.querySelectorAll(".story-card");
-            newStoryCards.forEach((card) => {
-                card.addEventListener("click", () => {
-                    const id = card.dataset.story;
-                    if (stories[id]) {
-                        storyVideo.src = stories[id].video;
-                        storyVideo.poster = stories[id].poster;
-                        storyText.innerHTML = stories[id].text;
-                        storyPopup.style.display = "flex";
-                        storyVideo.play();
-                    }
-                });
-            });
-
-            closeStory.addEventListener("click", () => {
-                storyPopup.style.display = "none";
-                storyVideo.pause();
-                storyVideo.currentTime = 0;
-                storyVideo.src = "";
-            });
-
-            if (speedSelect) {
-                speedSelect.addEventListener("change", (e) => {
-                    storyVideo.playbackRate = parseFloat(e.target.value);
-                });
+                "poster": "images/ydonation.jpg"
             }
-            storyPopup.addEventListener('click', (e) => {
-                if (e.target === storyPopup) {
-                    closeStory.click();
+        ];
+
+        // ========== Interactive Testimonials Logic ==========
+        const testimonialsData = [
+            {
+                name: getNestedTranslation(translations, "testimonials.client1_name") || "Bobby Zhang",
+                role: getNestedTranslation(translations, "testimonials.client1_role") || "Office Worker",
+                text: getNestedTranslation(translations, "testimonials.client1_text") || "Everything was clear and professional - I trust them with my family's protection.",
+                image: "images/client1.webp"
+            },
+            {
+                name: getNestedTranslation(translations, "testimonials.client2_name") || "Emily Wong",
+                role: getNestedTranslation(translations, "testimonials.client2_role") || "Housewife",
+                text: getNestedTranslation(translations, "testimonials.client2_text") || "They explained everything so clearly. Now I even recommend them to friends.",
+                image: "images/client2.webp"
+            },
+            {
+                name: getNestedTranslation(translations, "testimonials.client3_name") || "Jason Hiew",
+                role: getNestedTranslation(translations, "testimonials.client3_role") || "Office Worker",
+                text: getNestedTranslation(translations, "testimonials.client3_text") || "I wasn't interested at first, but later I found them truly trustworthy.",
+                image: "images/client3.webp"
+            }
+        ];
+
+        window.renderTestimonials = function () {
+            const mainContainer = document.getElementById("testimonialMain");
+            const listContainer = document.getElementById("testimonialList");
+
+            // Safety check
+            if (!mainContainer || !listContainer) return;
+
+            // Clear containers
+            mainContainer.innerHTML = "";
+            listContainer.innerHTML = "";
+
+            testimonialsData.forEach((item, index) => {
+                if (index === window.activeTestimonialIndex) {
+                    // Render Large Card
+                    mainContainer.innerHTML = `
+                        <div class="bg-white rounded-[40px] p-8 md:p-12 mb-0 shadow-[0_10px_40px_rgba(0,0,0,0.04)] flex flex-col justify-between transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] h-full animate-fade-in cursor-default">
+                          <div>
+                            <div class="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-white shadow-lg mb-8 md:mb-12">
+                              <img class="w-full h-full object-cover object-top" src="${item.image}" alt="${item.name}" />
+                            </div>
+                            <h3 class="text-[1.8rem] md:text-[2.2rem] font-bold text-[#1a1a1a] leading-tight mb-8">
+                              ${item.text}
+                            </h3>
+                          </div>
+                          <div>
+                            <h4 class="text-[1.25rem] font-bold text-[#222] mb-1">${item.name}</h4>
+                            <p class="text-[1rem] text-[#888] font-medium">${item.role}</p>
+                          </div>
+                        </div>
+                     `;
+                } else {
+                    // Render Small Card
+                    const smallCard = document.createElement("div");
+                    smallCard.className = "bg-white rounded-[32px] p-8 shadow-[0_10px_40px_rgba(0,0,0,0.04)] flex flex-col justify-between transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] relative overflow-hidden group cursor-pointer animate-fade-in flex-1";
+
+                    // Click handler to swap (Fixed Height)
+                    smallCard.onclick = () => {
+                        mainContainer.classList.add('animate-fade-out');
+                        listContainer.classList.add('animate-fade-out');
+
+                        setTimeout(() => {
+                            mainContainer.classList.remove('animate-fade-out');
+                            listContainer.classList.remove('animate-fade-out');
+                            window.activeTestimonialIndex = index;
+                            window.renderTestimonials();
+                        }, 300);
+                    };
+
+                    smallCard.innerHTML = `
+                        <div>
+                          <span class="text-[60px] leading-none text-gray-100 font-serif block mb-2 transition-colors group-hover:text-gray-200">“</span>
+                          <p class="text-[1.05rem] text-[#444] leading-relaxed mb-8 relative z-10">
+                            ${item.text}
+                          </p>
+                        </div>
+                        <div class="flex justify-end">
+                          <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-white shadow-md">
+                            <img class="w-full h-full object-cover object-center" src="${item.image}" alt="${item.name}" />
+                          </div>
+                        </div>
+                     `;
+                    listContainer.appendChild(smallCard);
                 }
             });
+        };
+
+        // Function to calculate and lock the height of the ENTIRE GRID
+        window.setFixedTestimonialHeight = function () {
+            const grid = document.getElementById("testimonialGrid");
+            if (!grid) return;
+
+            const clone = grid.cloneNode(false);
+            clone.id = ''; // Remove ID
+            clone.style.visibility = 'hidden';
+            clone.style.position = 'absolute';
+            clone.style.width = grid.offsetWidth + 'px';
+            clone.style.zIndex = '-9999';
+            // Clone classList ensures grid columns/gaps from Tailwind are applied
+            document.body.appendChild(clone);
+
+            let maxGridHeight = 0;
+
+            testimonialsData.forEach((_, activeIndex) => {
+                let mainHTML = '';
+                let listHTML = '';
+
+                testimonialsData.forEach((item, idx) => {
+                    if (idx === activeIndex) {
+                        mainHTML = `
+                            <div class="md:col-span-8 bg-white rounded-[40px] p-8 md:p-12">
+                              <div>
+                                <div class="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-white shadow-lg mb-8 md:mb-12">
+                                  <img class="w-full h-full object-cover object-top" src="${item.image}" />
+                                </div>
+                                <h3 class="text-[1.8rem] md:text-[2.2rem] font-bold text-[#1a1a1a] leading-tight mb-8">
+                                  ${item.text}
+                                </h3>
+                              </div>
+                              <div>
+                                <h4 class="text-[1.25rem] font-bold text-[#222] mb-1">${item.name}</h4>
+                                <p class="text-[1rem] text-[#888] font-medium">${item.role}</p>
+                              </div>
+                            </div>
+                        `;
+                    } else {
+                        listHTML += `
+                           <div class="bg-white rounded-[32px] p-8 shadow-sm flex-1 flex flex-col justify-between">
+                             <div>
+                               <span class="text-[60px] leading-none text-gray-100 font-serif block mb-2">“</span>
+                               <p class="text-[1.05rem] text-[#444] leading-relaxed mb-8 relative z-10">
+                                 ${item.text}
+                               </p>
+                             </div>
+                             <div class="flex justify-end">
+                               <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-white shadow-md">
+                                 <img class="w-full h-full object-cover object-center" src="${item.image}" />
+                               </div>
+                             </div>
+                           </div>
+                        `;
+                    }
+                });
+
+                clone.innerHTML = mainHTML + `<div class="md:col-span-4 flex flex-col gap-8 h-full">` + listHTML + `</div>`;
+                const scenarioHeight = clone.offsetHeight;
+                if (scenarioHeight > maxGridHeight) maxGridHeight = scenarioHeight;
+            });
+
+            document.body.removeChild(clone);
+            // Add buffer as requested for safety
+            maxGridHeight += 50;
+
+            if (maxGridHeight > 0) {
+                grid.style.minHeight = maxGridHeight + 'px';
+            }
+        };
+
+        window.renderTestimonials();
+        requestAnimationFrame(() => {
+            window.setFixedTestimonialHeight();
+        });
+        window.addEventListener('resize', () => {
+            window.setFixedTestimonialHeight();
+        });
+
+
+        // Use local reference for convenience in this scope if needed, but rely on global for popup
+        const stories = window.wishStories;
+
+        // DOM Elements
+        const sliderTitle = document.getElementById("sliderTitle");
+        const sliderDesc = document.getElementById("sliderDesc");
+        const sliderImage = document.getElementById("sliderImage");
+        const sliderIndicators = document.getElementById("sliderIndicators");
+        const mainProgressBar = document.getElementById("mainProgressBar");
+        const knowMoreBtn = document.getElementById("wishSliderMainBtn");
+        const prevBtn = document.getElementById("prevSlide");
+        const nextBtn = document.getElementById("nextSlide");
+
+        // Popup Elements
+        const storyPopup = document.getElementById("storyPopup");
+        const closeStory = document.getElementById("closeStory");
+        const storyVideo = document.getElementById("storyVideo");
+        const popupTitle = document.getElementById("popupTitle");
+        const storyTextContent = document.getElementById("storyText");
+
+        // Slider State
+        if (window.wishSliderInterval) clearInterval(window.wishSliderInterval);
+        let activeIndex = 0;
+        const autoPlayDuration = 5000; // 5 seconds per slide
+
+
+
+        function initSlider() {
+            if (!sliderIndicators) return;
+            renderIndicators();
+            // Force first update immediately without animation for initial load
+            const story = stories[activeIndex];
+
+            if (sliderTitle) {
+                sliderTitle.innerHTML = story.title;
+                sliderTitle.style.opacity = '1';
+                sliderTitle.style.transform = 'translateY(0)';
+            }
+            if (sliderDesc) {
+                sliderDesc.innerHTML = story.desc;
+                sliderDesc.style.opacity = '1';
+                sliderDesc.style.transform = 'translateY(0)';
+            }
+            sliderImage.src = story.image;
+
+            sliderImage.style.opacity = '1';
+            sliderImage.style.transform = 'translateX(0)';
+
+            // Sync Global Active Index
+            window.wishSliderActiveIndex = activeIndex;
+
+            updateIndicators();
+            startAutoPlay();
         }
+
+        function updateSlice(index) {
+            activeIndex = index;
+            const story = stories[activeIndex];
+
+            // Sync Global Active Index
+            window.wishSliderActiveIndex = activeIndex;
+
+            // 1. Animate Out (Image Slide Left, Text Fade Out Up)
+            sliderImage.style.transition = 'all 0.4s ease-in-out';
+            sliderImage.style.opacity = '0';
+            sliderImage.style.transform = 'translateX(-50px)';
+
+            if (sliderTitle) {
+                sliderTitle.style.opacity = '0';
+                sliderTitle.style.transform = 'translateY(-10px)';
+            }
+            if (sliderDesc) {
+                sliderDesc.style.opacity = '0';
+                sliderDesc.style.transform = 'translateY(-10px)';
+            }
+
+            setTimeout(() => {
+                // 2. Update Content
+                sliderImage.src = story.image;
+                if (sliderTitle) sliderTitle.innerHTML = story.title;
+                if (sliderDesc) sliderDesc.innerHTML = story.desc;
+
+                // 3. Prepare for Slide In (Image Jump Right, Text Jump Down)
+                sliderImage.style.transition = 'none';
+                sliderImage.style.transform = 'translateX(50px)';
+
+                if (sliderTitle) sliderTitle.style.transform = 'translateY(10px)';
+                if (sliderDesc) sliderDesc.style.transform = 'translateY(10px)';
+
+                // Force Reflow
+                void sliderImage.offsetWidth;
+
+                // 4. Slide In to Center (Image Slide Left, Text Fade In Up)
+                sliderImage.style.transition = 'all 0.4s ease-in-out';
+                sliderImage.style.opacity = '1';
+                sliderImage.style.transform = 'translateX(0)';
+
+                if (sliderTitle) {
+                    sliderTitle.style.opacity = '1';
+                    sliderTitle.style.transform = 'translateY(0)';
+                }
+                if (sliderDesc) {
+                    sliderDesc.style.opacity = '1';
+                    sliderDesc.style.transform = 'translateY(0)';
+                }
+
+                updateIndicators();
+            }, 400);
+        }
+
+        function renderIndicators() {
+            if (!sliderIndicators) return;
+            sliderIndicators.innerHTML = '';
+            stories.forEach((story, index) => {
+                const item = document.createElement('div');
+                // Clean text-only list item
+                item.className = `cursor-pointer transition-all duration-300 flex items-center group py-2`;
+                item.onclick = () => {
+                    updateSlice(index);
+                    resetAutoPlay();
+                };
+
+                item.innerHTML = `
+                    <div class="text-base text-gray-500 group-hover:text-[#1a1a1a] transition-colors font-medium select-none">
+                        ${story.title.replace(/<br>/g, ' ')}
+                    </div>
+                `;
+                sliderIndicators.appendChild(item);
+            });
+        }
+
+        function updateIndicators() {
+            if (!sliderIndicators) return;
+
+            // 1. Update List Styles
+            const indicators = sliderIndicators.children;
+            Array.from(indicators).forEach((ind, i) => {
+                const text = ind.querySelector('.text-base');
+
+                if (i === activeIndex) {
+                    // Active Item (Text Only)
+                    text.classList.remove('text-gray-400', 'font-medium');
+                    text.classList.add('text-[#1a1a1a]', 'font-bold');
+                } else {
+                    // Inactive Item
+                    text.classList.add('text-gray-400', 'font-medium');
+                    text.classList.remove('text-[#1a1a1a]', 'font-bold');
+                }
+            });
+
+            // 2. Animate Main Progress Bar
+            if (mainProgressBar) {
+                mainProgressBar.style.transition = 'none';
+                mainProgressBar.style.width = '0%';
+
+                // Force Reflow
+                void mainProgressBar.offsetWidth;
+
+                mainProgressBar.style.transition = `width ${autoPlayDuration}ms linear`;
+                mainProgressBar.style.width = '100%';
+            }
+        }
+
+        function startAutoPlay() {
+            if (window.wishSliderInterval) clearInterval(window.wishSliderInterval);
+            window.wishSliderInterval = setInterval(() => {
+                let nextIndex = activeIndex + 1;
+                if (nextIndex >= stories.length) nextIndex = 0;
+                updateSlice(nextIndex);
+            }, autoPlayDuration);
+        }
+
+        function resetAutoPlay() {
+            startAutoPlay();
+        }
+
+        // Event Listeners
+        if (prevBtn) {
+            prevBtn.onclick = () => {
+                let newIndex = activeIndex - 1;
+                if (newIndex < 0) newIndex = stories.length - 1;
+                updateSlice(newIndex);
+                resetAutoPlay();
+            };
+        }
+
+        if (nextBtn) {
+            nextBtn.onclick = () => {
+                let newIndex = activeIndex + 1;
+                if (newIndex >= stories.length) newIndex = 0;
+                updateSlice(newIndex);
+                resetAutoPlay();
+            };
+        }
+
+
+
+        // Close handler is now delegated globally at the bottom of the file
+        // to ensure it works regardless of DOM updates.
+
+        // Initialize
+        initSlider();
 
 
         // ========== Event Descriptions ==========
@@ -1114,4 +1549,33 @@ document.addEventListener('DOMContentLoaded', function () {
     // It's already called from inside loadLanguage, but this is good practice
     // to ensure all parts of the page are correctly initialized.
     loadLanguage(currentLang);
+
+    // Backup Event Listener (Triple Redundancy)
+    // DELEGATION: Listen on document for the new ID
+    document.addEventListener("click", function (e) {
+        const target = e.target.closest("#wishSliderMainBtn");
+        if (target) {
+            console.log("Delegated click detected on #wishSliderMainBtn");
+            e.preventDefault();
+            e.stopPropagation(); // Stop bubbling to prevent interference
+            window.handleKnowMoreClick();
+        }
+
+        // DELEGATION: Close Popup Button
+        const closeBtn = e.target.closest("#closeStory");
+        if (closeBtn) {
+            console.log("Delegated click on #closeStory");
+            e.preventDefault();
+            window.closeWishStory();
+        }
+
+        // DELEGATION: Background Click (Click not on content)
+        const popup = e.target.closest("#storyPopup");
+        // If clicked on popup container but NOT on inner content (which would bubble up)
+        // We check if the actual *target* is the popup background itself.
+        if (e.target.id === "storyPopup") {
+            console.log("Delegated click on popup background");
+            window.closeWishStory();
+        }
+    });
 });

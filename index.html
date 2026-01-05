@@ -10,22 +10,31 @@
   <meta name="description"
     content="Expert banking, financial planning, legal advisory, and high-impact investment strategies tailored for your long-term wealth and success.">
 
-  <!-- Facebook Meta Tags -->
-  <meta property="og:url" content="https://gzy770542.github.io/GG/?v=final_pro_test">
+  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://gzy770542.github.io/GG/">
   <meta property="og:title" content="Wish Group: Your Professional One-Stop High-End Financial Solution">
   <meta property="og:description"
     content="Expert banking, financial planning, legal advisory, and high-impact investment strategies tailored for your long-term wealth and success.">
-  <meta property="og:image" content="https://gzy770542.github.io/GG/images/hero-1920.jpg">
+  <meta property="og:image" content="https://gzy770542.github.io/GG/images/wish-group-card.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="Wish Group">
 
-  <!-- Twitter Meta Tags -->
+  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta property="twitter:domain" content="gzy770542.github.io">
-  <meta property="twitter:url" content="https://gzy770542.github.io/GG/?v=final_pro_test">
+  <meta property="twitter:url" content="https://gzy770542.github.io/GG/">
   <meta name="twitter:title" content="Wish Group: Your Professional One-Stop High-End Financial Solution">
   <meta name="twitter:description"
     content="Expert banking, financial planning, legal advisory, and high-impact investment strategies tailored for your long-term wealth and success.">
-  <meta name="twitter:image" content="https://gzy770542.github.io/GG/images/hero-1920.jpg">
+  <meta name="twitter:image" content="https://gzy770542.github.io/GG/images/wish-group-card.jpg">
+  <meta name="twitter:image:width" content="1200">
+  <meta name="twitter:image:height" content="630">
+
+  <!-- Theme & Mobile -->
+  <meta name="theme-color" content="#ffffff">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
   <!-- ✅ Resources -->
   <link rel="icon" type="image/png" href="images/logo.webp" />
@@ -215,7 +224,7 @@
           </li>
 
           <li class="w-full md:w-auto text-center md:text-left">
-            <a href="#contact" class="nav-link no-underline text-[16px] text-[#333] font-normal px-3.5 
+            <a href="#contact" data-form-state="contact" class="nav-link no-underline text-[16px] text-[#333] font-normal px-3.5 
               py-2 rounded-lg transition-all duration-300 ease-in-out hover:bg-[#e0f0ff] 
               hover:text-[#0073e6] active:bg-[#e0f0ff] active:text-[#0073e6] 
               block w-full md:inline py-3 md:py-2 text-center md:text-left rounded-none md:rounded-lg"
@@ -225,12 +234,11 @@
           </li>
 
           <li class="w-full md:w-auto text-center md:text-left">
-            <a href="#join"
+            <a href="#contact" data-form-state="join"
               class="nav-link no-underline text-[16px] text-[#333] font-normal px-3.5 
               py-2 rounded-lg transition-all duration-300 ease-in-out hover:bg-[#e0f0ff] 
               hover:text-[#0073e6] active:bg-[#e0f0ff] active:text-[#0073e6] 
-              block w-full md:inline py-3 md:py-2 text-center md:text-left rounded-none md:rounded-lg lg:hidden md:block"
-              data-i18n="nav_careers">
+              block w-full md:inline py-3 md:py-2 text-center md:text-left rounded-none md:rounded-lg lg:hidden md:block" data-i18n="nav_careers">
               Careers
             </a>
           </li>
@@ -331,8 +339,7 @@
     </a>
   </section>
 
-  <section id="about"
-    class="about-section bg-gradient-to-b from-white via-slate-200/60 to-[#374B66] py-[100px] px-[20px] md:px-[5%]">
+  <section id="about" class="about-section bg-gradient-to-b from-amber-50 to-orange-50 py-[100px] px-[20px] md:px-[5%]">
     <div class="container max-w-full md:max-w-[1100px] mx-auto p-0">
       <div class="about-intro text-center mb-10 md:mb-[60px]">
         <h2 class="text-[2rem] md:text-[2.5rem] mb-4 text-[#222] font-bold" data-i18n="about.title">
@@ -394,138 +401,109 @@
       </div>
   </section>
 
-  <section id="stories" class="stories-section py-[100px] px-[5%]" style="background: lightgray;">
+  <section id="stories" class="stories-section py-[80px] px-[5%] bg-gradient-to-b from-orange-50 to-rose-50">
     <div class="container max-w-[1200px] mx-auto">
-      <h2 class="section-title text-center text-[2.5rem] mb-[80px] font-bold text-black" data-i18n="stories.title">
+      <h2 class="section-title text-center text-[2.5rem] mb-[50px] font-bold text-[#1a1a1a]" data-i18n="stories.title">
         Wish for Good
       </h2>
 
-      <div class="stories-grid flex flex-wrap justify-center gap-[30px]">
+      <!-- Premium Slider Container -->
+      <div id="wishSlider"
+        class="relative w-full h-[500px] md:h-[600px] bg-[#f5f5f5] rounded-[30px] overflow-hidden shadow-2xl flex flex-col-reverse md:flex-row group">
 
-        <!-- Story 1 -->
-        <div class="story-card flex flex-col justify-between w-full
-            max-w-[350px] md:w-[300px] md:h-[420px] bg-[#f5f5f5] rounded-[12px]
-            overflow-hidden shadow-[0_4px_10px_rgba(0,0,0,0.08)] transition-transform
-            duration-300 text-center pb-[15px] md:pb-5 hover:-translate-y-[5px]" data-story="1">
+        <div
+          class="w-full md:w-[45%] p-8 md:pt-8 md:px-12 md:pb-24 flex flex-col bg-white/90 backdrop-blur-sm z-10 relative">
 
-          <img class="w-full h-[200px] object-cover" src="images/bdonation.webp" alt="Story 1 Thumbnail" />
+          <div class="mb-2">
+            <span class="inline-block px-3 py-1 bg-[#FE435E]/10 text-[#FE435E] rounded-full text-sm font-bold mb-2">
+              Community Impact
+            </span>
+            <h3
+              class="text-3xl md:text-4xl font-bold text-[#1a1a1a] mb-2 transition-all duration-500 min-h-[7.5rem] leading-tight"
+              id="sliderTitle">
+              Wish for Good
+            </h3>
+            <p class="text-[#666] text-lg font-medium transition-all duration-500 min-h-[5rem]" id="sliderDesc">
+              Making a Positive Impact Together
+            </p>
+          </div>
 
-          <h4 class="px-[15px] pt-[20px] pb-[10px] text-[1.2rem] font-bold
-              text-[#333] min-h-[60px] flex items-center justify-center
-              text-center flex-grow leading-tight" data-i18n="stories.story1_title">
-            15 Years<br>One Mission: Save Lives
-          </h4>
+          <!-- Progress Bar (Main active slider progress) -->
+          <div class="w-full h-1 bg-gray-200 mt-2 mb-4 rounded-full overflow-hidden">
+            <div id="mainProgressBar" class="h-full bg-[#FE435E] w-0 transition-all duration-300"></div>
+          </div>
 
-          <button class="know-more-btn mx-auto mb-[20px] px-[25px]
-              py-[10px] bg-[#FE435E] text-[#F5F5F5] border-0 rounded-[25px]
-              text-[1rem] font-medium cursor-pointer transition duration-300
-              ease-in-out hover:scale-[1.05] hover:shadow-lg" data-i18n="stories.know_more">
-            Know More
-          </button>
-        </div>
+          <!-- Story List (Clickable) -->
+          <div class="slider-indicators flex flex-col gap-4 mb-8 select-none" id="sliderIndicators">
+            <!-- Injected by JS: 
+                 1. 15 Years...
+                 2. One Kindness... 
+                 -->
+          </div>
 
-        <!-- Story 2 -->
-        <div class="story-card flex flex-col justify-between w-full
-            max-w-[350px] md:w-[300px] md:h-[420px] bg-[#f5f5f5] rounded-[12px]
-            overflow-hidden shadow-[0_4px_10px_rgba(0,0,0,0.08)] transition-transform
-            duration-300 text-center pb-[15px] md:pb-5 hover:-translate-y-[5px]" data-story="2">
-
-          <img class="w-full h-[200px] object-cover" src="images/mdonation.webp" alt="Story 2 Thumbnail" />
-
-          <h4 class="px-[15px] pt-[20px] pb-[10px] text-[1.2rem] font-bold
-              text-[#333] min-h-[60px] flex items-center justify-center
-              text-center flex-grow leading-tight" data-i18n="stories.story2_title">
-            One Kindness A Month
-          </h4>
-
-          <button class="know-more-btn mx-auto mb-[20px] px-[25px]
-              py-[10px] bg-[#FE435E] text-[#F5F5F5] border-0 rounded-[25px]
-              text-[1rem] font-medium cursor-pointer transition duration-300
-              ease-in-out hover:scale-[1.05] hover:shadow-lg" data-i18n="stories.know_more">
-            Know More
-          </button>
-
-        </div>
-
-        <!-- Story 3 -->
-        <div class="story-card flex flex-col justify-between w-full 
-            max-w-[350px] md:w-[300px] md:h-[420px] bg-[#f5f5f5] rounded-[12px] 
-            overflow-hidden shadow-[0_4px_10px_rgba(0,0,0,0.08)] transition-transform 
-            duration-300 text-center pb-[15px] md:pb-5 hover:-translate-y-[5px]" data-story="3">
-
-          <img class="w-full h-[200px] object-cover" src="images/ydonation.webp" alt="Story 3 Thumbnail" />
-
-          <h4 class="px-[15px] pt-[20px] pb-[10px] text-[1.2rem] font-bold
-            text-[#333] min-h-[60px] flex items-center justify-center 
-            text-center flex-grow leading-tight" data-i18n="stories.story3_title">
-            A New Year,<br>A Gift of Love
-          </h4>
-
-          <button class="know-more-btn mx-auto mb-[20px] px-[25px] 
-            py-[10px] bg-[#FE435E] text-[#F5F5F5] border-0 rounded-[25px] 
-            text-[1rem] font-medium cursor-pointer transition duration-300 
-            ease-in-out hover:scale-[1.05] hover:shadow-lg" data-i18n="stories.know_more">
-            Know More
-          </button>
-
-        </div>
-
-        <div class="story-popup fixed inset-0 bg-black/60 hidden 
-          items-center justify-center z-[1000]" id="storyPopup">
-
-          <div class="story-popup-content bg-white w-[calc(100%-40px)] 
-            md:w-[95%] md:max-w-[1300px] h-auto md:h-[90vh] rounded-[8px] 
-            md:rounded-[14px] flex flex-col md:flex-row flex-nowrap overflow-y-auto
-            md:overflow-hidden shadow-[0_8px_24px_rgba(0,0,0,0.25)] m-[20px] md:m-0">
-
-            <button class="close-btn absolute top-[10px] right-[10px] md:top-[20px] 
-              md:right-[20px] text-2xl md:text-4xl font-bold bg-white border-0 
-              rounded-full w-[35px] h-[35px] md:w-[40px] md:h-[40px] flex items-center 
-              justify-center text-[#333] cursor-pointer transition duration-200 z-[1001] 
-              shadow-[0_1px_3px_rgba(0,0,0,0.15)] md:shadow-[0_2px_5px_rgba(0,0,0,0.2)] 
-              hover:text-[#ff5c5c] hover:bg-[#f0f0f0] hover:scale-110" id="closeStory">
-              ×
+          <!-- Controls -->
+          <div class="flex items-center justify-between mt-auto">
+            <button id="wishSliderMainBtn"
+              class="z-50 relative pointer-events-auto px-8 py-3 bg-[#FE435E] text-white rounded-full font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all flex items-center gap-2">
+              <span class="pb-[2px]" data-i18n="stories.know_more">Know More</span>
+              <!-- <i class="fas fa-arrow-right"></i> -->
             </button>
 
-            <div class="video-area flex-none md:flex-[1.2] min-w-0 p-[15px] 
-              md:p-[30px] flex flex-col justify-center bg-[#f9f9f9] w-full">
-
-              <video id="storyVideo" controls poster="images/story1-thumb.webp"
-                class="w-full h-auto rounded-[10px] md:max-h-full max-h-[200px]">
-
-                <source src="" type="video/mp4" />
-
-                <p class="text-center" data-i18n="story_popup.video_unsupported">
-                  Your browser does not support the video tag.
-                </p>
-              </video>
-
-              <div class="video-speed mt-[10px] md:mt-[12px] text-center">
-                <label class="font-medium mr-2" for="speed" data-i18n="story_popup.speed_label">
-                  Speed:
-                </label>
-
-                <select class="px-3 py-1.5 rounded-md border border-[#ccc]" id="speed">
-                  <option value="1">1x</option>
-                  <option value="1.25">1.25x</option>
-                  <option value="1.5">1.5x</option>
-                  <option value="2">2x</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="story-text flex-none md:flex-1 min-w-0 p-[15px] md:py-[30px] 
-              md:px-[40px] overflow-y-auto max-h-[90vh] w-full" id="storyText">
+            <div class="flex gap-2">
+              <button id="prevSlide"
+                class="w-10 h-10 rounded-full border border-[#ddd] flex items-center justify-center hover:bg-[#1a1a1a] hover:text-white transition-all">
+                <i class="fas fa-chevron-left text-sm"></i>
+              </button>
+              <button id="nextSlide"
+                class="w-10 h-10 rounded-full border border-[#ddd] flex items-center justify-center hover:bg-[#1a1a1a] hover:text-white transition-all">
+                <i class="fas fa-chevron-right text-sm"></i>
+              </button>
             </div>
           </div>
+
         </div>
+
+        <!-- Right Side: Image Area -->
+        <div class="w-full md:w-[60%] h-[250px] md:h-full relative overflow-hidden bg-gray-200">
+          <img id="sliderImage" src="" alt="Wish for Good"
+            class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+          <div class="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent pointer-events-none"></div>
+        </div>
+
       </div>
     </div>
   </section>
 
+  <!-- Story Popup (Moved outside grid) -->
+  <div
+    class="story-popup fixed inset-0 bg-black/80 hidden items-center justify-center z-[9999] backdrop-blur-sm transition-opacity duration-300"
+    id="storyPopup">
+    <div
+      class="story-popup-content bg-white w-full max-w-[1000px] h-auto md:max-h-[85vh] rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row relative mx-4 animate-scaleIn">
 
-  <section id="services" class="services-section py-[80px] px-[5%] md:px-[60px]"
-    style="background: linear-gradient(180deg, #FFFFFF 0%, #FFF5E1 100%);">
+      <button
+        class="close-btn absolute top-4 right-4 z-50 w-10 h-10 bg-white/10 hover:bg-black/10 rounded-full flex items-center justify-center text-black text-2xl transition-all"
+        id="closeStory">
+        &times;
+      </button>
+
+      <div class="w-full md:w-2/3 bg-black flex items-center justify-center">
+        <video id="storyVideo" controls class="w-full max-h-[60vh] md:max-h-full">
+          <source src="" type="video/mp4" />
+          <p data-i18n="story_popup.video_unsupported">Browser not supported</p>
+        </video>
+      </div>
+
+      <div class="w-full md:w-1/3 p-8 overflow-y-auto bg-white">
+        <h3 id="popupTitle" class="text-2xl font-bold mb-4 text-[#1a1a1a]"></h3>
+        <div id="storyText" class="prose prose-sm text-[#555]"></div>
+      </div>
+    </div>
+  </div>
+
+
+  <section id="services"
+    class="services-section py-[80px] px-[5%] md:px-[60px] bg-gradient-to-b from-rose-50 to-purple-50">
 
     <h2 class="section-title text-center text-[2.2rem] mb-[50px] text-[#222] font-bold" data-i18n="services.title">
       Our Services
@@ -667,8 +645,7 @@
   </section>
 
 
-  <section id="events" class="event-section py-[100px] px-[30px]"
-    style="background: radial-gradient(at top, #C0EAAD 60%, #AB8D6C 100%);">
+  <section id="events" class="event-section py-[100px] px-[30px] bg-gradient-to-b from-purple-50 to-indigo-50">
     <div class="container max-w-[1200px] mx-auto">
       <h2 class="event-heading text-center text-[2.5rem] font-bold text-[#111] mb-[50px]" data-i18n="events.title">
         Life at Wish Group
@@ -801,7 +778,7 @@
     </a>
   </div>
 
-  <section id="testimonials" class="testimonials-section py-[100px] px-[5%] bg-[#FDFDFD]">
+  <section id="testimonials" class="testimonials-section py-[100px] px-[5%] bg-gradient-to-b from-indigo-50 to-sky-50">
     <div class="container max-w-[1200px] mx-auto">
       <h2 class="section-title text-center text-[2.5rem] mb-4 text-[#222] font-bold" data-i18n="testimonials.title">
         Why Client Trust Us
@@ -810,107 +787,55 @@
         Honest advice, professional guidance
       </p>
 
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
-        <!-- Card 1: Large (Bobby Zhang) -->
-        <div
-          class="md:col-span-8 bg-white rounded-[40px] p-8 md:p-12 mb-0 shadow-[0_10px_40px_rgba(0,0,0,0.04)] flex flex-col justify-between transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)]">
-          <div>
-            <div
-              class="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-white shadow-lg mb-8 md:mb-12">
-              <img class="w-full h-full object-cover object-top" src="images/client1.webp" alt="Bobby Zhang" />
-            </div>
-            <h3 class="text-[1.8rem] md:text-[2.2rem] font-bold text-[#1a1a1a] leading-tight mb-8"
-              data-i18n="testimonials.client1_text">
-              "Everything was clear and professional - I trust them with my family's protection."
-            </h3>
-          </div>
-          <div>
-            <h4 class="text-[1.25rem] font-bold text-[#222] mb-1" data-i18n="testimonials.client1_name">Bobby Zhang</h4>
-            <p class="text-[1rem] text-[#888] font-medium" data-i18n="testimonials.client1_role">Office Worker</p>
-          </div>
-        </div>
+      <div id="testimonialGrid" class="grid grid-cols-1 md:grid-cols-12 gap-8 transition-all duration-300">
+        <!-- Main Large Card Container -->
+        <!-- JS will render the active testimonial here -->
+        <div id="testimonialMain" class="md:col-span-8 h-full"></div>
 
-        <!-- Right Column (Small Cards) -->
-        <div class="md:col-span-4 flex flex-col gap-8">
-
-          <!-- Card 2: Emily Wong -->
-          <div
-            class="bg-white rounded-[32px] p-8 shadow-[0_10px_40px_rgba(0,0,0,0.04)] flex flex-col justify-between transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] relative overflow-hidden group">
-            <div>
-              <span
-                class="text-[60px] leading-none text-gray-100 font-serif block mb-2 transition-colors group-hover:text-gray-200">“</span>
-              <p class="text-[1.05rem] text-[#444] leading-relaxed mb-8 relative z-10"
-                data-i18n="testimonials.client2_text">
-                "They explained everything so clearly. Now I even recommend them to friends."
-              </p>
-            </div>
-            <div class="flex justify-end">
-              <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-white shadow-md">
-                <img class="w-full h-full object-cover object-center" src="images/client2.webp" alt="Emily Wong" />
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 3: Jason Hiew -->
-          <div
-            class="bg-white rounded-[32px] p-8 shadow-[0_10px_40px_rgba(0,0,0,0.04)] flex flex-col justify-between transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] relative overflow-hidden group">
-            <div>
-              <span
-                class="text-[60px] leading-none text-gray-100 font-serif block mb-2 transition-colors group-hover:text-gray-200">“</span>
-              <p class="text-[1.05rem] text-[#444] leading-relaxed mb-8 relative z-10"
-                data-i18n="testimonials.client3_text">
-                "I wasn't interested at first, but later I found them truly trustworthy."
-              </p>
-            </div>
-            <div class="flex justify-end">
-              <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-white shadow-md">
-                <img class="w-full h-full object-cover object-top" src="images/client3.webp" alt="Jason Hiew" />
-              </div>
-            </div>
-          </div>
-
-        </div>
+        <!-- Right List Container -->
+        <!-- JS will render the inactive testimonials here -->
+        <div id="testimonialList" class="md:col-span-4 flex flex-col gap-8 h-full"></div>
       </div>
     </div>
   </section>
 
   <!-- Unified Connect Section (Contact + Join Us) -->
-  <section id="contact" class="py-[100px] bg-[#fdfdfd] h-scroll-anchor">
-    <div id="join" class="absolute top-[-100px]"></div>
+  <section id="contact" class="py-[60px] bg-gradient-to-b from-sky-50 to-slate-50 h-scroll-anchor scroll-mt-[100px]">
     <div class="container max-w-[1200px] mx-auto px-4">
-      <div class="text-center mb-12">
-        <h2 class="text-[2.5rem] md:text-[3.5rem] text-[#1a1a1a] font-bold mb-4" data-i18n="connect.title">Let's Connect
+      <div class="text-center mb-8">
+        <h2 class="text-[2.2rem] md:text-[2.8rem] text-[#1a1a1a] font-bold mb-3" data-i18n="connect.title">Let's Connect
         </h2>
-        <p class="text-[1.2rem] text-[#666]" data-i18n="connect.subtitle">Reach out or join our team.</p>
+        <p class="text-[1.1rem] text-[#666]" data-i18n="connect.subtitle">Reach out or join our team.</p>
       </div>
 
       <div
-        class="max-w-[1000px] mx-auto bg-white rounded-[40px] shadow-[0_20px_60px_rgba(0,0,0,0.05)] overflow-hidden flex flex-col md:flex-row min-h-[600px] border border-[#f0f0f0]">
+        class="max-w-[1000px] mx-auto bg-white rounded-[40px] shadow-[0_20px_60px_rgba(0,0,0,0.05)] overflow-hidden flex flex-col md:flex-row border border-[#f0f0f0]">
 
         <!-- Left Side: Dynamic Form Panel -->
-        <div class="w-full md:w-[60%] p-8 md:p-12 relative">
+        <div class="w-full md:w-[60%] p-6 md:p-8 grid grid-cols-1">
 
           <!-- Contact Form (Visible by Default) -->
-          <div id="contactFormContainer" class="form-container transition-all duration-500 opacity-100 translate-x-0">
-            <h3 class="text-[2rem] font-bold text-[#1a1a1a] mb-8 text-center md:text-left" data-i18n="contact.title">
+          <div id="contactFormContainer"
+            class="col-start-1 row-start-1 form-container transition-all duration-500 opacity-100 translate-x-0">
+            <h3 class="text-[1.8rem] font-bold text-[#1a1a1a] mb-6 text-center md:text-left" data-i18n="contact.title">
               Contact Us</h3>
             <form id="contactForm" action="submit_contact.php" method="POST"
               class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <input
-                class="md:col-span-1 border border-[#eee] bg-[#fafafa] rounded-xl px-4 py-4 focus:bg-white focus:border-[#0073e6] outline-none transition-all"
-                type="text" name="name" placeholder="Full Name" required
+                class="md:col-span-1 border border-[#f0f0f0] bg-[#f9f9f9] rounded-2xl px-4 py-3 focus:bg-white focus:border-[#5c7ef7] outline-none transition-all placeholder:text-[#999]"
+                type="text" name="name" placeholder="Your Name" required
                 data-i18n-placeholder="form.name_placeholder" />
               <input
-                class="md:col-span-1 border border-[#eee] bg-[#fafafa] rounded-xl px-4 py-4 focus:bg-white focus:border-[#0073e6] outline-none transition-all"
-                type="email" name="email" placeholder="Email Address" required
+                class="md:col-span-1 border border-[#f0f0f0] bg-[#f9f9f9] rounded-2xl px-4 py-3 focus:bg-white focus:border-[#5c7ef7] outline-none transition-all placeholder:text-[#999]"
+                type="email" name="email" placeholder="Your Email" required
                 data-i18n-placeholder="form.email_placeholder" />
               <input
-                class="md:col-span-2 border border-[#eee] bg-[#fafafa] rounded-xl px-4 py-4 focus:bg-white focus:border-[#0073e6] outline-none transition-all"
+                class="md:col-span-2 border border-[#f0f0f0] bg-[#f9f9f9] rounded-2xl px-4 py-3 focus:bg-white focus:border-[#5c7ef7] outline-none transition-all placeholder:text-[#999]"
                 type="tel" name="phone" placeholder="Phone Number" required
                 data-i18n-placeholder="form.phone_placeholder" />
               <div class="md:col-span-2">
                 <select name="category" required
-                  class="w-full border border-[#eee] bg-[#fafafa] rounded-xl px-4 py-4 focus:bg-white focus:border-[#0073e6] outline-none transition-all appearance-none cursor-pointer">
+                  class="w-full border border-[#f0f0f0] bg-[#f9f9f9] rounded-2xl px-4 py-3 focus:bg-white focus:border-[#5c7ef7] outline-none transition-all appearance-none cursor-pointer text-[#666]">
                   <option value="" selected disabled data-i18n="contact.category_option_default">Select Interested
                     Category</option>
                   <option value="Banking & Finance" data-i18n="contact.category_option1">Banking & Finance</option>
@@ -922,51 +847,54 @@
                 </select>
               </div>
               <textarea
-                class="md:col-span-2 border border-[#eee] bg-[#fafafa] rounded-xl px-4 py-4 focus:bg-white focus:border-[#0073e6] outline-none transition-all min-h-[120px] resize-none"
-                name="message" placeholder="Your Message"
+                class="md:col-span-2 border border-[#f0f0f0] bg-[#f9f9f9] rounded-2xl px-4 py-3 focus:bg-white focus:border-[#5c7ef7] outline-none transition-all min-h-[100px] resize-none placeholder:text-[#999]"
+                name="message" placeholder="Optional Message"
                 data-i18n-placeholder="form.message_placeholder_contact"></textarea>
-              <div class="md:col-span-2 text-center md:text-left">
+              <div class="md:col-span-2 text-center md:text-left mt-2">
                 <button type="submit"
-                  class="bg-[#5c7ef7] hover:bg-[#4a6cf0] text-white px-10 py-4 rounded-full font-bold shadow-lg shadow-blue-100 transition-all active:scale-95"
-                  data-i18n="form.submit_btn">Send Message</button>
+                  class="bg-[#1a1a1a] hover:bg-[#333] text-white px-8 py-2.5 rounded-full font-bold transition-all active:scale-95"
+                  data-i18n="form.submit_btn">Submit</button>
               </div>
             </form>
           </div>
 
           <!-- Join Form (Hidden by Default) -->
           <div id="joinFormContainer"
-            class="form-container absolute top-0 left-0 w-full h-full p-8 md:p-12 transition-all duration-500 opacity-0 translate-x-[50px] pointer-events-none">
-            <h3 class="text-[2rem] font-bold text-[#1a1a1a] mb-8 text-center md:text-left" data-i18n="join.title">Apply
-              Now</h3>
+            class="col-start-1 row-start-1 form-container transition-all duration-500 opacity-0 translate-x-[50px] pointer-events-none">
+            <h3 class="text-[1.8rem] font-bold text-[#1a1a1a] mb-6 text-center md:text-left" data-i18n="join.title">
+              Join
+              Us</h3>
             <form id="joinForm" action="submit_cv.php" method="POST" enctype="multipart/form-data"
               class="flex flex-col gap-4">
               <input
-                class="border border-[#eee] bg-[#fafafa] rounded-xl px-4 py-4 focus:bg-white focus:border-[#0073e6] outline-none transition-all"
-                type="text" name="name" placeholder="Name" required data-i18n-placeholder="form.name_placeholder" />
+                class="border border-[#f0f0f0] bg-[#f9f9f9] rounded-2xl px-4 py-3 focus:bg-white focus:border-[#5c7ef7] outline-none transition-all placeholder:text-[#999]"
+                type="text" name="name" placeholder="Your Name" required
+                data-i18n-placeholder="form.name_placeholder" />
               <input
-                class="border border-[#eee] bg-[#fafafa] rounded-xl px-4 py-4 focus:bg-white focus:border-[#0073e6] outline-none transition-all"
-                type="email" name="email" placeholder="Email" required data-i18n-placeholder="form.email_placeholder" />
+                class="border border-[#f0f0f0] bg-[#f9f9f9] rounded-2xl px-4 py-3 focus:bg-white focus:border-[#5c7ef7] outline-none transition-all placeholder:text-[#999]"
+                type="email" name="email" placeholder="Your Email" required
+                data-i18n-placeholder="form.email_placeholder" />
               <input
-                class="border border-[#eee] bg-[#fafafa] rounded-xl px-4 py-4 focus:bg-white focus:border-[#0073e6] outline-none transition-all"
+                class="border border-[#f0f0f0] bg-[#f9f9f9] rounded-2xl px-4 py-3 focus:bg-white focus:border-[#5c7ef7] outline-none transition-all placeholder:text-[#999]"
                 type="tel" name="phone" placeholder="Phone Number" required
                 data-i18n-placeholder="form.phone_placeholder" />
               <div
-                class="border-2 border-dashed border-[#ddd] rounded-xl p-6 text-center hover:border-[#0073e6] transition-all relative">
+                class="border-2 border-dashed border-[#ddd] rounded-2xl p-4 text-center hover:border-[#5c7ef7] transition-all relative bg-[#f9f9f9]/50">
                 <input type="file" name="cv" id="cv_upload" class="absolute inset-0 opacity-0 cursor-pointer"
                   required />
                 <div class="text-[#888]">
-                  <i class="fas fa-cloud-upload-alt text-2xl mb-2 text-[#5c7ef7]"></i>
-                  <p class="text-sm">Click or drag to upload CV (PDF/DOCX)</p>
+                  <i class="fas fa-cloud-upload-alt text-xl mb-1 text-[#5c7ef7]"></i>
+                  <p class="text-xs font-medium">Click or drag to upload CV (PDF/DOCX)</p>
                 </div>
               </div>
               <textarea
-                class="border border-[#eee] bg-[#fafafa] rounded-xl px-4 py-4 focus:bg-white focus:border-[#0073e6] outline-none transition-all min-h-[100px] resize-none"
-                name="message" placeholder="Message to hiring team"
+                class="border border-[#f0f0f0] bg-[#f9f9f9] rounded-2xl px-4 py-3 focus:bg-white focus:border-[#5c7ef7] outline-none transition-all min-h-[100px] resize-none placeholder:text-[#999]"
+                name="message" placeholder="Any Message To Our Company"
                 data-i18n-placeholder="join.message_placeholder"></textarea>
-              <div class="text-center md:text-left">
+              <div class="text-center md:text-left mt-2">
                 <button type="submit"
-                  class="bg-[#1a1a1a] hover:bg-[#333] text-white px-10 py-4 rounded-full font-bold transition-all active:scale-95"
-                  data-i18n="join.form_btn">Submit Application</button>
+                  class="bg-[#1a1a1a] hover:bg-[#333] text-white px-8 py-2.5 rounded-full font-bold transition-all active:scale-95"
+                  data-i18n="form.submit_btn">Submit</button>
               </div>
             </form>
           </div>
@@ -975,25 +903,25 @@
 
         <!-- Right Side: Info Panel / Switcher -->
         <div id="formSwitcher"
-          class="w-full md:w-[40%] bg-[#efede4] p-8 md:p-12 flex flex-col justify-center items-center text-center transition-colors duration-500">
+          class="w-full md:w-[40%] bg-[#efede4] p-8 md:p-10 flex flex-col justify-center items-center text-center transition-colors duration-500">
 
-          <!-- State: To Join -->
+          <!-- State: To Join (Visible when Contact Form is active) -->
           <div id="infoJoin" class="transition-all duration-500">
-            <h3 class="text-[2rem] font-bold text-[#1a1a1a] mb-6" data-i18n="join.title">Join Our Team</h3>
-            <p class="text-[1.1rem] text-[#555] mb-8 leading-relaxed" data-i18n="join.description">We're always looking
-              for talented individuals to grow with us.</p>
+            <h3 class="text-[1.8rem] font-bold text-[#1a1a1a] mb-5" data-i18n="join.title">Join Us</h3>
+            <p class="text-[1.05rem] text-[#555] mb-6 leading-relaxed" data-i18n="join.description">Become part of our
+              team and build your future with us!</p>
             <button onclick="toggleForm('join')"
-              class="bg-white text-[#1a1a1a] px-8 py-3 rounded-full font-bold shadow-md hover:shadow-xl transition-all"
-              data-i18n="join.apply_btn">Apply Now</button>
+              class="bg-white text-[#1a1a1a] px-8 py-2.5 rounded-full font-bold shadow-md hover:shadow-xl transition-all"
+              data-i18n="join.apply_btn">Join Us</button>
           </div>
 
-          <!-- State: To Contact -->
+          <!-- State: To Contact (Visible when Join Form is active) -->
           <div id="infoContact" class="hidden opacity-0 transition-all duration-500">
-            <h3 class="text-[2rem] font-bold text-[#1a1a1a] mb-6" data-i18n="contact.title">Need Help?</h3>
-            <p class="text-[1.1rem] text-[#555] mb-8 leading-relaxed" data-i18n="contact.description">Have a specific
-              request? Our team is ready to assist you.</p>
+            <h3 class="text-[1.8rem] font-bold text-[#1a1a1a] mb-5" data-i18n="contact.title">Contact Us</h3>
+            <p class="text-[1.05rem] text-[#555] mb-6 leading-relaxed" data-i18n="contact.description">Leave us your
+              details and we'll be in touch!</p>
             <button onclick="toggleForm('contact')"
-              class="bg-white text-[#1a1a1a] px-8 py-3 rounded-full font-bold shadow-md hover:shadow-xl transition-all"
+              class="bg-white text-[#1a1a1a] px-8 py-2.5 rounded-full font-bold shadow-md hover:shadow-xl transition-all"
               data-i18n="contact.form_btn">Contact Us</button>
           </div>
 
@@ -1023,7 +951,7 @@
         infoContact.classList.remove('hidden');
         setTimeout(() => infoContact.classList.add('opacity-100'), 10);
 
-        switcher.style.backgroundColor = '#e5e9f0'; // Slight blue tint for Join state
+        switcher.style.backgroundColor = '#e7eaf0'; // Light blue-grey for Join state
       } else {
         // Switch back to Contact Form
         joinForm.classList.replace('opacity-100', 'opacity-0');
@@ -1043,7 +971,7 @@
     }
   </script>
 
-  <footer id="find-us" class="site-footer bg-[#1A1A1A] text-white py-[100px] px-[5%]">
+  <footer id="find-us" class="site-footer bg-slate-50 text-slate-800 py-[100px] px-[5%]">
     <div class="footer-container max-w-[1200px] mx-auto flex flex-wrap 
       justify-center gap-20 md:flex-row flex-col md:pr-[100px]">
 
@@ -1051,8 +979,8 @@
       <div class="footer-left w-full md:w-auto flex flex-col gap-10 md:mr-[60px]">
         <!-- Address -->
         <div class="flex items-start gap-4">
-          <img src="images/map.webp" alt="Address" class="w-[24px] h-[24px] mt-1 object-contain" />
-          <p class="text-[1rem] leading-[1.6] text-white" data-i18n="footer.address">
+          <img src="images/map.webp" alt="Address" class="w-[24px] h-[24px] mt-1 object-contain grayscale opacity-80" />
+          <p class="text-[1rem] leading-[1.6] text-slate-700" data-i18n="footer.address">
             32A-1, Jalan Nautika B U20/B,<br />
             Pusat Komersial TSB,<br />
             47000 Shah Alam, Selangor
@@ -1061,16 +989,16 @@
 
         <!-- Phone -->
         <div class="flex items-center gap-4">
-          <img src="images/whatsapp.webp" alt="Phone" class="w-[24px] h-[24px] object-contain" />
-          <a href="tel:+60123270392" class="text-[1rem] text-white no-underline hover:text-[#ccc]">
+          <img src="images/whatsapp.webp" alt="Phone" class="w-[24px] h-[24px] object-contain grayscale opacity-80" />
+          <a href="tel:+60123270392" class="text-[1rem] text-slate-700 no-underline hover:text-slate-900">
             +60 12-327 0392
           </a>
         </div>
 
         <!-- Email -->
         <div class="flex items-center gap-4">
-          <img src="images/mail.webp" alt="Email" class="w-[24px] h-[24px] object-contain" />
-          <a href="mailto:info@wishgroup.com" class="text-[1rem] text-white no-underline hover:text-[#ccc]">
+          <img src="images/mail.webp" alt="Email" class="w-[24px] h-[24px] object-contain grayscale opacity-80" />
+          <a href="mailto:info@wishgroup.com" class="text-[1rem] text-slate-700 no-underline hover:text-slate-900">
             info@wishgroup.com
           </a>
         </div>
@@ -1078,31 +1006,31 @@
 
       <!-- Right Side -->
       <div class="footer-right w-full md:w-auto flex flex-col gap-6 items-center justify-center md:ml-[60px] mb-10">
-        <h3 class="text-[#F5F5F5] text-[1.5rem] font-bold tracking-wide uppercase" data-i18n="footer.follow_us">
+        <h3 class="text-slate-900 text-[1.5rem] font-bold tracking-wide uppercase" data-i18n="footer.follow_us">
           FOLLOW US
         </h3>
         <div class="flex gap-4">
           <a href="https://www.facebook.com/WishGroupResources/" target="_blank" title="Facebook">
             <div
-              class="w-[50px] h-[50px] bg-white rounded-full flex items-center justify-center hover:opacity-80 transition-opacity">
+              class="w-[50px] h-[50px] bg-white rounded-full flex items-center justify-center hover:opacity-80 transition-opacity shadow-md ring-1 ring-slate-200">
               <img src="images/facebook.webp" alt="Facebook" class="w-[28px] h-[28px] object-contain" />
             </div>
           </a>
           <a href="https://www.xiaohongshu.com/user/profile/635d5bd9000000001802343f" target="_blank" title="Rednote">
             <div
-              class="w-[50px] h-[50px] bg-white rounded-full flex items-center justify-center hover:opacity-80 transition-opacity">
+              class="w-[50px] h-[50px] bg-white rounded-full flex items-center justify-center hover:opacity-80 transition-opacity shadow-md ring-1 ring-slate-200">
               <img src="images/rednote.webp" alt="Rednote" class="w-[28px] h-[28px] object-contain rounded-full" />
             </div>
           </a>
           <a href="https://maps.app.goo.gl/1zybQ5witWNAeurf7" target="_blank" title="Google Maps">
             <div
-              class="w-[50px] h-[50px] bg-white rounded-full flex items-center justify-center hover:opacity-80 transition-opacity">
+              class="w-[50px] h-[50px] bg-white rounded-full flex items-center justify-center hover:opacity-80 transition-opacity shadow-md ring-1 ring-slate-200">
               <img src="images/map.webp" alt="Google Maps" class="w-[28px] h-[28px] object-contain" />
             </div>
           </a>
           <a href="https://waze.com/ul/hw284r268t" target="_blank" title="Waze">
             <div
-              class="w-[50px] h-[50px] bg-white rounded-full flex items-center justify-center hover:opacity-80 transition-opacity">
+              class="w-[50px] h-[50px] bg-white rounded-full flex items-center justify-center hover:opacity-80 transition-opacity shadow-md ring-1 ring-slate-200">
               <img src="images/waze.webp" alt="Waze" class="w-[28px] h-[28px] object-contain" />
             </div>
           </a>
@@ -1110,7 +1038,7 @@
       </div>
     </div>
 
-    <div class="footer-bottom mt-10 text-center text-[0.9rem] text-[#777] border-t border-[#333] pt-5">
+    <div class="footer-bottom mt-10 text-center text-[0.9rem] text-slate-500 border-t border-slate-300 pt-5">
       <p data-i18n="footer.copyright">
         &copy;2025 Wish Group. All rights reserved.
       </p>

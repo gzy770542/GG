@@ -170,40 +170,84 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Default language
     let currentLang = localStorage.getItem("lang") || "en";
-    // loadLanguage(currentLang); // Moved to end of file to ensure translations are loaded
 
-    // Language dropdown (matches current HTML structure)
-    const langContainer = document.querySelector('.mobile-middle');
-    const langToggleBtn = langContainer ? langContainer.querySelector('button') : null;
-    const langMenu = langContainer ? langContainer.querySelector('ul') : null;
-    const langMenuItems = langMenu ? langMenu.querySelectorAll('li') : [];
-
-    if (langToggleBtn && langMenu) {
-        langToggleBtn.addEventListener('click', function (e) {
+    // ==========================================
+    // GLOBAL LANGUAGE FUNCTIONS (Robust)
+    // ==========================================
+    window.toggleLanguageMenu = function (e) {
+        if (e) {
             e.stopPropagation();
-            langMenu.classList.toggle('hidden');
-        });
+            e.preventDefault();
+        }
+        const dropdown = document.getElementById('languageDropdown');
+        if (dropdown) {
+            dropdown.classList.toggle('hidden');
+            console.log("Language menu toggled. Hidden:", dropdown.classList.contains('hidden'));
+        } else {
+            console.error("Language dropdown element not found!");
+        }
+    };
 
-        document.addEventListener('click', function (e) {
-            if (langMenu && !langContainer.contains(e.target)) {
-                langMenu.classList.add('hidden');
+    window.switchLanguage = function (lang, e) {
+        if (e) {
+            e.stopPropagation();
+        }
+        console.log("Switching language to:", lang);
+
+        currentLang = lang;
+        localStorage.setItem('lang', currentLang);
+
+        // Hide dropdown
+        const dropdown = document.getElementById('languageDropdown');
+        if (dropdown) dropdown.classList.add('hidden');
+
+        // Update text
+        const currentLangText = document.getElementById("current-lang-text");
+        if (currentLangText) currentLangText.textContent = lang.toUpperCase();
+
+        // Trigger translation load
+        if (typeof loadLanguage === 'function') {
+            loadLanguage(currentLang);
+        } else {
+            console.error("loadLanguage function is missing!");
+        }
+    };
+
+    window.toggleHamburgerMenu = function (e) {
+        if (e) {
+            e.stopPropagation();
+            e.preventDefault();
+        }
+        const nav = document.querySelector('nav');
+        if (nav) {
+            // Force explicit toggle
+            if (nav.classList.contains('hidden')) {
+                nav.classList.remove('hidden');
+                nav.classList.add('flex'); // Ensure flex is active when showing
+                console.log("Opening Menu");
+            } else {
+                nav.classList.add('hidden');
+                nav.classList.remove('flex'); // Ensure flex is removed when hiding (optional but safer)
+                console.log("Closing Menu");
             }
-        });
-    }
+        } else {
+            console.error("Nav element not found!");
+        }
+    };
 
-    // Click handler for language switch items
-    if (langMenuItems && langMenuItems.length) {
-        langMenuItems.forEach((item) => {
-            item.addEventListener('click', function () {
-                const selectedLang = this.getAttribute('data-lang');
-                currentLang = selectedLang;
-                localStorage.setItem('lang', currentLang);
-                loadLanguage(currentLang);
-                if (currentLangText) currentLangText.textContent = currentLang.toUpperCase();
-                if (langMenu) langMenu.classList.add('hidden');
-            });
-        });
-    }
+    // Close language menu when clicking outside
+    document.addEventListener('click', function (e) {
+        const dropdown = document.getElementById('languageDropdown');
+        const btn = document.querySelector('.mobile-middle button'); // Only for approximate check
+
+        // If dropdown is open and we clicked outside
+        if (dropdown && !dropdown.classList.contains('hidden')) {
+            // Basic check: if target is not inside the dropdown
+            if (!dropdown.contains(e.target)) {
+                dropdown.classList.add('hidden');
+            }
+        }
+    });
 
     // Load and apply language file
     const translations = {
@@ -597,7 +641,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
 
-            updateDynamicContent(lang);
+            updateDynamicContent(translation);
         } else {
             console.error(`Translation for language ${lang} not found.`);
         }
@@ -1132,7 +1176,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let lastScrollTop = 0;
     // header and navLinks are already defined at the top
-    const backToTopButton = document.getElementById('backToTop');
+    // const backToTopButton = document.getElementById('backToTop'); // Removed
 
     // Header hide/show on scroll
     // const headerBg = document.getElementById('header-bg'); // Element removed in new design
@@ -1154,48 +1198,19 @@ document.addEventListener('DOMContentLoaded', function () {
         // Debug: Update title to show we are scrolling
         // document.title = `Scroll: ${Math.round(scrollTop)}`;
 
-        if (scrollTop > lastScrollTop && scrollTop > headerHeight) {
-            if (header) {
-                console.log("Hiding header (DISABLED)");
+        if (header) {
+            if (scrollTop > lastScrollTop) {
                 // header.style.transform = 'translateY(-100%)'; // Disabled by user request
                 header.style.transform = 'translateY(0)';
-            }
-        } else {
-            if (header) {
-                console.log("Showing header");
+            } else {
                 header.style.transform = 'translateY(0)';
             }
-        }
-        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
+        } // ensure we don't crash if header variable is missing
 
-        // Back to top button
-        if (scrollTop > 300) {
-            backToTopButton.classList.remove('hidden');
-        } else {
-            backToTopButton.classList.add('hidden');
-        }
-    });
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
 
-    // Back to top button smoother scroll
-    backToTopButton.addEventListener('click', function (e) {
-        e.preventDefault();
-
-        const scrollDuration = 800; // in milliseconds
-        const start = window.scrollY;
-        const startTime = performance.now();
-
-        function scrollStep(currentTime) {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / scrollDuration, 1); // from 0 to 1
-            const ease = 1 - Math.pow(1 - progress, 3); // ease-out cubic
-            window.scrollTo(0, start * (1 - ease));
-
-            if (progress < 1) {
-                requestAnimationFrame(scrollStep);
-            }
-        }
-
-        requestAnimationFrame(scrollStep);
+        // Back to top button // Removed
+        // (End of scroll listener logic)
     });
 
 
@@ -1539,8 +1554,16 @@ document.addEventListener('DOMContentLoaded', function () {
         tabs.forEach((tab) => {
             tab.addEventListener("click", () => {
                 console.log("Tab clicked:", tab.getAttribute("data-category"));
-                tabs.forEach((btn) => btn.classList.remove("active"));
-                tab.classList.add("active");
+
+                // 1. Reset ALL tabs to inactive style
+                tabs.forEach((btn) => {
+                    btn.classList.remove("bg-indigo-600", "text-white");
+                    btn.classList.add("bg-white", "text-indigo-600");
+                });
+
+                // 2. Set CURRENT tab to active style
+                tab.classList.remove("bg-white", "text-indigo-600");
+                tab.classList.add("bg-indigo-600", "text-white");
 
                 const category = tab.getAttribute("data-category");
                 updateCarousel(category);
@@ -1548,18 +1571,17 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
 
-        // Initial load
-        window.addEventListener("DOMContentLoaded", () => {
-            if (tabs.length > 0) {
+        // Initial load - Force click the first tab or the explicit Charity tab
+        // We use a small timeout to ensure the DOM is fully ready if script runs early
+        setTimeout(() => {
+            // Find "Charity" tab specifically if possible, else first tab
+            const charityTab = Array.from(tabs).find(t => t.getAttribute('data-category') === 'charity');
+            if (charityTab) {
+                charityTab.click();
+            } else if (tabs.length > 0) {
                 tabs[0].click();
             }
-        });
-        // Also trigger immediately in case DOMContentLoaded already fired
-        if (tabs.length > 0) {
-            // Check if we need to initialize active state
-            const activeTab = document.querySelector(".event-tab.active") || tabs[0];
-            activeTab.click();
-        }
+        }, 100);
 
         // Modal logic
         function openModal(index) {
@@ -1727,23 +1749,65 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // ========== Floating Connect Button Logic ==========
-    const floatingBtn = document.getElementById("floatingConnectBtn");
-    const floatingJoinBtn = document.getElementById("floatingJoinBtn");
+    // ========== Floating Action Menu Logic ==========
+    const floatingWrapper = document.getElementById("floatingWrapper");
+    const floatingToggle = document.getElementById("floatingToggle");
+    const floatingMenu = document.getElementById("floatingMenu");
+    const floatingToggleIcon = document.getElementById("floatingToggleIcon");
 
-    function toggleFloatingButton(btn) {
-        if (!btn) return;
-        if (window.scrollY > 300) {
-            btn.classList.remove("opacity-0", "translate-y-10", "pointer-events-none");
+    // Scroll Visibility (Applied to the Wrapper)
+    function toggleFloatingWrapper() {
+        if (!floatingWrapper) return;
+
+        // If set to always visible (e.g., on contact page), skip hiding logic
+        const isAlwaysVisible = floatingWrapper.getAttribute("data-always-visible") === "true";
+
+        if (isAlwaysVisible || window.scrollY > 300) {
+            // Only toggle visibility, keep wrapper pointer-events-none so it doesn't block clicks
+            floatingWrapper.classList.remove("opacity-0", "translate-y-10");
         } else {
-            btn.classList.add("opacity-0", "translate-y-10", "pointer-events-none");
+            floatingWrapper.classList.add("opacity-0", "translate-y-10");
+            // Also close menu when hiding
+            if (floatingMenu) {
+                floatingMenu.classList.add("opacity-0", "translate-y-4", "scale-95", "pointer-events-none");
+                floatingMenu.classList.remove("pointer-events-auto");
+                if (floatingToggleIcon) floatingToggleIcon.classList.remove("rotate-45");
+            }
         }
     }
 
-    if (floatingBtn || floatingJoinBtn) {
-        window.addEventListener("scroll", () => {
-            toggleFloatingButton(floatingBtn);
-            toggleFloatingButton(floatingJoinBtn);
-        });
+    if (floatingWrapper) {
+        window.addEventListener("scroll", toggleFloatingWrapper);
     }
+
+    // Toggle Click Logic (Mobile)
+    // Toggle Click Logic (Mobile) - Global Function for Robustness
+    window.toggleMobileMenu = function () {
+        console.log("Global Toggle Fired");
+
+        // Ensure elements exist
+        const menu = document.getElementById("floatingMenu");
+        const icon = document.getElementById("floatingToggleIcon");
+
+        if (!menu || !icon) {
+            console.error("Menu or Icon not found in toggle function");
+            return;
+        }
+
+        const isHidden = menu.classList.contains("opacity-0");
+
+        if (isHidden) {
+            // Expanding: Show menu
+            console.log("Opening Menu");
+            menu.classList.remove("opacity-0", "translate-y-4", "scale-95", "pointer-events-none");
+            menu.classList.add("pointer-events-auto");
+            icon.classList.add("rotate-45");
+        } else {
+            // Collapsing: Hide menu
+            console.log("Closing Menu");
+            menu.classList.add("opacity-0", "translate-y-4", "scale-95", "pointer-events-none");
+            menu.classList.remove("pointer-events-auto");
+            icon.classList.remove("rotate-45");
+        }
+    };
 });

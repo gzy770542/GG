@@ -167,7 +167,7 @@
         </a>
       </div>
 
-      <nav class="flex-1 flex justify-center mobile-hidden md:flex md:justify-center absolute 
+      <nav class="flex-1 flex justify-center md:flex md:justify-center absolute 
        md:relative top-full left-0 right-0 bg-white hidden flex-col items-center 
        shadow-[0_2px_8px_rgba(0,0,0,0.1)] md:shadow-none">
 
@@ -183,15 +183,7 @@
             </a>
           </li>
 
-          <li class="w-full md:w-auto text-center md:text-left">
-            <a href="#stories" class="nav-link no-underline font-sans text-[16px] text-[#333] font-normal 
-              px-3.5 py-2 rounded-lg transition-all duration-300 ease-in-out 
-              hover:bg-[#e0f0ff] hover:text-[#0073e6] active:bg-[#e0f0ff] 
-              active:text-[#0073e6] block w-full md:inline py-3 md:py-2 
-              text-center md:text-left rounded-none md:rounded-lg lg:hidden md:block" data-i18n="nav_charity">
-              Charity
-            </a>
-          </li>
+
 
           <li class="w-full md:w-auto text-center md:text-left">
             <a href="#stories" class="nav-link no-underline font-sans text-[16px] text-[#333] font-normal 
@@ -269,7 +261,7 @@
 
       <div class="ml-auto flex items-center gap-3">
         <div class="font-roboto relative mobile-middle">
-          <button class="bg-transparent border-0 p-0 cursor-pointer">
+          <button class="bg-transparent border-0 p-0 cursor-pointer" onclick="toggleLanguageMenu(event)">
             <div class="flex items-center gap-2 px-4 py-2.5 bg-white 
               outline outline-1 outline-gray-300 rounded-2xl 
               cursor-pointer transition-all duration-300 ease-in-out 
@@ -282,23 +274,24 @@
 
           </button>
 
-          <ul class="absolute top-[110%] right-0 bg-white rounded-md border 
+          <ul id="languageDropdown" class="absolute top-[110%] right-0 bg-white rounded-md border 
             border-gray-300 shadow-lg list-none py-1.5 min-w-[100px] 
             hidden z-[1000] md:right-0 md:left-auto md:transform-none 
             left-1/2 transform -translate-x-1/2 top-[calc(100%+6px)]">
             <li class="px-4 py-2 cursor-pointer text-sm text-left 
-              transition-colors duration-200 hover:bg-gray-100" data-lang="en">
+              transition-colors duration-200 hover:bg-gray-100" onclick="switchLanguage('en', event)">
               EN
             </li>
 
             <li class="px-4 py-2 cursor-pointer text-sm text-left 
-              transition-colors duration-200 hover:bg-gray-100" data-lang="zh">
+              transition-colors duration-200 hover:bg-gray-100" onclick="switchLanguage('zh', event)">
               ZH
             </li>
           </ul>
         </div>
 
-        <div class="hamburger hidden flex-col justify-center gap-[5px] cursor-pointer w-[30px] h-[30px] md:hidden">
+        <div class="hamburger flex flex-col justify-center gap-[5px] cursor-pointer w-[30px] h-[30px] md:hidden"
+          onclick="toggleHamburgerMenu(event)">
           <span class="h-[3px] bg-[#333] rounded-[2px] transition duration-300 ease-in-out"></span>
           <span class="h-[3px] bg-[#333] rounded-[2px] transition duration-300 ease-in-out"></span>
           <span class="h-[3px] bg-[#333] rounded-[2px] transition duration-300 ease-in-out"></span>
@@ -441,21 +434,22 @@
 
       <!-- Premium Slider Container -->
       <div id="wishSlider"
-        class="relative w-full h-auto md:h-[600px] bg-[#f5f5f5] rounded-[30px] overflow-hidden shadow-2xl flex flex-col-reverse md:flex-row group">
+        class="relative w-full h-auto md:h-[600px] bg-[#f5f5f5] rounded-[20px] md:rounded-[30px] overflow-hidden shadow-2xl flex flex-col-reverse md:flex-row group">
 
         <div
-          class="w-full md:w-[45%] p-8 md:pt-8 md:px-12 md:pb-24 flex flex-col bg-white/90 backdrop-blur-sm z-10 relative">
+          class="w-full md:w-[45%] p-6 md:pt-8 md:px-12 md:pb-24 flex flex-col bg-white/90 backdrop-blur-sm z-10 relative">
 
           <div class="mb-2">
-            <span class="inline-block px-3 py-1 bg-[#FE435E]/10 text-[#FE435E] rounded-full text-sm font-bold mb-2">
+            <span
+              class="inline-block px-3 py-1 bg-[#FE435E]/10 text-[#FE435E] rounded-full text-xs md:text-sm font-bold mb-2">
               Community Impact
             </span>
             <h3
-              class="text-3xl md:text-4xl font-bold text-[#1a1a1a] mb-2 transition-all duration-500 min-h-[auto] md:min-h-[7.5rem] leading-tight"
+              class="text-2xl md:text-4xl font-bold text-[#1a1a1a] mb-2 transition-all duration-500 min-h-[auto] md:min-h-[7.5rem] leading-tight"
               id="sliderTitle">
               Wish for Good
             </h3>
-            <p class="text-[#666] text-lg font-medium transition-all duration-500 min-h-[auto] md:min-h-[5rem]"
+            <p class="text-[#666] text-base md:text-lg font-medium transition-all duration-500 min-h-[auto] md:min-h-[5rem]"
               id="sliderDesc">
               Making a Positive Impact Together
             </p>
@@ -477,19 +471,19 @@
           <!-- Controls -->
           <div class="flex items-center justify-between mt-auto">
             <button id="wishSliderMainBtn"
-              class="z-50 relative pointer-events-auto px-8 py-3 bg-[#FE435E] text-white rounded-full font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all flex items-center gap-2">
+              class="z-50 relative pointer-events-auto px-6 py-2 md:px-8 md:py-3 bg-[#FE435E] text-white rounded-full font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all flex items-center gap-2 text-sm md:text-base">
               <span class="pb-[2px]" data-i18n="stories.know_more">Know More</span>
               <!-- <i class="fas fa-arrow-right"></i> -->
             </button>
 
             <div class="flex gap-2">
               <button id="prevSlide"
-                class="w-10 h-10 rounded-full border border-[#ddd] flex items-center justify-center hover:bg-[#1a1a1a] hover:text-white transition-all">
-                <i class="fas fa-chevron-left text-sm"></i>
+                class="w-8 h-8 md:w-10 md:h-10 rounded-full border border-[#ddd] flex items-center justify-center hover:bg-[#1a1a1a] hover:text-white transition-all">
+                <i class="fas fa-chevron-left text-xs md:text-sm"></i>
               </button>
               <button id="nextSlide"
-                class="w-10 h-10 rounded-full border border-[#ddd] flex items-center justify-center hover:bg-[#1a1a1a] hover:text-white transition-all">
-                <i class="fas fa-chevron-right text-sm"></i>
+                class="w-8 h-8 md:w-10 md:h-10 rounded-full border border-[#ddd] flex items-center justify-center hover:bg-[#1a1a1a] hover:text-white transition-all">
+                <i class="fas fa-chevron-right text-xs md:text-sm"></i>
               </button>
             </div>
           </div>
@@ -497,7 +491,7 @@
         </div>
 
         <!-- Right Side: Image Area -->
-        <div class="w-full md:w-[60%] h-[400px] md:h-full relative overflow-hidden bg-gray-200">
+        <div class="w-full md:w-[60%] h-[250px] md:h-full relative overflow-hidden bg-gray-200">
           <img id="sliderImage" src="" alt="Wish for Good"
             class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
           <div class="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent pointer-events-none"></div>
@@ -688,24 +682,25 @@
       <h2 class="event-heading text-center text-[2.5rem] font-bold text-[#111] mb-[50px]" data-i18n="events.title">
         Life at Wish Group
       </h2>
-      <div class="event-tabs flex justify-center gap-[15px] flex-wrap mb-[100px]">
-        <button class="event-tab px-5 py-2.5 rounded-[25px] 
+      <div
+        class="event-tabs grid grid-cols-2 gap-3 w-full md:w-auto md:flex md:justify-center md:gap-[15px] md:flex-wrap mb-[50px] md:mb-[100px]">
+        <button class="event-tab w-full md:w-auto px-5 py-2.5 rounded-[25px] 
         bg-white text-indigo-600 font-bold cursor-pointer transition duration-300 
         hover:bg-indigo-600 hover:text-white" data-category="charity" data-i18n="events.tab_charity">
           Charity
         </button>
-        <button class="event-tab px-5 py-2.5 rounded-[25px] 
+        <button class="event-tab w-full md:w-auto px-5 py-2.5 rounded-[25px] 
         bg-white text-indigo-600 font-bold cursor-pointer transition 
         duration-300 hover:bg-indigo-600 hover:text-white" data-category="celebration"
           data-i18n="events.tab_celebration">
           Celebration
         </button>
-        <button class="event-tab px-5 py-2.5 rounded-[25px] 
+        <button class="event-tab w-full md:w-auto px-5 py-2.5 rounded-[25px] 
         bg-white text-indigo-600 font-bold cursor-pointer transition 
         duration-300 hover:bg-indigo-600 hover:text-white" data-category="team" data-i18n="events.tab_team">
           Team Building
         </button>
-        <button class="event-tab px-5 py-2.5 rounded-[25px] 
+        <button class="event-tab w-full md:w-auto px-5 py-2.5 rounded-[25px] 
         bg-white text-indigo-600 font-bold cursor-pointer transition duration-300 
         hover:bg-indigo-600 hover:text-white" data-category="training" data-i18n="events.tab_training">
           Training
@@ -833,7 +828,7 @@
   <!-- Unified Connect Section (Contact + Join Us) -->
   <section id="contact" class="py-[60px] bg-gradient-to-b from-sky-50 to-slate-50 h-scroll-anchor scroll-mt-[100px]">
     <div class="container max-w-[1200px] mx-auto px-4">
-      <div class="text-center mb-8">
+      <div class="text-center mb-24">
         <h2 class="text-[2.2rem] md:text-[2.8rem] text-[#1a1a1a] font-bold mb-3" data-i18n="join.title_page">Join Our
           Company
         </h2>
@@ -1051,40 +1046,54 @@
   </section>
 
   <footer id="find-us" class="site-footer bg-slate-50 text-slate-800 py-[100px] px-[5%]">
-    <div class="footer-container max-w-[1200px] mx-auto flex flex-wrap 
-      justify-center gap-20 md:flex-row flex-col md:pr-[100px]">
+    <div class="footer-container max-w-[1200px] mx-auto flex flex-col items-center gap-10">
 
-      <!-- Left Side -->
-      <div class="footer-left w-full md:w-auto flex flex-col gap-10 md:mr-[60px]">
-        <!-- Address -->
-        <div class="flex items-start gap-4">
-          <img src="images/map.webp" alt="Address" class="w-[24px] h-[24px] mt-1 object-contain grayscale opacity-80" />
-          <p class="text-[1rem] leading-[1.6] text-slate-700" data-i18n="footer.address">
-            32A-1, Jalan Nautika B U20/B,<br />
-            Pusat Komersial TSB,<br />
-            47000 Shah Alam, Selangor
-          </p>
+      <!-- Top Row: Address & Map -->
+      <div class="w-full flex flex-wrap justify-center gap-10 lg:gap-20 md:flex-row flex-col">
+        <!-- Address Section -->
+        <div
+          class="footer-left w-full md:w-auto flex flex-col gap-10 items-center md:items-start text-center md:text-left">
+          <!-- Address -->
+          <div class="flex items-start gap-4 text-left">
+            <img src="images/map.webp" alt="Address"
+              class="w-[24px] h-[24px] mt-1 object-contain grayscale opacity-80" />
+            <p class="text-[1rem] leading-[1.6] text-slate-700" data-i18n="footer.address">
+              32A-1, Jalan Nautika B U20/B,<br />
+              Pusat Komersial TSB,<br />
+              47000 Shah Alam, Selangor
+            </p>
+          </div>
+
+          <!-- Phone -->
+          <div class="flex items-center gap-4">
+            <img src="images/whatsapp.webp" alt="Phone" class="w-[24px] h-[24px] object-contain grayscale opacity-80" />
+            <a href="tel:+60123270392" class="text-[1rem] text-slate-700 no-underline hover:text-slate-900">
+              +60 12-327 0392
+            </a>
+          </div>
+
+          <!-- Email -->
+          <div class="flex items-center gap-4">
+            <img src="images/mail.webp" alt="Email" class="w-[24px] h-[24px] object-contain grayscale opacity-80" />
+            <a href="mailto:info@wishgroup.com" class="text-[1rem] text-slate-700 no-underline hover:text-slate-900">
+              info@wishgroup.com
+            </a>
+          </div>
         </div>
 
-        <!-- Phone -->
-        <div class="flex items-center gap-4">
-          <img src="images/whatsapp.webp" alt="Phone" class="w-[24px] h-[24px] object-contain grayscale opacity-80" />
-          <a href="tel:+60123270392" class="text-[1rem] text-slate-700 no-underline hover:text-slate-900">
-            +60 12-327 0392
-          </a>
-        </div>
-
-        <!-- Email -->
-        <div class="flex items-center gap-4">
-          <img src="images/mail.webp" alt="Email" class="w-[24px] h-[24px] object-contain grayscale opacity-80" />
-          <a href="mailto:info@wishgroup.com" class="text-[1rem] text-slate-700 no-underline hover:text-slate-900">
-            info@wishgroup.com
-          </a>
+        <!-- Map Section -->
+        <div
+          class="footer-center w-full md:w-[400px] h-[250px] rounded-xl overflow-hidden shadow-lg border border-slate-200 mx-auto md:mx-0">
+          <iframe width="100%" height="100%" frameborder="0" style="border:0"
+            src="https://maps.google.com/maps?q=Wish+Group+Resources,32A-1,Jalan+Nautika+B+U20/B,Pusat+Komersial+TSB,47000+Shah+Alam,Selangor&t=&z=15&ie=UTF8&iwloc=&output=embed"
+            allowfullscreen>
+          </iframe>
         </div>
       </div>
 
-      <!-- Right Side -->
-      <div class="footer-right w-full md:w-auto flex flex-col gap-6 items-center justify-center md:ml-[60px] mb-10">
+      <!-- Bottom Row: Follow Us -->
+      <div
+        class="footer-right w-full flex flex-col gap-6 items-center justify-center mt-4 border-t border-slate-200 pt-10 w-full max-w-[800px]">
         <h3 class="text-slate-900 text-[1.5rem] font-bold tracking-wide uppercase" data-i18n="footer.follow_us">
           FOLLOW US
         </h3>
@@ -1176,21 +1185,44 @@
     </div>
   </div>
 
-  <!-- Floating "Join Us" Button -->
-  <!-- Positioned above Contact Us -->
-  <a id="floatingJoinBtn" href="#contact" data-form-state="join"
-    class="fixed bottom-[160px] right-2 md:right-8 z-[9900] flex items-center gap-2 bg-gradient-to-r from-orange-500 to-red-500 text-white px-5 py-3 rounded-full shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 group opacity-0 translate-y-10 pointer-events-none">
-    <i class="fa-solid fa-user-plus text-xl group-hover:rotate-12 transition-transform"></i>
-    <span class="font-bold text-sm tracking-wide" data-i18n="nav_join_us">Join Us</span>
-  </a>
+  <!-- Floating Action Menu (Mobile Collapsible, Desktop Always Visible) -->
+  <div id="floatingWrapper"
+    class="fixed bottom-6 right-4 md:bottom-8 md:right-8 z-[9900] flex flex-col items-end gap-3 pointer-events-none opacity-0 translate-y-10 transition-all duration-300">
 
-  <!-- Floating "Let's Connect" Button -->
-  <!-- Positioned above Back-to-Top (approx bottom-24) -->
-  <a id="floatingConnectBtn" href="contact.html"
-    class="fixed bottom-[90px] right-2 md:right-8 z-[9900] flex items-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-5 py-3 rounded-full shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 group opacity-0 translate-y-10 pointer-events-none">
-    <i class="fa-solid fa-comments text-xl group-hover:rotate-12 transition-transform"></i>
-    <span class="font-bold text-sm tracking-wide" data-i18n="nav_contact">Contact Us</span>
-  </a>
+    <!-- Menu Items -->
+    <div id="floatingMenu"
+      class="flex flex-col items-end gap-3 transition-all duration-300 opacity-0 translate-y-4 scale-95 pointer-events-none md:opacity-100 md:translate-y-0 md:scale-100 md:pointer-events-auto">
+
+      <!-- Back to Top (Topmost) -->
+      <a href="#top" id="backToTop"
+        class="flex items-center justify-center w-12 h-12 bg-gray-800 text-white rounded-full shadow-lg hover:bg-gray-700 transition-all duration-300 group">
+        <i class="fas fa-arrow-up text-lg group-hover:-translate-y-1 transition-transform"></i>
+      </a>
+
+      <!-- Join Us -->
+      <a id="floatingJoinBtn" href="#contact" data-form-state="join"
+        class="flex items-center gap-2 bg-gradient-to-r from-orange-500 to-red-500 text-white px-5 py-3 rounded-full shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 group">
+        <i class="fa-solid fa-user-plus text-xl group-hover:rotate-12 transition-transform"></i>
+        <span class="font-bold text-sm tracking-wide" data-i18n="nav_join_us">Join Us</span>
+      </a>
+
+      <!-- Contact Us -->
+      <a id="floatingConnectBtn" href="contact.html"
+        class="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-5 py-3 rounded-full shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 group">
+        <i class="fa-solid fa-comments text-xl group-hover:rotate-12 transition-transform"></i>
+        <span class="font-bold text-sm tracking-wide" data-i18n="nav_contact">Contact Us</span>
+      </a>
+
+    </div>
+
+    <!-- Mobile Toggle Button (Hidden on Desktop) -->
+    <button id="floatingToggle" onclick="window.toggleMobileMenu()"
+      class="md:hidden pointer-events-auto w-14 h-14 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full shadow-xl flex items-center justify-center text-white transition-all duration-300 hover:scale-110 active:scale-95 relative z-[10000]">
+      <i class="fa-solid fa-plus text-2xl transition-transform duration-300 pointer-events-none"
+        id="floatingToggleIcon"></i>
+    </button>
+
+  </div>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="index.js?v=1"></script>

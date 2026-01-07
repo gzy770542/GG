@@ -108,10 +108,15 @@ document.addEventListener('DOMContentLoaded', function () {
     // Add click event for navigation links to ensure smooth scroll and active state
     navLinks.forEach(link => {
         link.addEventListener('click', function (e) {
-            e.preventDefault();
-            console.log("Nav link clicked:", this.getAttribute('href'));
-
             const targetId = this.getAttribute('href');
+
+            // Only intercept internal hash links
+            if (!targetId || !targetId.startsWith('#')) {
+                return; // Let default navigation happen
+            }
+
+            e.preventDefault();
+            console.log("Nav link clicked:", targetId);
             const formState = this.getAttribute('data-form-state'); // Join or Contact
 
             if (targetId === '#top') {
@@ -210,7 +215,9 @@ document.addEventListener('DOMContentLoaded', function () {
             "nav_moments": "Culture",
             "nav_testimonials": "Testimonials",
             "nav_contact": "Contact Us",
+            "nav_wish_for_good": "Wish for Good",
             "nav_careers": "Careers",
+            "nav_join_us": "Join Us",
             "nav_find_us": "Find Us",
             "hero": {
                 "title": "Your One-Stop Financial Partner",
@@ -219,7 +226,7 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             "about": {
                 "title": "About Us",
-                "intro_text": "Established in 2013 and backed by years of collective professional expertise, Wish Group Resources is Malaysia’s leading \"One-Stop Financial Solution\" provider. We have empowered thousands of Malaysians through our comprehensive suite of integrated services—ranging from banking and finance to risk management, legal and tax consultancy, investment, and estate planning. Our mission is to instill confidence in our clients, enabling them to invest wisely and secure their wealth for generations to come.",
+                "intro_text": "Established in 2013, Wish Group Resources is Malaysia’s leading one-stop financial hub. We provide expert banking, tax, investment, and estate planning services to help thousands of clients grow and secure their wealth for future generations.",
                 "mission_title": "Our Mission",
                 "mission_text": "To provide peace of mind through comprehensive, personalized financial and insurance planning, build long-term trust with clients, and uphold the highest levels of professionalism and ethical standards.",
                 "vision_title": "Our Vision",
@@ -342,13 +349,34 @@ document.addEventListener('DOMContentLoaded', function () {
                 "story6": {
                     "text": "Story 6 text..."
                 },
+                "subtitle_page": "We're looking for like-minded partners. We're not just hiring employees; we're looking for future industry leaders.",
+                "culture_headline": "At Wish Group, we don't just hire employees; we seek future industry leaders.",
+                "culture_p1": "We provide not just a job, but a platform where you can realize your potential and build professional dignity. Here, we advocate for youth, vitality, and innovation, and are committed to bringing stability to every family through professional financial planning.",
+                "culture_p2": "If you are passionate about the financial industry and eager to grow in a transparent and fair environment, we look forward to having you join us.",
+                "why_title": "Why Choose Wish Group?",
+                "pillar1_title": "Cross-domain Learning",
+                "pillar1_desc": "Exposure to banking, taxation, law, and insurance financial solutions to cultivate composite talents.",
+                "pillar2_title": "Mentorship Culture",
+                "pillar2_desc": "Comprehensive Mentorship system to guide new joiners.",
+                "pillar3_title": "Social Impact",
+                "pillar3_desc": "Participate in 'Wish for Good' charity projects, giving back to society.",
+                "growth_title": "Growth Expectations",
+                "growth_stage1_title": "Stage 1: Introduction (Intern/Junior)",
+                "growth_stage1_desc": "Mentorship led, learning financial foundations and compliance.",
+                "growth_stage2_title": "Stage 2: Independent Consultant (Senior Consultant)",
+                "growth_stage2_desc": "Mastering asset allocation, beginning to independently face high-end clients.",
+                "growth_stage3_title": "Stage 3: Team Leader",
+                "growth_stage3_desc": "Participating in company decisions, leading your own team.",
+                "growth_stage4_title": "Ultimate Goal: Partner",
+                "growth_stage4_desc": "Co-managing the brand, achieving career peak.",
                 "title": "Join Us",
-                "description": "Become part of our team and build your future with us!",
+                "description": "Let us see your potential. Please submit your resume or portfolio as an attachment.",
                 "form_title": "Send Us Your CV",
                 "message_placeholder": "Any Message To Our Company",
                 "cv_label": "Attach your CV Here",
                 "choose_file": "Choose A File",
-                "no_file_chosen": "No File Chosen"
+                "no_file_chosen": "No File Chosen",
+                "position_default": "Select Position"
             },
             "footer": {
                 "address": "32A-1, Jalan Nautika B U20/B,<br />Pusat Komersial TSB,<br />47000 Shah Alam, Selangor",
@@ -364,7 +392,9 @@ document.addEventListener('DOMContentLoaded', function () {
             "nav_moments": "文化",
             "nav_testimonials": "客户评价",
             "nav_contact": "联系我们",
+            "nav_wish_for_good": "Wish for Good",
             "nav_careers": "职业发展",
+            "nav_join_us": "加入我们",
             "nav_find_us": "找到我们",
             "hero": {
                 "title": "您的一站式金融合作伙伴",
@@ -382,7 +412,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 "values_text_paragraph": "我们是一家位于马来西亚的年轻金融机构，致力于成为客户和未来领袖的首选。"
             },
             "events": {
-                "title": "Wish Group 的生活",
+                "title": "Life at Wish Group",
                 "tab_celebration": "庆典活动",
                 "tab_team": "团队建设",
                 "tab_training": "培训",
@@ -497,13 +527,34 @@ document.addEventListener('DOMContentLoaded', function () {
                 "story6": {
                     "text": "故事6文本..."
                 },
+                "subtitle_page": "我们正在寻找志同道合的合作伙伴。我们不只是招聘员工；我们在寻找未来的行业领袖。",
+                "culture_headline": "在 Wish Group，我们不只是在招聘员工，而是在寻找未来的行业领导者。",
+                "culture_p1": "我们提供的不只是一份工作，而是一个能让你发挥潜能、建立专业尊严的平台。在这里，我们崇尚年轻、活力与创新，并致力于通过专业的金融规划为每一个家庭带去安稳。",
+                "culture_p2": "如果你对金融行业充满热情，渴望在透明、公平的环境中成长，我们期待你的加入。",
+                "why_title": "为什么选择 Wish Group？",
+                "pillar1_title": "跨领域学习",
+                "pillar1_desc": "接触银行、税务、法律、保险等全方位金融方案，培养复合型人才。",
+                "pillar2_title": "导师文化",
+                "pillar2_desc": "完善的 Mentorship 制度，让新人不再迷茫。",
+                "pillar3_title": "社会影响力",
+                "pillar3_desc": "参与“Wish for Good”慈善项目，让工作不仅仅是为了赚钱，更是为了回馈。",
+                "growth_title": "成长预期",
+                "growth_stage1_title": "第 1 阶段：新人入职（Intern/Junior）",
+                "growth_stage1_desc": "专属导师带路，学习金融基础与合规。",
+                "growth_stage2_title": "第 2 阶段：独立顾问（Senior Consultant）",
+                "growth_stage2_desc": "掌握资产配置，开始独立面对高端客户。",
+                "growth_stage3_title": "第 3 阶段：团队领袖（Team Leader）",
+                "growth_stage3_desc": "参与公司决策，带领自己的团队。",
+                "growth_stage4_title": "终极目标：合作伙伴（Partner）",
+                "growth_stage4_desc": "共同经营品牌，实现事业巅峰。",
                 "title": "加入我们",
                 "description": "加入我们的团队，共创未来！",
                 "form_title": "发送您的简历",
                 "message_placeholder": "是否有任何信息要传达给本公司？",
                 "cv_label": "在此附上您的简历",
                 "choose_file": "选择文件",
-                "no_file_chosen": "未选择文件"
+                "no_file_chosen": "未选择文件",
+                "position_default": "选择职位"
             },
             "footer": {
                 "address": "32A-1, Jalan Nautika B U20/B,<br />Pusat Komersial TSB,<br />47000 Shah Alam, Selangor",
@@ -618,75 +669,125 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         ];
 
+        // --- REFACTORED TESTIMONIALS (Persistent DOM + View Transitions) ---
+
+        // 1. Init: Create DOM elements ONCE
         window.renderTestimonials = function () {
-            const mainContainer = document.getElementById("testimonialMain");
-            const listContainer = document.getElementById("testimonialList");
+            const grid = document.getElementById("testimonialGrid");
+            if (!grid) return;
 
-            // Safety check
-            if (!mainContainer || !listContainer) return;
+            // Check if already initialized (persistent DOM)
+            if (grid.children.length === testimonialsData.length) {
+                // Just update visuals
+                updateTestimonialsVisuals();
+                return;
+            }
 
-            // Clear containers
-            mainContainer.innerHTML = "";
-            listContainer.innerHTML = "";
+            grid.innerHTML = ""; // Clear existing
 
             testimonialsData.forEach((item, index) => {
-                if (index === window.activeTestimonialIndex) {
-                    // Render Large Card
-                    mainContainer.innerHTML = `
-                        <div class="bg-white rounded-[40px] p-8 md:p-12 mb-0 shadow-[0_10px_40px_rgba(0,0,0,0.04)] flex flex-col justify-between transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] h-full animate-fade-in cursor-default">
-                          <div>
-                            <div class="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-white shadow-lg mb-8 md:mb-12">
-                              <img class="w-full h-full object-cover object-top" src="${item.image}" alt="${item.name}" />
-                            </div>
-                            <h3 class="text-[1.8rem] md:text-[2.2rem] font-bold text-[#1a1a1a] leading-tight mb-8">
-                              ${item.text}
-                            </h3>
-                          </div>
-                          <div>
-                            <h4 class="text-[1.25rem] font-bold text-[#222] mb-1">${item.name}</h4>
-                            <p class="text-[1rem] text-[#888] font-medium">${item.role}</p>
-                          </div>
-                        </div>
-                     `;
+                const card = document.createElement('div');
+                card.id = `t-card-${index}`;
+                // Apply view-transition-name to ENABLE Magic Move
+                card.style.viewTransitionName = `testimonial-${index}`;
+
+                // Base classes
+                card.className = "bg-white rounded-[40px] shadow-[0_10px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] transition-shadow duration-300 overflow-hidden";
+
+                // Initial Visuals
+                grid.appendChild(card);
+            });
+
+            updateTestimonialsVisuals();
+        };
+
+        // 2. Update: Changes classes and innerHTML based on state
+        function updateTestimonialsVisuals() {
+            const activeIndex = window.activeTestimonialIndex;
+
+            testimonialsData.forEach((item, index) => {
+                const card = document.getElementById(`t-card-${index}`);
+                if (!card) return;
+
+                const isActive = index === activeIndex;
+                let layoutClasses = "";
+
+                // --- LAYOUT LOGIC (Same as before) ---
+                if (activeIndex === 0) {
+                    if (isActive) layoutClasses = "md:col-span-8 md:row-span-2";
+                    else layoutClasses = "md:col-span-4";
+                } else if (activeIndex === 1) {
+                    if (isActive) layoutClasses = "md:col-span-8 md:row-span-2";
+                    else layoutClasses = "md:col-span-4";
+                } else { // 2
+                    if (isActive) layoutClasses = "md:col-span-12";
+                    else layoutClasses = "md:col-span-6";
+                }
+
+                // Apply Classes (Preserve base styles)
+                card.className = `${layoutClasses} bg-white rounded-[40px] shadow-[0_10px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] transition-shadow duration-300 overflow-hidden h-full cursor-${isActive ? 'default' : 'pointer'}`;
+
+                // Apply Content
+                if (isActive) {
+                    // LARGE CONTENT
+                    card.innerHTML = `
+                <div class="flex flex-col justify-between h-full p-8 md:p-12 animate-fade-in">
+                  <div>
+                    <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-[#e0f0ff] flex items-center justify-center text-[#0073e6] font-bold text-2xl md:text-3xl shadow-lg mb-8 md:mb-12 border-2 border-white">
+                      ${item.name.charAt(0)}
+                    </div>
+                    <h3 class="text-[1.8rem] md:text-[2.2rem] font-bold text-[#1a1a1a] leading-tight mb-8">
+                      ${item.text}
+                    </h3>
+                  </div>
+                  <div>
+                    <h4 class="text-[1.25rem] font-bold text-[#222] mb-1">${item.name}</h4>
+                    <p class="text-[1rem] text-[#888] font-medium">${item.role}</p>
+                  </div>
+                </div>
+            `;
+                    card.onclick = null;
                 } else {
-                    // Render Small Card
-                    const smallCard = document.createElement("div");
-                    smallCard.className = "bg-white rounded-[32px] p-8 shadow-[0_10px_40px_rgba(0,0,0,0.04)] flex flex-col justify-between transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] relative overflow-hidden group cursor-pointer animate-fade-in flex-1";
-
-                    // Click handler to swap (Fixed Height)
-                    smallCard.onclick = () => {
-                        mainContainer.classList.add('animate-fade-out');
-                        listContainer.classList.add('animate-fade-out');
-
-                        setTimeout(() => {
-                            mainContainer.classList.remove('animate-fade-out');
-                            listContainer.classList.remove('animate-fade-out');
-                            window.activeTestimonialIndex = index;
-                            window.renderTestimonials();
-                        }, 300);
-                    };
-
-                    smallCard.innerHTML = `
-                        <div>
-                          <span class="text-[60px] leading-none text-gray-100 font-serif block mb-2 transition-colors group-hover:text-gray-200">“</span>
-                          <p class="text-[1.05rem] text-[#444] leading-relaxed mb-8 relative z-10">
-                            ${item.text}
-                          </p>
-                        </div>
-                        <div class="flex justify-end">
-                          <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-white shadow-md">
-                            <img class="w-full h-full object-cover object-center" src="${item.image}" alt="${item.name}" />
-                          </div>
-                        </div>
-                     `;
-                    listContainer.appendChild(smallCard);
+                    // SMALL CONTENT
+                    card.innerHTML = `
+                <div class="flex flex-col justify-between h-full p-8 animate-fade-in relative group">
+                  <div>
+                    <span class="text-[60px] leading-none text-gray-100 font-serif block mb-2 transition-colors group-hover:text-gray-200">“</span>
+                    <p class="text-[1.05rem] text-[#444] leading-relaxed mb-8 relative z-10">
+                      ${item.text}
+                    </p>
+                  </div>
+                  <div class="flex justify-end">
+                    <div class="w-14 h-14 rounded-full bg-[#e0f0ff] flex items-center justify-center text-[#0073e6] font-bold text-xl shadow-md border-2 border-white">
+                      ${item.name.charAt(0)}
+                    </div>
+                  </div>
+                </div>
+            `;
+                    card.onclick = () => swapTestimonial(index);
                 }
             });
+        }
+
+        // 3. Swap: Uses View Transitions API
+        window.swapTestimonial = function (index) {
+            if (index === window.activeTestimonialIndex) return;
+
+            // Use Native View Transition if available
+            if (document.startViewTransition) {
+                document.startViewTransition(() => {
+                    window.activeTestimonialIndex = index;
+                    updateTestimonialsVisuals();
+                });
+            } else {
+                // Fallback for older browsers
+                window.activeTestimonialIndex = index;
+                updateTestimonialsVisuals();
+            }
         };
 
         // Function to calculate and lock the height of the ENTIRE GRID
         window.setFixedTestimonialHeight = function () {
-            const grid = document.getElementById("testimonialGrid");
             if (!grid) return;
 
             const clone = grid.cloneNode(false);
@@ -700,67 +801,62 @@ document.addEventListener('DOMContentLoaded', function () {
 
             let maxGridHeight = 0;
 
-            testimonialsData.forEach((_, activeIndex) => {
-                let mainHTML = '';
-                let listHTML = '';
+            // Simulate All 3 DISTINCT Scenarios
+            [0, 1, 2].forEach(simulatedActiveIndex => {
+                let tempHtml = "";
+                testimonialsData.forEach((item, index) => {
+                    const isActive = index === simulatedActiveIndex;
+                    let classes = "";
 
-                testimonialsData.forEach((item, idx) => {
-                    if (idx === activeIndex) {
-                        mainHTML = `
-                            <div class="md:col-span-8 bg-white rounded-[40px] p-8 md:p-12">
-                              <div>
-                                <div class="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-white shadow-lg mb-8 md:mb-12">
-                                  <img class="w-full h-full object-cover object-top" src="${item.image}" />
-                                </div>
-                                <h3 class="text-[1.8rem] md:text-[2.2rem] font-bold text-[#1a1a1a] leading-tight mb-8">
-                                  ${item.text}
-                                </h3>
-                              </div>
-                              <div>
-                                <h4 class="text-[1.25rem] font-bold text-[#222] mb-1">${item.name}</h4>
-                                <p class="text-[1rem] text-[#888] font-medium">${item.role}</p>
-                              </div>
-                            </div>
-                        `;
+                    if (simulatedActiveIndex === 0) {
+                        if (isActive) classes = "md:col-span-8 md:row-span-2";
+                        else classes = "md:col-span-4";
+                    } else if (simulatedActiveIndex === 1) {
+                        if (isActive) classes = "md:col-span-8 md:row-span-2";
+                        else classes = "md:col-span-4";
+                    } else { // 2
+                        if (isActive) classes = "md:col-span-12";
+                        else classes = "md:col-span-6";
+                    }
+
+                    if (isActive) {
+                        tempHtml += `
+                <div class="${classes} bg-white rounded-[40px] p-8 md:p-12 mb-0 h-full">
+                  <div class="h-[200px]"></div> <!-- Mock height content -->
+                  <h3>${item.text}</h3>
+                </div>
+            `;
                     } else {
-                        listHTML += `
-                           <div class="bg-white rounded-[32px] p-8 shadow-sm flex-1 flex flex-col justify-between">
-                             <div>
-                               <span class="text-[60px] leading-none text-gray-100 font-serif block mb-2">“</span>
-                               <p class="text-[1.05rem] text-[#444] leading-relaxed mb-8 relative z-10">
-                                 ${item.text}
-                               </p>
-                             </div>
-                             <div class="flex justify-end">
-                               <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-white shadow-md">
-                                 <img class="w-full h-full object-cover object-center" src="${item.image}" />
-                               </div>
-                             </div>
-                           </div>
-                        `;
+                        tempHtml += `
+                <div class="${classes} bg-white rounded-[32px] p-8 h-full">
+                  <p>${item.text}</p>
+                </div>
+            `;
                     }
                 });
 
-                clone.innerHTML = mainHTML + `<div class="md:col-span-4 flex flex-col gap-8 h-full">` + listHTML + `</div>`;
-                const scenarioHeight = clone.offsetHeight;
-                if (scenarioHeight > maxGridHeight) maxGridHeight = scenarioHeight;
+                clone.innerHTML = tempHtml;
+                const h = clone.offsetHeight;
+                if (h > maxGridHeight) maxGridHeight = h;
             });
 
+
             document.body.removeChild(clone);
-            // Add buffer as requested for safety
+            // Add buffer
             maxGridHeight += 50;
 
             if (maxGridHeight > 0) {
                 grid.style.minHeight = maxGridHeight + 'px';
             }
         };
-
         window.renderTestimonials();
         requestAnimationFrame(() => {
             window.setFixedTestimonialHeight();
+            if (window.setFixedWishSliderHeight) window.setFixedWishSliderHeight();
         });
         window.addEventListener('resize', () => {
             window.setFixedTestimonialHeight();
+            if (window.setFixedWishSliderHeight) window.setFixedWishSliderHeight();
         });
 
 
@@ -789,6 +885,57 @@ document.addEventListener('DOMContentLoaded', function () {
         let activeIndex = 0;
         const autoPlayDuration = 5000; // 5 seconds per slide
 
+
+
+
+        // --- NEW: Fix Wish Slider Height (Like Testimonials) ---
+        window.setFixedWishSliderHeight = function () {
+            const slider = document.getElementById("wishSlider");
+            const stories = window.wishStories;
+            if (!slider || !stories || stories.length === 0) return;
+
+            // Desktop: Reset and let CSS handle it (md:h-[600px])
+            if (window.innerWidth >= 768) {
+                slider.style.height = '';
+                slider.style.minHeight = '';
+                return;
+            }
+
+            // Mobile: Calculate and LOCK height
+            // Clone to measure max height
+            const clone = slider.cloneNode(true);
+            clone.id = ''; // Prevent duplicate ID
+            clone.style.visibility = 'hidden';
+            clone.style.position = 'absolute';
+            clone.style.width = slider.offsetWidth + 'px';
+            clone.style.height = 'auto'; // allow expansion for measurement
+            clone.style.transition = 'none';
+            clone.style.zIndex = '-9999';
+
+            document.body.appendChild(clone);
+
+            // Select elements inside clone
+            const cloneTitle = clone.querySelector("#sliderTitle");
+            const cloneDesc = clone.querySelector("#sliderDesc");
+
+            let maxH = 0;
+
+            stories.forEach(story => {
+                if (cloneTitle) cloneTitle.innerHTML = story.title;
+                if (cloneDesc) cloneDesc.innerHTML = story.desc;
+
+                const h = clone.offsetHeight;
+                if (h > maxH) maxH = h;
+            });
+
+            document.body.removeChild(clone);
+
+            if (maxH > 0) {
+                // Apply FIXED height + buffer to prevent any movement
+                slider.style.height = (maxH + 20) + 'px';
+                slider.style.minHeight = ''; // Clear minHeight to avoid conflicts
+            }
+        };
 
 
         function initSlider() {
@@ -1009,8 +1156,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (scrollTop > lastScrollTop && scrollTop > headerHeight) {
             if (header) {
-                console.log("Hiding header");
-                header.style.transform = 'translateY(-100%)';
+                console.log("Hiding header (DISABLED)");
+                // header.style.transform = 'translateY(-100%)'; // Disabled by user request
+                header.style.transform = 'translateY(0)';
             }
         } else {
             if (header) {
@@ -1578,4 +1726,24 @@ document.addEventListener('DOMContentLoaded', function () {
             window.closeWishStory();
         }
     });
+
+    // ========== Floating Connect Button Logic ==========
+    const floatingBtn = document.getElementById("floatingConnectBtn");
+    const floatingJoinBtn = document.getElementById("floatingJoinBtn");
+
+    function toggleFloatingButton(btn) {
+        if (!btn) return;
+        if (window.scrollY > 300) {
+            btn.classList.remove("opacity-0", "translate-y-10", "pointer-events-none");
+        } else {
+            btn.classList.add("opacity-0", "translate-y-10", "pointer-events-none");
+        }
+    }
+
+    if (floatingBtn || floatingJoinBtn) {
+        window.addEventListener("scroll", () => {
+            toggleFloatingButton(floatingBtn);
+            toggleFloatingButton(floatingJoinBtn);
+        });
+    }
 });

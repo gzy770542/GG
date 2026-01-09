@@ -1344,13 +1344,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-    // ========== CV Upload Functionality ==========
-    // We've changed this to target the unique ID "cvForm" which is actually "joinForm" in HTML
-    const joinForm = document.getElementById("joinForm");
-    const cvInput = document.getElementById("cv_upload");
-    const fileChosenSpan = document.getElementById("file-chosen");
+    // ========== CV Upload Functionality (Mobile & Desktop) ==========
 
-    // Success Modal Elements
+    // Global Success Modal Elements (Shared)
     const successModal = document.getElementById("successModal");
     const closeSuccessBtn = document.getElementById("closeSuccess");
     const successOkBtn = document.getElementById("successOkBtn");
@@ -1368,76 +1364,74 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // We'll check if the form exists before adding event listeners
-    if (joinForm && cvInput && fileChosenSpan) {
+    // Reusable setup function
+    function setupCVForm(formId, inputId, labelId) {
+        const joinForm = document.getElementById(formId);
+        const cvInput = document.getElementById(inputId);
+        const fileChosenSpan = document.getElementById(labelId);
 
-        // When a file is selected
-        cvInput.addEventListener("change", () => {
-            if (cvInput.files.length > 0) {
-                fileChosenSpan.textContent = cvInput.files[0].name;
-                fileChosenSpan.classList.remove("text-gray-500", "italic");
-                fileChosenSpan.classList.add("text-blue-600", "font-medium");
-                // Remove data-i18n attribute to prevent overwrite
-                fileChosenSpan.removeAttribute("data-i18n");
-            } else {
-                fileChosenSpan.textContent = "No File Chosen";
-                fileChosenSpan.classList.add("text-gray-500", "italic");
-                fileChosenSpan.classList.remove("text-blue-600", "font-medium");
-                fileChosenSpan.setAttribute("data-i18n", "join.no_file_chosen");
-                loadLanguage(currentLang);
-            }
-        });
-
-        // On form submit
-        joinForm.addEventListener("submit", function (e) {
-            e.preventDefault();
-
-            const file = cvInput.files[0];
-            // If file is mandatory, uncomment below. If optional, keep as is.
-            /* 
-            if (!file) {
-                alert("Please select a file to upload.");
-                return;
-            }
-            */
-
-            const formData = new FormData(joinForm);
-
-            // Real backend submission:
-            const submitBtn = joinForm.querySelector('button[type="submit"]');
-            const originalBtnText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Sending...';
-            submitBtn.disabled = true;
-
-            fetch("submit_cv.php", {
-                method: "POST",
-                body: formData,
-            })
-                .then(response => response.text())
-                .then(result => {
-                    // Show success modal
-                    if (successModal) {
-                        successModal.classList.remove("hidden");
-                        successModal.classList.add("flex");
-                    }
-                    joinForm.reset();
-                    // Reset file label
+        if (joinForm && cvInput && fileChosenSpan) {
+            // When a file is selected
+            cvInput.addEventListener("change", () => {
+                if (cvInput.files.length > 0) {
+                    fileChosenSpan.textContent = cvInput.files[0].name;
+                    fileChosenSpan.classList.remove("text-gray-500", "italic");
+                    fileChosenSpan.classList.add("text-blue-600", "font-medium");
+                    fileChosenSpan.removeAttribute("data-i18n");
+                } else {
                     fileChosenSpan.textContent = "No File Chosen";
                     fileChosenSpan.classList.add("text-gray-500", "italic");
                     fileChosenSpan.classList.remove("text-blue-600", "font-medium");
                     fileChosenSpan.setAttribute("data-i18n", "join.no_file_chosen");
                     loadLanguage(currentLang);
+                }
+            });
+
+            // On form submit
+            joinForm.addEventListener("submit", function (e) {
+                e.preventDefault();
+
+                const formData = new FormData(joinForm);
+
+                // Real backend submission:
+                const submitBtn = joinForm.querySelector('button[type="submit"]');
+                const originalBtnText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Sending...';
+                submitBtn.disabled = true;
+
+                fetch("submit_cv.php", {
+                    method: "POST",
+                    body: formData,
                 })
-                .catch(error => {
-                    console.error("Error:", error);
-                    alert("An error occurred. Please try again.");
-                })
-                .finally(() => {
-                    submitBtn.innerHTML = originalBtnText;
-                    submitBtn.disabled = false;
-                });
-        });
+                    .then(response => response.text())
+                    .then(result => {
+                        if (successModal) {
+                            successModal.classList.remove("hidden");
+                            successModal.classList.add("flex");
+                        }
+                        joinForm.reset();
+                        // Reset file label
+                        fileChosenSpan.textContent = "No File Chosen";
+                        fileChosenSpan.classList.add("text-gray-500", "italic");
+                        fileChosenSpan.classList.remove("text-blue-600", "font-medium");
+                        fileChosenSpan.setAttribute("data-i18n", "join.no_file_chosen");
+                        loadLanguage(currentLang);
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        alert("An error occurred. Please try again.");
+                    })
+                    .finally(() => {
+                        submitBtn.innerHTML = originalBtnText;
+                        submitBtn.disabled = false;
+                    });
+            });
+        }
     }
+
+    // Initialize both forms
+    setupCVForm("joinForm", "cv_upload", "file-chosen");              // Desktop
+    setupCVForm("joinFormMobile", "cv_upload_mobile", "file-chosen-mobile"); // Mobile
 
     // ========== Event Tab Functionality ==========
     const tabs = document.querySelectorAll(".event-tab");

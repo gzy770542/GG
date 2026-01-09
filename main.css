@@ -348,6 +348,23 @@ html {
   }
 }
 
-.animate-fade-out {
-  animation: fadeOut 0.3s ease-in forwards;
+/* Icon Rotation Animation (Spin 1.5s, Pause 4.5s = 6s Total) */
+@keyframes spin-pause {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  20% {
+    transform: rotate(360deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-pause {
+  display: inline-block;
+  animation: spin-pause 4s ease-in-out infinite;
+  transform-origin: center;
 }

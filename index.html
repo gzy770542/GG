@@ -16,7 +16,7 @@
   <meta property="og:title" content="Wish Group: Your Professional One-Stop High-End Financial Solution">
   <meta property="og:description"
     content="Expert banking, financial planning, legal advisory, and high-impact investment strategies tailored for your long-term wealth and success.">
-  <meta property="og:image" content="https://gzy770542.github.io/GG/images/wish-group-card1.jpg">
+  <meta property="og:image" content="https://gzy770542.github.io/GG/images/Preview.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:site_name" content="Wish Group">
@@ -27,7 +27,7 @@
   <meta name="twitter:title" content="Wish Group: Your Professional One-Stop High-End Financial Solution">
   <meta name="twitter:description"
     content="Expert banking, financial planning, legal advisory, and high-impact investment strategies tailored for your long-term wealth and success.">
-  <meta name="twitter:image" content="https://gzy770542.github.io/GG/images/wish-group-card1.jpg">
+  <meta name="twitter:image" content="https://gzy770542.github.io/GG/images/Preview.png">
   <meta name="twitter:image:width" content="1200">
   <meta name="twitter:image:height" content="630">
 
@@ -309,43 +309,79 @@
     ↑
   </a>
 
-  <section id="hero">
-    <div class="relative w-full min-h-screen flex items-center justify-center 
-      overflow-hidden z-0 bg-cover bg-center bg-no-repeat" style="background-image: url('images/IMAGE_1.webp');">
-      <div class="pointer-events-none absolute inset-0 bg-black/0 z-[2]"></div>
+  <section id="hero" class="relative w-full min-h-screen flex items-center bg-white overflow-hidden">
 
-      <div class="hero-overlay relative px-8 py-10 md:px-10 md:py-10 rounded-2xl 
-        text-center w-4/5 md:w-3/5 z-[3] bg-transparent text-white">
-        <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold font-arial 
-          text-white mb-8 text-center mx-auto w-full px-4" data-i18n="hero.title">
-          Your One-Stop Financial Partner
+    <!-- Right Side Image with Organic Wave Shape -->
+    <!-- The layout is: Image on right, White Overlay on Left overlapping it to create the shape -->
+    <div class="absolute top-0 right-0 w-full md:w-[60%] h-full z-[0]">
+
+      <!-- The Image -->
+      <div class="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style="background-image: url('images/hero_final.png');">
+      </div>
+
+      <!-- Overlay for contrast if needed -->
+      <div class="absolute inset-0 bg-black/5"></div>
+
+      <!-- The Wave Shape (White SVG Overlay on the Left of the Image) -->
+      <svg
+        class="absolute top-0 left-[-1px] h-full w-[150px] md:w-[300px] text-white fill-current z-10 block pointer-events-none transform -translate-x-[0%]"
+        preserveAspectRatio="none" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <!-- Smooth S-Curve / Wave Shape similar to generic organic themes -->
+        <!-- Starts at top-left (0,0), goes to (100,0), curves down to (0,100)? No. -->
+        <!-- We want WHITE to cover the generic rectangular edge. -->
+        <!-- So we draw the WHITE shape. -->
+        <!-- (0,0) to (100,0) [top edge] -> Curve down to (20,50) -> Curve out to (60,100) -> (0,100) -> Close -->
+        <path d="M 0 0 L 100 0 C 20 40 80 60 20 100 L 0 100 Z"></path>
+      </svg>
+    </div>
+
+    <!-- Left Side Content -->
+    <div class="container relative z-[2] px-[5%] md:px-[5%] pointer-events-none md:pointer-events-auto">
+      <div class="w-full md:w-1/2 flex flex-col items-start text-left pointer-events-auto mt-[80px] md:mt-0">
+
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-sans text-[#1a1a1a] mb-6 leading-tight"
+          data-i18n="hero.title">
+          Your One-Stop<br />
+          <span class="text-[#0073e6]">Financial Partner</span>
         </h1>
 
-        <p class="text-base sm:text-lg md:text-xl lg:text-2xl text-[#eeeeee] mb-0" data-i18n="hero.subtitle">
-          All-in-one solution for growth and protection under one roof
+        <p class="text-lg md:text-xl text-[#555] mb-10 max-w-[500px] leading-relaxed" data-i18n="hero.subtitle">
+          Expert banking, financial planning, legal advisory, and investment strategies tailored for your long-term
+          wealth.
         </p>
 
-        <div class="hero-buttons flex items-center justify-center gap-5 mt-16 flex-wrap">
-          <a href="contact.html" class="btn primary inline-block px-8 md:px-10 py-3 text-lg md:text-xl 
-            rounded-full bg-[#1A2B4C] text-white font-bold no-underline transition-colors 
-            duration-200 hover:bg-[#005bb5]" data-i18n="hero.getStarted">
+        <div class="hero-buttons flex items-center gap-5 flex-wrap">
+          <a href="contact.html" class="btn primary inline-block px-10 py-4 text-lg 
+            rounded-full bg-[#1A2B4C] text-white font-bold no-underline transition-all
+            duration-300 hover:bg-[#005bb5] hover:shadow-xl hover:-translate-y-1" data-i18n="hero.getStarted">
             Contact Us Today
           </a>
+          <a href="#about" class="btn secondary inline-block px-10 py-4 text-lg 
+            rounded-full bg-white text-[#1A2B4C] border border-[#1A2B4C] font-bold no-underline transition-all
+            duration-300 hover:bg-[#ebf5ff] hover:shadow-lg hover:-translate-y-1">
+            How it works?
+          </a>
         </div>
+
       </div>
     </div>
 
-    <a href="#about" class="absolute bottom-2.5 left-1/2 z-[2] 
-      inline-block -translate-x-1/2 no-underline pt-[70px]">
-      <span class="absolute top-0 left-1/2 w-6 h-6 -ml-3 border-l border-b 
-      border-white rotate-45 box-border animate-[sdb05_1.5s_infinite]"></span>
+    <!-- Scroll Down Indicator (Dark) -->
+    <a href="#about" class="absolute bottom-10 left-10 md:left-[5%] z-[2] 
+      inline-block no-underline hidden md:block">
+      <div class="flex items-center gap-2 text-[#888] hover:text-[#0073e6] transition-colors">
+        <span class="text-sm font-medium tracking-widest uppercase">Scroll</span>
+        <i class="fa-solid fa-arrow-down animate-bounce"></i>
+      </div>
     </a>
+
   </section>
 
-  <section id="about" class="about-section bg-gradient-to-b from-amber-50 to-orange-50 py-[100px] px-[5%]">
+  <section id="about" class="about-section bg-gradient-to-b from-amber-50 to-orange-50 py-[120px] px-[5%]">
     <div class="container max-w-[1200px] mx-auto p-0">
-      <div class="about-intro text-center mb-10 md:mb-[60px]">
-        <h2 class="text-[2rem] md:text-[2.5rem] mb-4 text-[#222] font-bold" data-i18n="about.title">
+      <div class="about-intro text-center mb-10 md:mb-[60px] flex flex-col gap-4 items-center">
+        <h2 class="text-[2rem] md:text-[2.5rem] text-[#222] font-bold" data-i18n="about.title">
           About Us
         </h2>
 
@@ -358,14 +394,14 @@
       </div>
 
       <!-- Timeline Container -->
-      <div class="relative max-w-4xl mx-auto mt-12 px-4">
+      <div class="relative max-w-4xl mx-auto mt-12 px-4 flex flex-col gap-12">
         <!-- Vertical Line -->
         <div
           class="absolute top-0 bottom-0 left-[2rem] md:left-[2.25rem] w-px bg-gradient-to-b from-blue-200 via-purple-200 to-transparent">
         </div>
 
         <!-- Item 1: Mission -->
-        <div class="relative flex items-start mb-12 group">
+        <div class="relative flex items-start group">
           <!-- Icon -->
           <div
             class="flex-shrink-0 w-16 h-16 md:w-20 md:h-20 bg-white rounded-full border-4 border-blue-50 shadow-md flex items-center justify-center z-10 transition-transform duration-300 group-hover:scale-110">
@@ -386,7 +422,7 @@
         </div>
 
         <!-- Item 2: Vision -->
-        <div class="relative flex items-start mb-12 group">
+        <div class="relative flex items-start group">
           <!-- Icon -->
           <div
             class="flex-shrink-0 w-16 h-16 md:w-20 md:h-20 bg-white rounded-full border-4 border-purple-50 shadow-md flex items-center justify-center z-10 transition-transform duration-300 group-hover:scale-110">
@@ -426,9 +462,9 @@
       </div>
   </section>
 
-  <section id="stories" class="stories-section py-[80px] px-[5%] bg-gradient-to-b from-orange-50 to-rose-50">
-    <div class="container max-w-[1200px] mx-auto">
-      <h2 class="section-title text-center text-[2.5rem] mb-[50px] font-bold text-[#1a1a1a]" data-i18n="stories.title">
+  <section id="stories" class="stories-section py-[120px] px-[5%] bg-gradient-to-b from-orange-50 to-rose-50">
+    <div class="container max-w-[1200px] mx-auto flex flex-col gap-[50px]">
+      <h2 class="section-title text-center text-[2.5rem] font-bold text-[#1a1a1a]" data-i18n="stories.title">
         Wish for Good
       </h2>
 
@@ -529,9 +565,10 @@
   </div>
 
 
-  <section id="services" class="services-section py-[80px] px-[5%] bg-gradient-to-b from-rose-50 to-purple-50">
+  <section id="services"
+    class="services-section py-[120px] px-[5%] bg-gradient-to-b from-rose-50 to-purple-50 flex flex-col gap-[50px] items-center">
 
-    <h2 class="section-title text-center text-[2.2rem] mb-[50px] text-[#222] font-bold" data-i18n="services.title">
+    <h2 class="section-title text-center text-[2.2rem] text-[#222] font-bold" data-i18n="services.title">
       Our Services
     </h2>
 
@@ -609,7 +646,7 @@
                 Legal Advisory</h3>
               <ul
                 class="text-gray-600 text-[15px] list-disc list-inside text-left inline-block space-y-1 mt-3 border-t border-gray-200 pt-3">
-                <li data-i18n="services.legal.item1">Legal Documentation Support</li>
+                <li data-i18n="services.legal.item1">Legal Documentation</li>
                 <li data-i18n="services.legal.item2">Contract Review</li>
                 <li data-i18n="services.legal.item3">Will Writing</li>
               </ul>
@@ -677,13 +714,13 @@
   </section>
 
 
-  <section id="events" class="event-section py-[100px] px-[30px] bg-gradient-to-b from-purple-50 to-indigo-50">
-    <div class="container max-w-[1200px] mx-auto">
-      <h2 class="event-heading text-center text-[2.5rem] font-bold text-[#111] mb-[50px]" data-i18n="events.title">
+  <section id="events" class="event-section py-[120px] px-[5%] bg-gradient-to-b from-purple-50 to-indigo-50">
+    <div class="container max-w-[1200px] mx-auto flex flex-col gap-[50px]">
+      <h2 class="event-heading text-center text-[2.5rem] font-bold text-[#111]" data-i18n="events.title">
         Life at Wish Group
       </h2>
       <div
-        class="event-tabs grid grid-cols-2 gap-3 w-full md:w-auto md:flex md:justify-center md:gap-[15px] md:flex-wrap mb-[50px] md:mb-[100px]">
+        class="event-tabs grid grid-cols-2 gap-3 w-full md:w-auto md:flex md:justify-center md:gap-[15px] md:flex-wrap">
         <button class="event-tab w-full md:w-auto px-5 py-2.5 rounded-[25px] 
         bg-white text-indigo-600 font-bold cursor-pointer transition duration-300 
         hover:bg-indigo-600 hover:text-white" data-category="charity" data-i18n="events.tab_charity">
@@ -707,82 +744,84 @@
         </button>
       </div>
 
-      <div class="carousel">
-        <div class="carousel-item" data-category="celebration" data-description="Wish Annual Dinner"
-          data-i18n-description="events.celebration_desc1">
-          <img class="w-full h-full object-cover" src="images/WishDinner.webp" alt="Wish Annual Dinner" />
-        </div>
-        <div class="carousel-item" data-category="celebration" data-description="Wish Annual Dinner"
-          data-i18n-description="events.celebration_desc1">
-          <img class="w-full h-full object-cover" src="images/WishDinner1.webp" alt="Wish Annual Dinner" />
-        </div>
-        <div class="carousel-item" data-category="celebration" data-description="Wish Annual Dinner"
-          data-i18n-description="events.celebration_desc1">
-          <img class="w-full h-full object-cover" src="images/WishDinner2.webp" alt="Wish Annual Dinner" />
-        </div>
-        <div class="carousel-item" data-category="team" data-description="🏓 Pickleball"
-          data-i18n-description="events.team_desc1">
-          <img class="w-full h-full object-cover" src="images/team_1.jpg" alt="Team 1" />
-        </div>
-        <div class="carousel-item" data-category="team" data-description="Outdoor team bonding activities."
-          data-i18n-description="events.team_desc2">
-          <img class="w-full h-full object-cover" src="images/team_2.jpg" alt="Team 2" />
-        </div>
-        <div class="carousel-item" data-category="team" data-description="Outdoor team bonding activities."
-          data-i18n-description="events.team_desc2">
-          <img class="w-full h-full object-cover" src="images/team_3.jpg" alt="Team 3" />
-        </div>
-        <div class="carousel-item" data-category="team" data-description="🏓 Pickleball"
-          data-i18n-description="events.team_desc1">
-          <img class="w-full h-full object-cover" src="images/team_4.jpg" alt="Team 4" />
-        </div>
-        <div class="carousel-item" data-category="team" data-description="Outdoor team bonding activities."
-          data-i18n-description="events.team_desc2">
-          <img class="w-full h-full object-cover" src="images/team_5.jpg" alt="Team 5" />
-        </div>
-        <div class="carousel-item" data-category="training" data-description="💡 Learn, Laugh & Level Up"
-          data-i18n-description="events.training_desc1">
-          <img class="w-full h-full object-cover" src="images/training_1.jpg" alt="Training 1" />
-        </div>
-        <div class="carousel-item" data-category="training" data-description="💡 Learn, Laugh & Level Up"
-          data-i18n-description="events.training_desc1">
-          <img class="w-full h-full object-cover" src="images/training_2.jpg" alt="Training 2" />
-        </div>
-        <div class="carousel-item" data-category="training" data-description="💡 Learn, Laugh & Level Up"
-          data-i18n-description="events.training_desc1">
-          <img class="w-full h-full object-cover" src="images/training_3.jpg" alt="Training 3" />
-        </div>
-        <div class="carousel-item" data-category="training" data-description="💡 Learn, Laugh & Level Up"
-          data-i18n-description="events.training_desc1">
-          <img class="w-full h-full object-cover" src="images/training_4.jpg" alt="Training 4" />
-        </div>
-        <div class="carousel-item" data-category="training" data-description="💡 Learn, Laugh & Level Up"
-          data-i18n-description="events.training_desc1">
-          <img class="w-full h-full object-cover" src="images/training_5.jpg" alt="Training 5" />
-        </div>
-        <div class="carousel-item" data-category="celebration" data-description="Wish Annual Dinner"
-          data-i18n-description="events.celebration_desc1">
-          <img class="w-full h-full object-cover" src="images/Gratitude.webp" alt="Wish Annual Dinner" />
-        </div>
-        <div class="carousel-item" data-category="charity" data-description="Charity Event"
-          data-i18n-description="events.charity_desc1">
-          <img class="w-full h-full object-cover" src="images/charity_1.jpg" alt="Charity Event 1" />
-        </div>
-        <div class="carousel-item" data-category="charity" data-description="Charity Event"
-          data-i18n-description="events.charity_desc1">
-          <img class="w-full h-full object-cover" src="images/charity_2.jpg" alt="Charity Event 2" />
-        </div>
-        <div class="carousel-item" data-category="charity" data-description="Charity Event"
-          data-i18n-description="events.charity_desc1">
-          <img class="w-full h-full object-cover" src="images/charity_3.jpg" alt="Charity Event 3" />
-        </div>
-        <div class="carousel-item" data-category="charity" data-description="Charity Event"
-          data-i18n-description="events.charity_desc1">
-          <img class="w-full h-full object-cover" src="images/charity_4.jpg" alt="Charity Event 4" />
-        </div>
-        <div class="carousel-item" data-category="charity" data-description="Charity Event"
-          data-i18n-description="events.charity_desc1">
-          <img class="w-full h-full object-cover" src="images/charity_5.jpg" alt="Charity Event 5" />
+      <div class="relative w-full overflow-hidden">
+        <div class="carousel">
+          <div class="carousel-item" data-category="celebration" data-description="Wish Annual Dinner"
+            data-i18n-description="events.celebration_desc1">
+            <img class="w-full h-full object-cover" src="images/WishDinner.webp" alt="Wish Annual Dinner" />
+          </div>
+          <div class="carousel-item" data-category="celebration" data-description="Wish Annual Dinner"
+            data-i18n-description="events.celebration_desc1">
+            <img class="w-full h-full object-cover" src="images/WishDinner1.webp" alt="Wish Annual Dinner" />
+          </div>
+          <div class="carousel-item" data-category="celebration" data-description="Wish Annual Dinner"
+            data-i18n-description="events.celebration_desc1">
+            <img class="w-full h-full object-cover" src="images/WishDinner2.webp" alt="Wish Annual Dinner" />
+          </div>
+          <div class="carousel-item" data-category="team" data-description="🏓 Pickleball"
+            data-i18n-description="events.team_desc1">
+            <img class="w-full h-full object-cover" src="images/team_1.jpg" alt="Team 1" />
+          </div>
+          <div class="carousel-item" data-category="team" data-description="Outdoor team bonding activities."
+            data-i18n-description="events.team_desc2">
+            <img class="w-full h-full object-cover" src="images/team_2.jpg" alt="Team 2" />
+          </div>
+          <div class="carousel-item" data-category="team" data-description="Outdoor team bonding activities."
+            data-i18n-description="events.team_desc2">
+            <img class="w-full h-full object-cover" src="images/team_3.jpg" alt="Team 3" />
+          </div>
+          <div class="carousel-item" data-category="team" data-description="🏓 Pickleball"
+            data-i18n-description="events.team_desc1">
+            <img class="w-full h-full object-cover" src="images/team_4.jpg" alt="Team 4" />
+          </div>
+          <div class="carousel-item" data-category="team" data-description="Outdoor team bonding activities."
+            data-i18n-description="events.team_desc2">
+            <img class="w-full h-full object-cover" src="images/team_5.jpg" alt="Team 5" />
+          </div>
+          <div class="carousel-item" data-category="training" data-description="💡 Learn, Laugh & Level Up"
+            data-i18n-description="events.training_desc1">
+            <img class="w-full h-full object-cover" src="images/training_1.jpg" alt="Training 1" />
+          </div>
+          <div class="carousel-item" data-category="training" data-description="💡 Learn, Laugh & Level Up"
+            data-i18n-description="events.training_desc1">
+            <img class="w-full h-full object-cover" src="images/training_2.jpg" alt="Training 2" />
+          </div>
+          <div class="carousel-item" data-category="training" data-description="💡 Learn, Laugh & Level Up"
+            data-i18n-description="events.training_desc1">
+            <img class="w-full h-full object-cover" src="images/training_3.jpg" alt="Training 3" />
+          </div>
+          <div class="carousel-item" data-category="training" data-description="💡 Learn, Laugh & Level Up"
+            data-i18n-description="events.training_desc1">
+            <img class="w-full h-full object-cover" src="images/training_4.jpg" alt="Training 4" />
+          </div>
+          <div class="carousel-item" data-category="training" data-description="💡 Learn, Laugh & Level Up"
+            data-i18n-description="events.training_desc1">
+            <img class="w-full h-full object-cover" src="images/training_5.jpg" alt="Training 5" />
+          </div>
+          <div class="carousel-item" data-category="celebration" data-description="Wish Annual Dinner"
+            data-i18n-description="events.celebration_desc1">
+            <img class="w-full h-full object-cover" src="images/Gratitude.webp" alt="Wish Annual Dinner" />
+          </div>
+          <div class="carousel-item" data-category="charity" data-description="Charity Event"
+            data-i18n-description="events.charity_desc1">
+            <img class="w-full h-full object-cover" src="images/charity_1.jpg" alt="Charity Event 1" />
+          </div>
+          <div class="carousel-item" data-category="charity" data-description="Charity Event"
+            data-i18n-description="events.charity_desc1">
+            <img class="w-full h-full object-cover" src="images/charity_2.jpg" alt="Charity Event 2" />
+          </div>
+          <div class="carousel-item" data-category="charity" data-description="Charity Event"
+            data-i18n-description="events.charity_desc1">
+            <img class="w-full h-full object-cover" src="images/charity_3.jpg" alt="Charity Event 3" />
+          </div>
+          <div class="carousel-item" data-category="charity" data-description="Charity Event"
+            data-i18n-description="events.charity_desc1">
+            <img class="w-full h-full object-cover" src="images/charity_4.jpg" alt="Charity Event 4" />
+          </div>
+          <div class="carousel-item" data-category="charity" data-description="Charity Event"
+            data-i18n-description="events.charity_desc1">
+            <img class="w-full h-full object-cover" src="images/charity_5.jpg" alt="Charity Event 5" />
+          </div>
         </div>
       </div>
   </section>
@@ -811,24 +850,27 @@
     </a>
   </div>
 
-  <section id="testimonials" class="testimonials-section py-[100px] px-[5%] bg-gradient-to-b from-indigo-50 to-sky-50">
-    <div class="container max-w-[1200px] mx-auto">
-      <h2 class="section-title text-center text-[2.5rem] mb-4 text-[#222] font-bold" data-i18n="testimonials.title">
-        Why Client Trust Us
-      </h2>
-      <p class="text-center text-[1.2rem] text-[#555] mb-[80px]" data-i18n="testimonials.subtitle">
-        Honest advice, professional guidance
-      </p>
+  <section id="testimonials" class="testimonials-section py-[120px] px-[5%] bg-gradient-to-b from-indigo-50 to-sky-50">
+    <div class="container max-w-[1200px] mx-auto flex flex-col items-center gap-[80px]">
+      <div class="text-center flex flex-col gap-4">
+        <h2 class="section-title text-[2.5rem] text-[#222] font-bold" data-i18n="testimonials.title">
+          Why Client Trust Us
+        </h2>
+        <p class="text-[1.2rem] text-[#555]" data-i18n="testimonials.subtitle">
+          Honest advice, professional guidance
+        </p>
+      </div>
 
-      <div id="testimonialGrid" class="grid grid-cols-1 md:grid-cols-12 gap-8 transition-all duration-300">
+      <div id="testimonialGrid" class="grid grid-cols-1 md:grid-cols-12 gap-8 transition-all duration-300 w-full">
       </div>
     </div>
   </section>
 
   <!-- Unified Connect Section (Contact + Join Us) -->
-  <section id="contact" class="py-[60px] bg-gradient-to-b from-sky-50 to-slate-50 h-scroll-anchor scroll-mt-[100px]">
-    <div class="container max-w-[1200px] mx-auto px-4">
-      <div class="text-center mb-24">
+  <section id="contact"
+    class="py-[120px] px-[5%] bg-gradient-to-b from-sky-50 to-slate-50 h-scroll-anchor scroll-mt-[100px]">
+    <div class="container max-w-[1200px] mx-auto flex flex-col gap-20">
+      <div class="text-center">
         <h2 class="text-[2.2rem] md:text-[2.8rem] text-[#1a1a1a] font-bold mb-3" data-i18n="join.title_page">Join Our
           Company
         </h2>
@@ -840,7 +882,7 @@
 
 
       <!-- Why Choose Us Pillars -->
-      <div class="mb-12">
+      <div>
         <h3 class="text-2xl md:text-3xl font-bold text-center text-[#1a1a1a] mb-8" data-i18n="join.why_title">Why Choose
           Wish Group?</h3>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-[1000px] mx-auto">
@@ -882,19 +924,19 @@
         </div>
       </div>
 
-      <!-- Growth Path Section (Column Chart) -->
-      <div class="mb-16 max-w-[1000px] mx-auto">
+      <!-- Growth Path Section -->
+      <div class="max-w-[1000px] mx-auto w-full">
         <h3 class="text-2xl md:text-3xl font-bold text-center text-[#1a1a1a] mb-10" data-i18n="join.growth_title">Growth
           Expectations</h3>
 
-        <!-- Chart Container -->
-        <div class="flex flex-col md:flex-row items-end justify-center gap-4 md:gap-8 h-auto md:h-[400px] px-4 md:px-0">
+        <!-- Desktop Chart Container (Hidden on Mobile) -->
+        <div
+          class="hidden md:flex flex-col md:flex-row items-end justify-center gap-4 md:gap-8 h-auto md:h-[400px] px-4 md:px-0">
 
           <!-- Bar 1: Intern (40%) -->
           <div class="w-full md:w-1/4 flex flex-col items-center group">
             <div
-              class="w-full bg-gradient-to-t from-indigo-500 to-indigo-400 rounded-t-2xl shadow-lg relative overflow-hidden transition-all duration-500 hover:scale-[1.02] flex flex-col justify-start p-4"
-              style="height: 180px; md:height: 40%;">
+              class="w-full bg-gradient-to-t from-indigo-500 to-indigo-400 rounded-t-2xl shadow-lg relative overflow-hidden transition-all duration-500 hover:scale-[1.02] flex flex-col justify-start p-4 h-[180px] md:h-[160px]">
               <div class="text-white/90 font-bold text-lg mb-1">01</div>
               <div class="text-white font-bold text-lg leading-tight mb-2" data-i18n="join.growth_stage1_title">
                 Intern/Junior</div>
@@ -906,8 +948,7 @@
           <!-- Bar 2: Senior (60%) -->
           <div class="w-full md:w-1/4 flex flex-col items-center group">
             <div
-              class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-2xl shadow-lg relative overflow-hidden transition-all duration-500 hover:scale-[1.02] flex flex-col justify-start p-4"
-              style="height: 240px; md:height: 60%;">
+              class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-2xl shadow-lg relative overflow-hidden transition-all duration-500 hover:scale-[1.02] flex flex-col justify-start p-4 h-[180px] md:h-[240px]">
               <div class="text-white/90 font-bold text-lg mb-1">02</div>
               <div class="text-white font-bold text-lg leading-tight mb-2" data-i18n="join.growth_stage2_title">Senior
                 Consultant</div>
@@ -919,8 +960,7 @@
           <!-- Bar 3: Leader (80%) -->
           <div class="w-full md:w-1/4 flex flex-col items-center group">
             <div
-              class="w-full bg-gradient-to-t from-purple-500 to-purple-400 rounded-t-2xl shadow-lg relative overflow-hidden transition-all duration-500 hover:scale-[1.02] flex flex-col justify-start p-4"
-              style="height: 300px; md:height: 80%;">
+              class="w-full bg-gradient-to-t from-purple-500 to-purple-400 rounded-t-2xl shadow-lg relative overflow-hidden transition-all duration-500 hover:scale-[1.02] flex flex-col justify-start p-4 h-[180px] md:h-[320px]">
               <div class="text-white/90 font-bold text-lg mb-1">03</div>
               <div class="text-white font-bold text-lg leading-tight mb-2" data-i18n="join.growth_stage3_title">Team
                 Leader</div>
@@ -932,8 +972,7 @@
           <!-- Bar 4: Partner (100%) -->
           <div class="w-full md:w-1/4 flex flex-col items-center group">
             <div
-              class="w-full bg-gradient-to-t from-amber-500 to-amber-400 rounded-t-2xl shadow-lg relative overflow-hidden transition-all duration-500 hover:scale-[1.02] flex flex-col justify-start p-4"
-              style="height: 360px; md:height: 100%;">
+              class="w-full bg-gradient-to-t from-amber-500 to-amber-400 rounded-t-2xl shadow-lg relative overflow-hidden transition-all duration-500 hover:scale-[1.02] flex flex-col justify-start p-4 h-[180px] md:h-[400px]">
               <div class="text-white/90 font-bold text-lg mb-1">04</div>
               <div class="text-white font-bold text-lg leading-tight mb-2" data-i18n="join.growth_stage4_title">Partner
               </div>
@@ -944,104 +983,177 @@
 
         </div>
 
-        <!-- Closing Text -->
-        <p class="text-center text-[#555] text-lg mt-12 max-w-[800px] mx-auto leading-relaxed"
-          data-i18n="join.culture_p2">
-          If you are passionate about the financial industry and eager to grow in a transparent and fair environment, we
-          look
-          forward to having you join us.
-        </p>
-      </div>
+        <!-- Mobile Sticky Stacking Cards (Visible on Mobile Only) -->
+        <div class="block md:hidden px-4 relative">
 
+          <div class="relative" style="padding-bottom: 60px;">
 
-      <div
-        class="max-w-[800px] mx-auto bg-white rounded-[40px] shadow-[0_20px_60px_rgba(0,0,0,0.05)] overflow-hidden border border-[#f0f0f0]">
-
-        <!-- Join Form -->
-        <div class="p-8 md:p-12 flex flex-col h-full">
-          <h3 class="text-[1.8rem] font-bold text-[#1a1a1a] mb-6 text-center md:text-left" data-i18n="join.title">
-            Join Us
-          </h3>
-          <p class="text-[#666] mb-8 text-center md:text-left" data-i18n="join.description">
-            We are always looking for new talent!
-          </p>
-
-          <form id="joinForm" action="submit_cv.php" method="POST" enctype="multipart/form-data"
-            class="flex flex-col flex-grow gap-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input
-                class="md:col-span-1 border border-[#f0f0f0] bg-[#f9f9f9] rounded-2xl px-4 py-3 focus:bg-white focus:border-[#5c7ef7] outline-none transition-all placeholder:text-[#999]"
-                type="text" name="name" placeholder="Your Name" required
-                data-i18n-placeholder="form.name_placeholder" />
-              <input
-                class="md:col-span-1 border border-[#f0f0f0] bg-[#f9f9f9] rounded-2xl px-4 py-3 focus:bg-white focus:border-[#5c7ef7] outline-none transition-all placeholder:text-[#999]"
-                type="email" name="email" placeholder="Your Email" required
-                data-i18n-placeholder="form.email_placeholder" />
-              <input
-                class="md:col-span-2 border border-[#f0f0f0] bg-[#f9f9f9] rounded-2xl px-4 py-3 focus:bg-white focus:border-[#5c7ef7] outline-none transition-all placeholder:text-[#999]"
-                type="tel" name="phone" placeholder="Phone Number" required
-                data-i18n-placeholder="form.phone_placeholder" />
+            <div style="position: sticky; top: 100px; z-index: 10; margin-bottom: 230px;">
               <div
-                class="md:col-span-2 border-2 border-dashed border-[#ddd] rounded-2xl p-4 text-center hover:border-[#5c7ef7] transition-all relative bg-[#f9f9f9]/50">
-                <input type="file" name="cv" id="cv_upload" class="absolute inset-0 opacity-0 cursor-pointer"
-                  required />
-                <div class="text-[#888]">
-                  <i class="fas fa-cloud-upload-alt text-xl mb-1 text-[#5c7ef7]"></i>
-                  <p class="text-xs font-medium">Click or drag to upload CV (PDF/DOCX)</p>
+                class="bg-gradient-to-r from-indigo-500 to-indigo-400 text-white p-6 rounded-2xl shadow-lg border border-indigo-300/20 h-[420px] flex flex-col justify-start">
+                <div class="flex items-start justify-between mb-2">
+                  <span class="text-indigo-100 font-bold text-lg">01</span>
+                  <i class="fa-solid fa-graduation-cap opacity-50 text-2xl animate-spin-pause"></i>
                 </div>
-              </div>
-              <div class="md:col-span-2">
-                <select name="position" required
-                  class="w-full border border-[#f0f0f0] bg-[#f9f9f9] rounded-2xl px-4 py-3 focus:bg-white focus:border-[#5c7ef7] outline-none transition-all appearance-none cursor-pointer text-[#666]">
-                  <option value="" selected disabled data-i18n="join.position_default">Select Position</option>
-
-                  <!-- Full Time Roles -->
-                  <option value="Admin (WFH / Hybrid / WFO)">Admin (WFH / Hybrid / WFO)</option>
-                  <option value="Online job posting (WFH)">Online job posting (WFH)</option>
-                  <option value="Sales person (WFH / Hybrid / WFO)">Sales person (WFH / Hybrid / WFO)</option>
-                  <option value="Telemarketer (Hybrid / WFO)">Telemarketer (Hybrid / WFO)</option>
-                  <option value="Mortgage Consultant (Hybrid / WFO)">Mortgage Consultant (Hybrid / WFO)</option>
-                  <option value="Account Clerk (WFH / Hybrid)">Account Clerk (WFH / Hybrid)</option>
-                  <option value="Video/Photo Editor (WFH / Hybrid / WFO)">Video/Photo Editor (WFH / Hybrid / WFO)
-                  </option>
-                  <option value="Photographer (WFH / Hybrid)">Photographer (WFH / Hybrid)</option>
-
-                  <!-- Intern Roles -->
-                  <optgroup label="Internship (WFH / Hybrid / WFO)">
-                    <option value="Intern - Business analytics">Intern - Business analytics</option>
-                    <option value="Intern - Financial Economics">Intern - Financial Economics</option>
-                    <option value="Intern - Finance">Intern - Finance</option>
-                    <option value="Intern - Marketing">Intern - Marketing</option>
-                    <option value="Intern - IT front-end (KL & Selangor area only)">Intern - IT front-end (KL & Selangor
-                      area only)</option>
-                    <option value="Intern - IT web developer (KL & Selangor area only)">Intern - IT web developer (KL &
-                      Selangor area only)</option>
-                    <option value="Intern - Business studies">Intern - Business studies</option>
-                    <option value="Intern - Accounting and finance">Intern - Accounting and finance</option>
-                    <option value="Intern - Business Management">Intern - Business Management</option>
-                    <option value="Intern - Communication">Intern - Communication</option>
-                    <option value="Intern - HR Management (KL & Selangor area only)">Intern - HR Management (KL &
-                      Selangor area only)</option>
-                  </optgroup>
-                </select>
+                <h4 class="text-xl font-bold mb-1">Intern/Junior</h4>
+                <p class="text-indigo-50 text-sm">Kickstart your financial career with professional mentorship. Focus on
+                  mastering essential products, building client trust, and establishing a solid professional foundation.
+                </p>
               </div>
             </div>
-            <div class="mt-auto text-center md:text-left pt-2">
-              <button type="submit"
-                class="bg-[#1a1a1a] hover:bg-[#333] text-white px-8 py-2.5 rounded-full font-bold transition-all active:scale-95"
-                data-i18n="form.submit_btn">Submit</button>
-            </div>
-          </form>
 
-          <div class="mt-4 text-center md:text-left">
-            <p class="text-[#666] text-sm">
-              Looking to ask a question instead?
-              <a href="contact.html" class="text-[#0073e6] font-semibold hover:underline">Contact Us here</a>.
+            <div style="position: sticky; top: 170px; z-index: 20; margin-bottom: 160px;">
+              <div
+                class="bg-gradient-to-r from-blue-500 to-blue-400 text-white p-6 rounded-2xl shadow-lg border border-blue-300/20 h-[420px] flex flex-col justify-start">
+                <div class="flex items-start justify-between mb-2">
+                  <span class="text-blue-100 font-bold text-lg">02</span>
+                  <i class="fa-solid fa-briefcase opacity-50 text-2xl animate-spin-pause"></i>
+                </div>
+                <h4 class="text-xl font-bold mb-1">Senior Consultant</h4>
+                <p class="text-blue-50 text-sm">Achieve professional independence by managing diverse high-net-worth
+                  portfolios. Deliver expert financial solutions and build your personal brand in the industry.</p>
+              </div>
+            </div>
+
+            <div style="position: sticky; top: 240px; z-index: 30; margin-bottom: 90px;">
+              <div
+                class="bg-gradient-to-r from-purple-500 to-purple-400 text-white p-6 rounded-2xl shadow-lg border border-purple-300/20 h-[420px] flex flex-col justify-start">
+                <div class="flex items-start justify-between mb-2">
+                  <span class="text-purple-100 font-bold text-lg">03</span>
+                  <i class="fa-solid fa-users opacity-50 text-2xl animate-spin-pause"></i>
+                </div>
+                <h4 class="text-xl font-bold mb-1">Team Leader</h4>
+                <p class="text-purple-50 text-sm">Empower others to succeed by leading a high-performance team. Focus on
+                  talent recruitment, management, and enjoying rewarding overriding commissions as your team grows.</p>
+              </div>
+            </div>
+
+            <div style="position: sticky; top: 310px; z-index: 40; margin-bottom: 20px;">
+              <div
+                class="bg-gradient-to-r from-amber-500 to-amber-400 text-white p-6 rounded-2xl shadow-lg border border-amber-300/20 h-[420px] flex flex-col justify-start">
+                <div class="flex items-start justify-between mb-2">
+                  <span class="text-amber-100 font-bold text-lg">04</span>
+                  <i class="fa-solid fa-hand-holding-dollar opacity-50 text-2xl animate-spin-pause"></i>
+                </div>
+                <h4 class="text-xl font-bold mb-1">Partner</h4>
+                <p class="text-amber-50 text-sm">Reach the pinnacle of your career as a strategic business partner.
+                  Participate in corporate profit-sharing, equity ownership, and shape the future vision of Wish Group.
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="relative z-50 px-8 mt-8 mb-12">
+            <p class="text-center text-[#555] text-lg leading-relaxed">
+              If you are passionate about the financial industry and eager to grow in a transparent and fair
+              environment, we look forward to having you join us.
             </p>
           </div>
+
         </div>
 
+        <!-- Closing Text (Visible on Desktop) -->
+        <div class="hidden md:block relative z-50 mt-12 mb-12">
+          <p class="text-center text-[#555] text-lg leading-relaxed max-w-[800px] mx-auto" data-i18n="join.culture_p2">
+            If you are passionate about the financial industry and eager to grow in a transparent and fair environment,
+            we look forward to having you join us.
+          </p>
+        </div>
+
+
       </div>
+
+    </div>
+    </div>
+
+
+    <div
+      class="max-w-[800px] mx-auto bg-white rounded-[40px] shadow-[0_20px_60px_rgba(0,0,0,0.05)] overflow-hidden border border-[#f0f0f0]">
+
+      <!-- Join Form -->
+      <div class="p-8 md:p-12 flex flex-col h-full">
+        <h3 class="text-[1.8rem] font-bold text-[#1a1a1a] mb-6 text-center md:text-left" data-i18n="join.title">
+          Join Us
+        </h3>
+        <p class="text-[#666] mb-8 text-center md:text-left" data-i18n="join.description">
+          We are always looking for new talent!
+        </p>
+
+        <form id="joinForm" action="submit_cv.php" method="POST" enctype="multipart/form-data"
+          class="flex flex-col flex-grow gap-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <input
+              class="md:col-span-1 border border-[#f0f0f0] bg-[#f9f9f9] rounded-2xl px-4 py-3 focus:bg-white focus:border-[#5c7ef7] outline-none transition-all placeholder:text-[#999]"
+              type="text" name="name" placeholder="Your Name" required data-i18n-placeholder="form.name_placeholder" />
+            <input
+              class="md:col-span-1 border border-[#f0f0f0] bg-[#f9f9f9] rounded-2xl px-4 py-3 focus:bg-white focus:border-[#5c7ef7] outline-none transition-all placeholder:text-[#999]"
+              type="email" name="email" placeholder="Your Email" required
+              data-i18n-placeholder="form.email_placeholder" />
+            <input
+              class="md:col-span-2 border border-[#f0f0f0] bg-[#f9f9f9] rounded-2xl px-4 py-3 focus:bg-white focus:border-[#5c7ef7] outline-none transition-all placeholder:text-[#999]"
+              type="tel" name="phone" placeholder="Phone Number" required
+              data-i18n-placeholder="form.phone_placeholder" />
+            <div
+              class="md:col-span-2 border-2 border-dashed border-[#ddd] rounded-2xl p-4 text-center hover:border-[#5c7ef7] transition-all relative bg-[#f9f9f9]/50">
+              <input type="file" name="cv" id="cv_upload" class="absolute inset-0 opacity-0 cursor-pointer" required />
+              <div class="text-[#888]">
+                <i class="fas fa-cloud-upload-alt text-xl mb-1 text-[#5c7ef7]"></i>
+                <p class="text-xs font-medium">Click or drag to upload CV (PDF/DOCX)</p>
+              </div>
+            </div>
+            <div class="md:col-span-2">
+              <select name="position" required
+                class="w-full border border-[#f0f0f0] bg-[#f9f9f9] rounded-2xl px-4 py-3 focus:bg-white focus:border-[#5c7ef7] outline-none transition-all appearance-none cursor-pointer text-[#666]">
+                <option value="" selected disabled data-i18n="join.position_default">Select Position</option>
+
+                <!-- Full Time Roles -->
+                <option value="Admin (WFH / Hybrid / WFO)">Admin (WFH / Hybrid / WFO)</option>
+                <option value="Online job posting (WFH)">Online job posting (WFH)</option>
+                <option value="Sales person (WFH / Hybrid / WFO)">Sales person (WFH / Hybrid / WFO)</option>
+                <option value="Telemarketer (Hybrid / WFO)">Telemarketer (Hybrid / WFO)</option>
+                <option value="Mortgage Consultant (Hybrid / WFO)">Mortgage Consultant (Hybrid / WFO)</option>
+                <option value="Account Clerk (WFH / Hybrid)">Account Clerk (WFH / Hybrid)</option>
+                <option value="Video/Photo Editor (WFH / Hybrid / WFO)">Video/Photo Editor (WFH / Hybrid / WFO)
+                </option>
+                <option value="Photographer (WFH / Hybrid)">Photographer (WFH / Hybrid)</option>
+
+                <!-- Intern Roles -->
+                <optgroup label="Internship (WFH / Hybrid / WFO)">
+                  <option value="Intern - Business analytics">Intern - Business analytics</option>
+                  <option value="Intern - Financial Economics">Intern - Financial Economics</option>
+                  <option value="Intern - Finance">Intern - Finance</option>
+                  <option value="Intern - Marketing">Intern - Marketing</option>
+                  <option value="Intern - IT front-end (KL & Selangor area only)">Intern - IT front-end (KL & Selangor
+                    area only)</option>
+                  <option value="Intern - IT web developer (KL & Selangor area only)">Intern - IT web developer (KL &
+                    Selangor area only)</option>
+                  <option value="Intern - Business studies">Intern - Business studies</option>
+                  <option value="Intern - Accounting and finance">Intern - Accounting and finance</option>
+                  <option value="Intern - Business Management">Intern - Business Management</option>
+                  <option value="Intern - Communication">Intern - Communication</option>
+                  <option value="Intern - HR Management (KL & Selangor area only)">Intern - HR Management (KL &
+                    Selangor area only)</option>
+                </optgroup>
+              </select>
+            </div>
+          </div>
+          <div class="mt-auto text-center md:text-left pt-2">
+            <button type="submit"
+              class="bg-[#1a1a1a] hover:bg-[#333] text-white px-8 py-2.5 rounded-full font-bold transition-all active:scale-95"
+              data-i18n="form.submit_btn">Submit</button>
+          </div>
+        </form>
+
+        <div class="mt-4 text-center md:text-left">
+          <p class="text-[#666] text-sm">
+            Looking to ask a question instead?
+            <a href="contact.html" class="text-[#0073e6] font-semibold hover:underline">Contact Us here</a>.
+          </p>
+        </div>
+      </div>
+
+    </div>
     </div>
   </section>
 
@@ -1218,7 +1330,7 @@
     <!-- Mobile Toggle Button (Hidden on Desktop) -->
     <button id="floatingToggle" onclick="window.toggleMobileMenu()"
       class="md:hidden pointer-events-auto w-14 h-14 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full shadow-xl flex items-center justify-center text-white transition-all duration-300 hover:scale-110 active:scale-95 relative z-[10000]">
-      <i class="fa-solid fa-plus text-2xl transition-transform duration-300 pointer-events-none"
+      <i class="fa-solid fa-headset text-2xl transition-transform duration-300 pointer-events-none"
         id="floatingToggleIcon"></i>
     </button>
 

@@ -344,7 +344,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 },
                 "legal": {
                     "title": "Legal Advisory (via trusted partners)",
-                    "item1": "Legal documentation support",
+                    "item1": "Legal Documentation",
                     "item2": "Contract review",
                     "item3": "Will writing"
                 },
@@ -407,7 +407,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 "growth_title": "Growth Expectations",
                 "growth_stage1_title": "Stage 1: Introduction (Intern/Junior)",
                 "growth_stage1_desc": "Mentorship led, learning financial foundations and compliance.",
-                "growth_stage2_title": "Stage 2: Independent Consultant (Senior Consultant)",
+                "growth_stage2_title": "Stage 2: Independent Consultant (Senior)",
                 "growth_stage2_desc": "Mastering asset allocation, beginning to independently face high-end clients.",
                 "growth_stage3_title": "Stage 3: Team Leader",
                 "growth_stage3_desc": "Participating in company decisions, leading your own team.",
@@ -1403,62 +1403,39 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const formData = new FormData(joinForm);
 
-            // Simulation of submission (replace with actual fetch if backend is ready)
-            // For now, we assume success to show the modal as requested
-
-            /* 
             // Real backend submission:
-            fetch("submit_cv.php", {
-                method: "POST",
-                body: formData,
-            })
-            .then(response => response.text())
-            .then(result => {
-                // Show success modal
-                if (successModal) {
-                    successModal.classList.remove("hidden");
-                    successModal.classList.add("flex");
-                }
-                joinForm.reset();
-                // Reset file label
-                fileChosenSpan.textContent = "No File Chosen";
-                fileChosenSpan.classList.add("text-gray-500", "italic");
-                fileChosenSpan.classList.remove("text-blue-600", "font-medium");
-                fileChosenSpan.setAttribute("data-i18n", "join.no_file_chosen");
-                loadLanguage(currentLang);
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                alert("An error occurred. Please try again.");
-            });
-            */
-
-            // --- DEMO MODE: Simulate Network Request ---
             const submitBtn = joinForm.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn.innerHTML;
             submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Sending...';
             submitBtn.disabled = true;
 
-            setTimeout(() => {
-                // Reset Button
-                submitBtn.innerHTML = originalBtnText;
-                submitBtn.disabled = false;
-
-                // Show Success Modal
-                if (successModal) {
-                    successModal.classList.remove("hidden");
-                    successModal.classList.add("flex");
-                }
-
-                // Reset Form
-                joinForm.reset();
-                fileChosenSpan.textContent = "No File Chosen";
-                fileChosenSpan.classList.add("text-gray-500", "italic");
-                fileChosenSpan.classList.remove("text-blue-600", "font-medium");
-                fileChosenSpan.setAttribute("data-i18n", "join.no_file_chosen");
-                loadLanguage(currentLang);
-
-            }, 1000); // 1 second delay
+            fetch("submit_cv.php", {
+                method: "POST",
+                body: formData,
+            })
+                .then(response => response.text())
+                .then(result => {
+                    // Show success modal
+                    if (successModal) {
+                        successModal.classList.remove("hidden");
+                        successModal.classList.add("flex");
+                    }
+                    joinForm.reset();
+                    // Reset file label
+                    fileChosenSpan.textContent = "No File Chosen";
+                    fileChosenSpan.classList.add("text-gray-500", "italic");
+                    fileChosenSpan.classList.remove("text-blue-600", "font-medium");
+                    fileChosenSpan.setAttribute("data-i18n", "join.no_file_chosen");
+                    loadLanguage(currentLang);
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("An error occurred. Please try again.");
+                })
+                .finally(() => {
+                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.disabled = false;
+                });
         });
     }
 
@@ -1655,15 +1632,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const formData = new FormData(contactForm);
 
-            /* 
             // Real backend submission:
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Sending...';
+            submitBtn.disabled = true;
+
             fetch("submit_contact.php", {
                 method: "POST",
                 body: formData
             })
                 .then((response) => response.text())
                 .then((result) => {
-                     // Show Success Modal
+                    // Show Success Modal
                     if (successModal) {
                         successModal.classList.remove("hidden");
                         successModal.classList.add("flex");
@@ -1674,31 +1655,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 .catch((error) => {
                     console.error("Error:", error);
                     alert("Something went wrong. Please try again.");
+                })
+                .finally(() => {
+                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.disabled = false;
                 });
-            */
-
-            // --- DEMO MODE: Simulate Network Request ---
-            const submitBtn = contactForm.querySelector('button[type="submit"]');
-            const originalBtnText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Sending...';
-            submitBtn.disabled = true;
-
-            setTimeout(() => {
-                // Reset Button
-                submitBtn.innerHTML = originalBtnText;
-                submitBtn.disabled = false;
-
-                // Show Success Modal
-                if (successModal) {
-                    successModal.classList.remove("hidden");
-                    successModal.classList.add("flex");
-                }
-
-                // Reset Form
-                contactForm.reset();
-                if (otherInput) otherInput.style.display = "none";
-
-            }, 1000); // 1 second delay
         });
     }
 
@@ -1771,7 +1732,11 @@ document.addEventListener('DOMContentLoaded', function () {
             if (floatingMenu) {
                 floatingMenu.classList.add("opacity-0", "translate-y-4", "scale-95", "pointer-events-none");
                 floatingMenu.classList.remove("pointer-events-auto");
-                if (floatingToggleIcon) floatingToggleIcon.classList.remove("rotate-45");
+                // Reset icon to headset
+                if (floatingToggleIcon) {
+                    floatingToggleIcon.classList.remove("fa-xmark");
+                    floatingToggleIcon.classList.add("fa-headset");
+                }
             }
         }
     }
@@ -1801,13 +1766,17 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log("Opening Menu");
             menu.classList.remove("opacity-0", "translate-y-4", "scale-95", "pointer-events-none");
             menu.classList.add("pointer-events-auto");
-            icon.classList.add("rotate-45");
+            // Swap icon to X
+            icon.classList.remove("fa-headset");
+            icon.classList.add("fa-xmark");
         } else {
             // Collapsing: Hide menu
             console.log("Closing Menu");
             menu.classList.add("opacity-0", "translate-y-4", "scale-95", "pointer-events-none");
             menu.classList.remove("pointer-events-auto");
-            icon.classList.remove("rotate-45");
+            // Swap icon back to headset
+            icon.classList.remove("fa-xmark");
+            icon.classList.add("fa-headset");
         }
     };
 });

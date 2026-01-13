@@ -8,7 +8,8 @@
   "hero": {
     "title": "Your One-Stop Financial Partner",
     "subtitle": "All-in-one solution for growth and protection under one roof",
-    "getStarted": "Contact Us Today"
+    "getStarted": "Contact Us Today",
+    "how_it_works": "How It Works?"
   },
   "about": {
     "title": "About Us",
@@ -80,29 +81,29 @@
       "title": "Risk Management",
       "item1": "Insurance analysis",
       "item2": "Protection planning",
-      "item3": "Critical illness coverage"
+      "item3": "Critical Illness"
     },
     "legal": {
-      "title": "Legal Advisory (via trusted partners)",
+      "title": "Legal Advisory",
       "item1": "Legal Documentation",
       "item2": "Contract review",
       "item3": "Will writing"
     },
     "tax": {
       "title": "Tax Planning",
-      "item1": "Personal tax planning",
-      "item2": "Business tax consultation",
+      "item1": "Personal Tax",
+      "item2": "Business Tax",
       "item3": "Tax optimization"
     },
     "investment": {
-      "title": "Investment Planning",
+      "title": "Investment",
       "item1": "Portfolio design",
-      "item2": "Unit trust investment",
+      "item2": "Unit Trusts",
       "item3": "Retirement planning"
     },
     "estate": {
       "title": "Estate Planning",
-      "item1": "Will planning & trust setup",
+      "item1": "Will Planning",
       "item2": "Asset distribution",
       "item3": "Inheritance protection"
     }
@@ -139,7 +140,11 @@
     "message_placeholder": "Any Message To Our Company",
     "cv_label": "Attach your CV Here",
     "choose_file": "Choose A File",
-    "no_file_chosen": "No File Chosen"
+    "no_file_chosen": "No File Chosen",
+    "our_office": "Our Office",
+    "email_us": "Email Us",
+    "have_questions": "Have questions?",
+    "contact_support": "Contact Support"
   },
   "footer": {
     "address": "32A-1, Jalan Nautika B U20/B,<br />Pusat Komersial TSB,<br />47000 Shah Alam, Selangor",

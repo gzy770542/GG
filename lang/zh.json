@@ -8,7 +8,8 @@
   "hero": {
     "title": "您的一站式金融合作伙伴",
     "subtitle": "一站式增长与保障解决方案",
-    "getStarted": "立即联系我们"
+    "getStarted": "立即联系我们",
+    "how_it_works": "了解我们"
   },
   "about": {
     "title": "关于我们",
@@ -46,7 +47,7 @@
     "client3_text": "“起初我并不感兴趣，但后来发现他们确实值得信赖。”"
   },
   "stories": {
-    "title": "Wish for Good",
+    "title": "公益善举 (Wish for Good)",
     "story1_title": "15年，一个使命：拯救生命",
     "know_more": "了解更多",
     "story2_title": "每月一善",
@@ -136,13 +137,20 @@
     "story6": {
       "text": "故事6文本..."
     },
+    "title_page": "加入我们",
+    "subtitle_page": "我们正在寻找志同道合的合作伙伴。我们不只是招聘员工；我们在寻找未来的行业领袖。",
     "title": "加入我们",
     "description": "与我们携手共创未来",
     "form_title": "请发送您的简历",
     "message_placeholder": "是否有任何信息要传达给本公司？",
     "cv_label": "在此附上您的简历",
     "choose_file": "选择文件",
-    "no_file_chosen": "未选择文件"
+    "no_file_chosen": "未选择文件",
+    "position_default": "选择职位",
+    "our_office": "办公地址",
+    "email_us": "电子邮箱",
+    "have_questions": "如果有任何疑问？",
+    "contact_support": "联系客服"
   },
   "footer": {
     "address": "32A-1, Jalan Nautika B U20/B,<br />Pusat Komersial TSB,<br />47000 Shah Alam, Selangor",

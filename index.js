@@ -1,7 +1,31 @@
-document.addEventListener('DOMContentLoaded', function () {
+﻿document.addEventListener('DOMContentLoaded', function () {
 
     const header = document.querySelector('header');
-    const navLinks = document.querySelectorAll('.nav-link');
+    const navLinks = document.querySelectorAll('.nav-link, .footer-join-link');
+
+    // Check for query params to toggle form on load (e.g. from external pages)
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('form') === 'join') {
+        // Use timeout to ensure elements are ready and toggleForm is available
+        setTimeout(() => {
+            if (typeof toggleForm === 'function') {
+                toggleForm('join');
+                // Scroll to contact section if hash is present
+                if (window.location.hash === '#contact') {
+                    const contactSection = document.getElementById('contact');
+                    if (contactSection) {
+                        const headerOffset = header ? header.offsetHeight : 0;
+                        const elementPosition = contactSection.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = elementPosition - headerOffset;
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            }
+        }, 500);
+    }
 
     // ==========================================
     // GLOBAL WISH STORIES LOGIC (Top Level)
@@ -147,9 +171,20 @@ document.addEventListener('DOMContentLoaded', function () {
                 this.classList.add('active');
 
                 // Close mobile menu if open
-                const navMenu = document.querySelector("nav");
-                if (window.innerWidth <= 768 && navMenu) {
-                    navMenu.classList.remove("show");
+                // Close mobile menu if open
+                if (window.innerWidth <= 768) {
+                    const navMenu = document.querySelector("nav");
+                    const hamburger = document.querySelector(".hamburger");
+                    const body = document.body;
+
+                    if (navMenu && navMenu.classList.contains("show")) {
+                        navMenu.classList.remove("show"); // Opacity/Visibility handles hide
+
+                        if (hamburger) hamburger.classList.remove("active");
+                        if (body) body.classList.remove("no-scroll");
+
+                        console.log("Mobile menu auto-closed");
+                    }
                 }
             } else {
                 console.warn("Target element not found:", targetId);
@@ -157,14 +192,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    const hamburgerToggle = document.querySelector(".hamburger");
-    const nav = document.querySelector("nav");
 
-    if (hamburgerToggle && nav) {
-        hamburgerToggle.addEventListener("click", () => {
-            nav.classList.toggle("show");
-        });
-    }
 
     const currentLangText = document.getElementById("current-lang-text");
 
@@ -219,19 +247,18 @@ document.addEventListener('DOMContentLoaded', function () {
             e.preventDefault();
         }
         const nav = document.querySelector('nav');
-        if (nav) {
-            // Force explicit toggle
-            if (nav.classList.contains('hidden')) {
-                nav.classList.remove('hidden');
-                nav.classList.add('flex'); // Ensure flex is active when showing
-                console.log("Opening Menu");
-            } else {
-                nav.classList.add('hidden');
-                nav.classList.remove('flex'); // Ensure flex is removed when hiding (optional but safer)
-                console.log("Closing Menu");
-            }
+        const hamburger = document.querySelector('.hamburger');
+        const body = document.body;
+
+        if (nav && hamburger) {
+            // Toggle classes for animation and visibility
+            nav.classList.toggle('show');
+            hamburger.classList.toggle('active');
+            body.classList.toggle('no-scroll');
+
+            console.log("Toggled Mobile Menu. Show:", nav.classList.contains('show'));
         } else {
-            console.error("Nav element not found!");
+            console.error("Nav or Hamburger element not found!");
         }
     };
 
@@ -253,7 +280,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const translations = {
         "en": {
             "page_title": "Wish Group",
+            "nav_home": "Home",
             "nav_about": "About Us",
+            "nav_culture": "Company",
             "nav_charity": "Charity",
             "nav_services": "Our Services",
             "nav_moments": "Culture",
@@ -263,14 +292,41 @@ document.addEventListener('DOMContentLoaded', function () {
             "nav_careers": "Careers",
             "nav_join_us": "Join Us",
             "nav_find_us": "Find Us",
+            "nav_privacy": "Privacy Policy",
+            "privacy": {
+                "title": "Privacy Policy & Terms",
+                "intro_title": "1. Introduction",
+                "intro_text": "Welcome to Wish Group Resources. We are committed to protecting your personal data and privacy. This policy explains how we collect, use, and safeguard your information in compliance with the Personal Data Protection Act 2010 (PDPA) of Malaysia.",
+                "collect_title": "2. Information We Collect",
+                "collect_text": "To provide comprehensive financial solutions (Insurance, Risk Management, Estate Planning), we may collect:",
+                "collect_list_1": "<strong>Personal Identity:</strong> Name, NRIC/Passport number, date of birth.",
+                "collect_list_2": "<strong>Contact Info:</strong> Phone number, email, residential address.",
+                "collect_list_3": "<strong>Financial Profile:</strong> Income range, employment details, existing insurance policies, and asset information for Will writing.",
+                "purpose_title": "3. Purpose of Data Collection",
+                "purpose_text": "Your data is used for:",
+                "purpose_list_1": "<strong>Consultation:</strong> Assessing your financial needs and risk profile.",
+                "purpose_list_2": "<strong>Application:</strong> Processing insurance policies or legal documents (Wills/Trusts) with our partners.",
+                "purpose_list_3": "<strong>Updates:</strong> Sending important policy updates or financial planning tips.",
+                "disclosure_title": "4. Disclosure to Third Parties",
+                "disclosure_text": "We may share your information with authorized partners to fulfill your service requests, such as:",
+                "disclosure_list_1": "Insurance Providers (e.g., Great Eastern).",
+                "disclosure_list_2": "Trust & Legal Entities (for Estate Planning).",
+                "disclosure_list_3": "Regulatory Authorities (as required by law).",
+                "disclosure_note": "Note: We never sell your data to external marketing companies.",
+                "security_title": "5. Data Security",
+                "security_text": "We implement strict technical and organizational security measures to protect your data from unauthorized access or leakage.",
+                "rights_title": "6. Your Rights",
+                "rights_text": "Under PDPA, you have the right to access, correct, or withdraw your consent for us to use your data at any time."
+            },
             "hero": {
                 "title": "Your One-Stop Financial Partner",
                 "subtitle": "All-in-one solution for growth and protection under one roof",
-                "getStarted": "Contact Us Today"
+                "getStarted": "Contact Us Today",
+                "how_it_works": "About Us"
             },
             "about": {
                 "title": "About Us",
-                "intro_text": "Established in 2013, Wish Group Resources is Malaysia’s leading one-stop financial hub. We provide expert banking, tax, investment, and estate planning services to help thousands of clients grow and secure their wealth for future generations.",
+                "intro_text": "Established in 2013, Wish Group Resources is Malaysia's leading one-stop financial hub. We provide expert banking, tax, investment, and estate planning services to help thousands of clients grow and secure their wealth for future generations.",
                 "mission_title": "Our Mission",
                 "mission_text": "To provide peace of mind through comprehensive, personalized financial and insurance planning, build long-term trust with clients, and uphold the highest levels of professionalism and ethical standards.",
                 "vision_title": "Our Vision",
@@ -289,9 +345,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 "tab_team": "Team Building",
                 "tab_training": "Training",
                 "celebration_desc1": "Wish Annual Dinner",
-                "team_desc1": "🏓 Pickleball",
+                "team_desc1": "ðŸ“ Pickleball",
                 "team_desc2": "Outdoor team bonding activities.",
-                "training_desc1": "💡 Learn, Laugh & Level Up",
+                "training_desc1": "ðŸ’¡ Learn, Laugh & Level Up",
                 "tab_charity": "Charity",
                 "charity_desc1": "Charity Event"
             },
@@ -330,6 +386,7 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             "services": {
                 "title": "Our Services",
+                "trusted_partner": "(Trusted Partner)",
                 "banking": {
                     "title": "Banking & Finance",
                     "item1": "Loan consultation",
@@ -340,34 +397,36 @@ document.addEventListener('DOMContentLoaded', function () {
                     "title": "Risk Management",
                     "item1": "Insurance analysis",
                     "item2": "Protection planning",
-                    "item3": "Critical illness coverage"
+                    "item3": "Critical Illness"
                 },
                 "legal": {
-                    "title": "Legal Advisory (via trusted partners)",
+                    "title": "Legal Advisory",
                     "item1": "Legal Documentation",
                     "item2": "Contract review",
                     "item3": "Will writing"
                 },
                 "tax": {
                     "title": "Tax Planning",
-                    "item1": "Personal tax planning",
-                    "item2": "Business tax consultation",
+                    "item1": "Personal Tax",
+                    "item2": "Business Tax",
                     "item3": "Tax optimization"
                 },
                 "investment": {
-                    "title": "Investment Planning",
+                    "title": "Investment",
                     "item1": "Portfolio design",
-                    "item2": "Unit trust investment",
+                    "item2": "Unit Trusts",
                     "item3": "Retirement planning"
                 },
                 "estate": {
                     "title": "Estate Planning",
-                    "item1": "Will planning & trust setup",
+                    "item1": "Will Planning",
                     "item2": "Asset distribution",
                     "item3": "Inheritance protection"
                 }
             },
             "contact": {
+                "title_page": "Contact Us",
+                "subtitle_page": "We'd love to hear from you.",
                 "title": "Contact Us",
                 "description": "Leave us your details and we'll be in touch!",
                 "form_title": "Get In Touch",
@@ -393,6 +452,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 "story6": {
                     "text": "Story 6 text..."
                 },
+                "title_page": "Join Our Company",
                 "subtitle_page": "We're looking for like-minded partners. We're not just hiring employees; we're looking for future industry leaders.",
                 "culture_headline": "At Wish Group, we don't just hire employees; we seek future industry leaders.",
                 "culture_p1": "We provide not just a job, but a platform where you can realize your potential and build professional dignity. Here, we advocate for youth, vitality, and innovation, and are committed to bringing stability to every family through professional financial planning.",
@@ -411,8 +471,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 "growth_stage2_desc": "Mastering asset allocation, beginning to independently face high-end clients.",
                 "growth_stage3_title": "Stage 3: Team Leader",
                 "growth_stage3_desc": "Participating in company decisions, leading your own team.",
-                "growth_stage4_title": "Ultimate Goal: Partner",
+                "growth_stage4_title": "Final Stage: Partner",
                 "growth_stage4_desc": "Co-managing the brand, achieving career peak.",
+                "growth_stage1_desc_mobile": "Kickstart your financial career with professional mentorship. Focus on mastering essential products, building client trust, and establishing a solid professional foundation.",
+                "growth_stage2_desc_mobile": "Achieve professional independence by managing diverse high-net-worth portfolios. Deliver expert financial solutions and build your personal brand in the industry.",
+                "growth_stage3_desc_mobile": "Empower others to succeed by leading a high-performance team. Focus on talent recruitment, management, and enjoying rewarding overriding commissions as your team grows.",
+                "growth_stage4_desc_mobile": "Reach the pinnacle of your career as a strategic business partner. Participate in corporate profit-sharing, equity ownership, and shape the future vision of Wish Group.",
                 "title": "Join Us",
                 "description": "Let us see your potential. Please submit your resume or portfolio as an attachment.",
                 "form_title": "Send Us Your CV",
@@ -420,9 +484,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 "cv_label": "Attach your CV Here",
                 "choose_file": "Choose A File",
                 "no_file_chosen": "No File Chosen",
-                "position_default": "Select Position"
+                "position_default": "Select Position",
+                "our_office": "Our Office",
+                "email_us": "Email Us",
+                "have_questions": "Have questions?",
+                "contact_support": "Contact Support"
             },
             "footer": {
+                "tagline": "Your One-Stop Financial Partner. <br>All-in-one solution for growth and protection.",
                 "address": "32A-1, Jalan Nautika B U20/B,<br />Pusat Komersial TSB,<br />47000 Shah Alam, Selangor",
                 "follow_us": "FOLLOW US",
                 "copyright": "&copy;2025 Wish Group. All rights reserved."
@@ -430,7 +499,9 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         "zh": {
             "page_title": "Wish Group",
+            "nav_home": "首页",
             "nav_about": "关于我们",
+            "nav_culture": "公司",
             "nav_charity": "慈善公益",
             "nav_services": "我们的服务",
             "nav_moments": "文化",
@@ -440,72 +511,105 @@ document.addEventListener('DOMContentLoaded', function () {
             "nav_careers": "职业发展",
             "nav_join_us": "加入我们",
             "nav_find_us": "找到我们",
+            "nav_privacy": "隐私政策",
+            "privacy": {
+                "title": "隐私政策与条款",
+                "intro_title": "1. 简介",
+                "intro_text": "欢迎来到 Wish Group Resources。我们致力于保护您的个人数据与隐私。本政策说明了我们如何根据马来西亚 2010年个人资料保护法 (PDPA) 收集、使用和保护您的信息。",
+                "collect_title": "2. 我们收集的信息",
+                "collect_text": "为了提供全方位的金融解决方案（保险、风险管理、财产规划），我们可能会收集：",
+                "collect_list_1": "<strong>身份信息：</strong> 姓名、身份证/护照号码、出生日期。",
+                "collect_list_2": "<strong>联系方式：</strong> 电话、电邮、住址。",
+                "collect_list_3": "<strong>财务概况：</strong> 收入范围、职业信息、现有保单、以及用于撰写遗嘱的资产信息。",
+                "purpose_title": "3. 收集目的",
+                "purpose_text": "您的数据将用于：",
+                "purpose_list_1": "<strong>提供咨询：</strong> 评估您的财务需求和风险状况。",
+                "purpose_list_2": "<strong>处理申请：</strong> 与合作伙伴办理保单或法律文件如遗嘱/信托。",
+                "purpose_list_3": "<strong>更新通知：</strong> 发送重要的保单更新或理财建议。",
+                "disclosure_title": "4. 第三方披露",
+                "disclosure_text": "我们可能会与授权的合作伙伴共享您的信息，以完成您的服务请求，例如：",
+                "disclosure_list_1": "保险供应商 (例如：Great Eastern)。",
+                "disclosure_list_2": "信托及法律机构 (用于财产规划)。",
+                "disclosure_list_3": "监管机构 (按法律要求)。",
+                "disclosure_note": "注意：我们决不会将您的数据出售给外部营销公司。",
+                "security_title": "5. 数据安全",
+                "security_text": "我们实施严格的技术和组织安全措施，保护您的数据免受未经授权的访问或泄露。",
+                "rights_title": "6. 您的权利",
+                "rights_text": "根据 PDPA，您有权随时访问、更正或撤销您对我们使用您数据的同意。"
+            },
             "hero": {
                 "title": "您的一站式金融合作伙伴",
                 "subtitle": "一站式增长与保障解决方案",
-                "getStarted": "立即联系我们"
+                "getStarted": "立即联系我们",
+                "how_it_works": "了解我们"
             },
             "about": {
                 "title": "关于我们",
-                "intro_text": "Wish Group Resources 成立于 2013 年，拥有多年的综合专业经验，是马来西亚领先的“一站式金融解决方案”提供商。我们已指导数千名马来西亚人通过银行与金融、风险管理、法律与税务咨询、投资及遗产规划等全方位整合服务，实现财富增长。我们的使命是赋予客户信心，助其明智投资并保障未来财富。",
+                "intro_text": "成立于2013年，Wish Group Resources 是马来西亚领先的一站式金融枢纽。我们提供专业的银行、税务、投资和遗产规划服务，帮助成千上万的客户实现财富增长并为后代提供保障。",
                 "mission_title": "我们的使命",
-                "mission_text": "通过全面、个性化的财务与保险规划，为客户提供安心保障，与客户建立长期信任关系，并恪守最高水平的专业精神与道德标准",
+                "mission_text": "通过全面、个性化的金融和保险规划，为客户提供安心保障，与客户建立长期信任，并秉持最高水平的专业精神和道德标准。",
                 "vision_title": "我们的愿景",
-                "vision_text": "成为马来西亚领先的年轻金融服务机构——客户与商业领袖的首选合作伙伴。我们培养的是领导者，而非普通员工。",
-                "values_title": "我们的核心价值观",
-                "values_text_paragraph": "我们是一家位于马来西亚的年轻金融机构，致力于成为客户和未来领袖的首选。"
+                "vision_text": "成为马来西亚领先的年轻金融服务机构——客户和商业领袖的首选合作伙伴。我们培养的是领袖，而不仅仅是员工。",
+                "values_title": "核心价值观",
+                "values_text_paragraph": "我们是马来西亚一家年轻的金融代理机构，致力于成为客户和未来领袖的首选。",
+                "value1": "感恩",
+                "value2": "团队精神",
+                "value3": "卓越",
+                "value4": "远见",
+                "value5": "奉献"
             },
             "events": {
-                "title": "Life at Wish Group",
-                "tab_celebration": "庆典活动",
+                "title": "Wish Group 的生活",
+                "tab_celebration": "庆典",
                 "tab_team": "团队建设",
                 "tab_training": "培训",
                 "celebration_desc1": "Wish 年度晚宴",
                 "team_desc1": "🏓 匹克球",
-                "team_desc2": "户外团队凝聚活动",
-                "training_desc1": "💡 学习，欢笑与提升",
-                "tab_charity": "慈善公益",
+                "team_desc2": "户外团队凝聚活动。",
+                "training_desc1": "💡 学习、欢笑与提升",
+                "tab_charity": "慈善",
                 "charity_desc1": "慈善活动"
             },
             "testimonials": {
-                "title": "客户为何信任我们",
-                "subtitle": "诚恳建议，专业指导",
+                "title": "为何客户信任我们",
+                "subtitle": "诚实的建议，专业的指导",
                 "client1_name": "Bobby Zhang",
-                "client1_role": "办公室职员",
-                "client1_text": "“一切都清晰专业——我放心将家人的安全托付给他们。”",
+                "client1_role": "上班族",
+                "client1_text": "“一切都很清晰且专业——我放心把家人的保障交给他们。”",
                 "client2_name": "Emily Wong",
                 "client2_role": "家庭主妇",
-                "client2_text": "“他们解释得清清楚楚，现在我完全明白了，甚至向朋友们推荐他们。”",
+                "client2_text": "“他们解释得非常清楚。现在通过了解，我甚至会推荐给朋友。”",
                 "client3_name": "Jason Hiew",
-                "client3_role": "办公室职员",
-                "client3_text": "“起初我并不感兴趣，但后来发现他们确实值得信赖。”"
+                "client3_role": "上班族",
+                "client3_text": "“一开始我不太感兴趣，但后来发现他们真的很值得信赖。”"
             },
             "stories": {
-                "title": "Wish for Good",
-                "story1_title": "15年，一个使命：拯救生命",
+                "title": "善举",
+                "story1_title": "15年<br>同一使命：拯救生命",
                 "know_more": "了解更多",
-                "story2_title": "每月一善",
-                "story3_title": "新年伊始,爱意相赠",
+                "story2_title": "一月一善",
+                "story3_title": "新的一年，<br>爱的礼物",
                 "story1": {
-                    "text": "15年来，我们一直致力于组织无偿献血活动，以支持当地医院并拯救生命。加入我们，一起做出改变。"
+                    "text": "15年来，我们一直组织献血活动，支持当地医院并拯救生命。加入我们的使命，一起创造改变。"
                 },
                 "story2": {
-                    "text": "我们相信坚持的力量。“每月一善”倡议鼓励我们的团队和社区每个月至少做一件善事。"
+                    "text": "我们相信坚持的力量。“一月一善”计划鼓励我们的团队和社区每个月至少做一件善事。"
                 },
                 "story3": {
-                    "text": "在新年来临之际，我们与贫困家庭分享爱心和生活必需品，确保每个人都能有尊严地庆祝节日。"
+                    "text": "在迎接新年之际，我们与贫困家庭分享爱心和生活必需品，确保每个人都能带着快乐和尊严庆祝节日。"
                 }
             },
             "story_popup": {
-                "video_unsupported": "您的浏览器不支持视频标签。",
+                "video_unsupported": "您的浏览器不支持该视频标签。",
                 "speed_label": "速度："
             },
             "services": {
                 "title": "我们的服务",
+                "trusted_partner": "(值得信赖的合作伙伴)",
                 "banking": {
-                    "title": "银行业与金融业",
+                    "title": "银行与金融",
                     "item1": "贷款咨询",
-                    "item2": "房贷规划",
+                    "item2": "按揭规划",
                     "item3": "债务重组"
                 },
                 "risk": {
@@ -515,37 +619,39 @@ document.addEventListener('DOMContentLoaded', function () {
                     "item3": "重大疾病保障"
                 },
                 "legal": {
-                    "title": "法律咨询服务（与信赖合作伙伴）",
-                    "item1": "法律文件支持",
-                    "item2": "合同审核",
+                    "title": "法律咨询",
+                    "item1": "法律文件",
+                    "item2": "合同审查",
                     "item3": "遗嘱撰写"
                 },
                 "tax": {
                     "title": "税务规划",
-                    "item1": "个人税务规划",
-                    "item2": "企业税务咨询",
+                    "item1": "个人税务",
+                    "item2": "企业税务",
                     "item3": "税务优化"
                 },
                 "investment": {
-                    "title": "投资规划",
+                    "title": "投资",
                     "item1": "投资组合设计",
-                    "item2": "单位信托投资",
+                    "item2": "信托基金",
                     "item3": "退休规划"
                 },
                 "estate": {
                     "title": "遗产规划",
-                    "item1": "遗嘱规划与信托设立",
+                    "item1": "遗嘱规划",
                     "item2": "资产分配",
-                    "item3": "遗产继承保障"
+                    "item3": "继承保障"
                 }
             },
             "contact": {
+                "title_page": "联系我们",
+                "subtitle_page": "我们期待您的来信。",
                 "title": "联系我们",
-                "description": "我们随时为您提供帮助",
-                "form_title": "取得联系",
+                "description": "留下您的详细信息，我们会尽快与您联系！",
+                "form_title": "保持联系",
                 "category_label": "感兴趣的类别",
                 "category_option_default": "选择一个选项",
-                "category_option1": "银行业与金融业",
+                "category_option1": "银行解决方案",
                 "category_option2": "风险管理",
                 "category_option3": "法律咨询",
                 "category_option4": "税务规划",
@@ -555,52 +661,56 @@ document.addEventListener('DOMContentLoaded', function () {
                 "other_category_placeholder": "请注明"
             },
             "form": {
-                "name_placeholder": "请输入您的姓名",
-                "email_placeholder": "输入您的电子邮箱",
-                "phone_placeholder": "输入您的手机号码",
-                "message_placeholder_contact": "留言",
+                "name_placeholder": "您的姓名",
+                "email_placeholder": "您的邮箱",
+                "phone_placeholder": "电话号码",
+                "message_placeholder_contact": "留言（选填）",
                 "submit_btn": "提交"
             },
             "join": {
-                "story4": {
-                    "text": "故事4文本..."
-                },
-                "story5": {
-                    "text": "故事5文本..."
-                },
                 "story6": {
-                    "text": "故事6文本..."
+                    "text": "故事6内容..."
                 },
+                "title_page": "加入我们",
                 "subtitle_page": "我们正在寻找志同道合的合作伙伴。我们不只是招聘员工；我们在寻找未来的行业领袖。",
-                "culture_headline": "在 Wish Group，我们不只是在招聘员工，而是在寻找未来的行业领导者。",
-                "culture_p1": "我们提供的不只是一份工作，而是一个能让你发挥潜能、建立专业尊严的平台。在这里，我们崇尚年轻、活力与创新，并致力于通过专业的金融规划为每一个家庭带去安稳。",
-                "culture_p2": "如果你对金融行业充满热情，渴望在透明、公平的环境中成长，我们期待你的加入。",
-                "why_title": "为什么选择 Wish Group？",
+                "culture_headline": "在 Wish Group，我们不仅雇佣员工；我们寻找未来的行业领袖。",
+                "culture_p1": "我们提供的不仅仅是一份工作，而是一个您可以发挥潜力并建立职业尊严的平台。在这里，我们倡导青春、活力和创新，并致力于通过专业的金融规划为每个家庭带来稳定。",
+                "culture_p2": "如果您对金融行业充满热情，并渴望在透明公平的环境中成长，我们期待您的加入。",
+                "why_title": "为何选择 Wish Group？",
                 "pillar1_title": "跨领域学习",
-                "pillar1_desc": "接触银行、税务、法律、保险等全方位金融方案，培养复合型人才。",
+                "pillar1_desc": "接触银行、税务、法律和保险金融解决方案，培养复合型人才。",
                 "pillar2_title": "导师文化",
-                "pillar2_desc": "完善的 Mentorship 制度，让新人不再迷茫。",
-                "pillar3_title": "社会影响力",
-                "pillar3_desc": "参与“Wish for Good”慈善项目，让工作不仅仅是为了赚钱，更是为了回馈。",
+                "pillar2_desc": "全面的导师制度，指导新成员。",
+                "pillar3_title": "社会影响",
+                "pillar3_desc": "参与“Wish for Good”慈善项目，回馈社会。",
                 "growth_title": "成长预期",
-                "growth_stage1_title": "第 1 阶段：新人入职（Intern/Junior）",
-                "growth_stage1_desc": "专属导师带路，学习金融基础与合规。",
-                "growth_stage2_title": "第 2 阶段：独立顾问（Senior Consultant）",
+                "growth_stage1_title": "阶段 1：入门（实习/初级）",
+                "growth_stage1_desc": "导师带领，学习金融基础和合规。",
+                "growth_stage2_title": "阶段 2：独立顾问（高级）",
                 "growth_stage2_desc": "掌握资产配置，开始独立面对高端客户。",
-                "growth_stage3_title": "第 3 阶段：团队领袖（Team Leader）",
+                "growth_stage3_title": "阶段 3：团队负责人",
                 "growth_stage3_desc": "参与公司决策，带领自己的团队。",
-                "growth_stage4_title": "终极目标：合作伙伴（Partner）",
-                "growth_stage4_desc": "共同经营品牌，实现事业巅峰。",
+                "growth_stage4_title": "最终目标：合伙人",
+                "growth_stage4_desc": "共同管理品牌，达到职业巅峰。",
+                "growth_stage1_desc_mobile": "通过专业导师指导开启您的金融职业生涯。专注于掌握核心产品，建立客户信任，并打下坚实的专业基础。",
+                "growth_stage2_desc_mobile": "通过管理多元化的高净值投资组合实现职业独立。提供专业的金融解决方案，并在行业中建立您的个人品牌。",
+                "growth_stage3_desc_mobile": "通过带领高绩效团队成就他人。专注于人才招聘、管理，并随着团队壮大享受丰厚的管理佣金。",
+                "growth_stage4_desc_mobile": "作为战略商业合伙人达到职业巅峰。参与公司利润分享、股权所有，共同塑造 Wish Group 的未来愿景。",
                 "title": "加入我们",
-                "description": "加入我们的团队，共创未来！",
+                "description": "让我们看到您的潜力。请作为附件提交您的简历或作品集。",
                 "form_title": "发送您的简历",
-                "message_placeholder": "是否有任何信息要传达给本公司？",
-                "cv_label": "在此附上您的简历",
+                "message_placeholder": "给公司的留言",
+                "cv_label": "在此附上简历",
                 "choose_file": "选择文件",
                 "no_file_chosen": "未选择文件",
-                "position_default": "选择职位"
+                "position_default": "选择职位",
+                "our_office": "地址",
+                "email_us": "邮箱",
+                "have_questions": "有任何问题？",
+                "contact_support": "联系我们"
             },
             "footer": {
+                "tagline": "您的一站式金融合作伙伴。<br>一站式增长与保障解决方案。",
                 "address": "32A-1, Jalan Nautika B U20/B,<br />Pusat Komersial TSB,<br />47000 Shah Alam, Selangor",
                 "follow_us": "关注我们",
                 "copyright": "&copy;2025 Wish Group. 版权所有。"
@@ -694,34 +804,71 @@ document.addEventListener('DOMContentLoaded', function () {
         // ========== Interactive Testimonials Logic ==========
         const testimonialsData = [
             {
+                name: getNestedTranslation(translations, "testimonials.client3_name") || "Jason Hiew",
+                role: getNestedTranslation(translations, "testimonials.client3_role") || "Office Worker",
+                text: getNestedTranslation(translations, "testimonials.client3_text") || "I wasn't interested at first, but later I found them truly trustworthy.",
+                image: "images/jason_hiew.jpg"
+            },
+            {
                 name: getNestedTranslation(translations, "testimonials.client1_name") || "Bobby Zhang",
                 role: getNestedTranslation(translations, "testimonials.client1_role") || "Office Worker",
                 text: getNestedTranslation(translations, "testimonials.client1_text") || "Everything was clear and professional - I trust them with my family's protection.",
-                image: "images/client1.webp"
+                image: "images/bobby_zhang.jpg"
             },
             {
                 name: getNestedTranslation(translations, "testimonials.client2_name") || "Emily Wong",
                 role: getNestedTranslation(translations, "testimonials.client2_role") || "Housewife",
                 text: getNestedTranslation(translations, "testimonials.client2_text") || "They explained everything so clearly. Now I even recommend them to friends.",
-                image: "images/client2.webp"
-            },
-            {
-                name: getNestedTranslation(translations, "testimonials.client3_name") || "Jason Hiew",
-                role: getNestedTranslation(translations, "testimonials.client3_role") || "Office Worker",
-                text: getNestedTranslation(translations, "testimonials.client3_text") || "I wasn't interested at first, but later I found them truly trustworthy.",
-                image: "images/client3.webp"
+                image: "images/emily_wong.jpg"
             }
         ];
 
         // --- REFACTORED TESTIMONIALS (Persistent DOM + View Transitions) ---
 
-        // 1. Init: Create DOM elements ONCE
+        // 1. Init: Create DOM elements ONCE (With BOTH layouts inside)
         window.renderTestimonials = function () {
             const grid = document.getElementById("testimonialGrid");
             if (!grid) return;
 
             // Check if already initialized (persistent DOM)
+            // Check if already initialized (persistent DOM)
             if (grid.children.length === testimonialsData.length) {
+                // UPDATE TEXT CONTENT FOR LANGUAGE SWITCH
+                testimonialsData.forEach((item, index) => {
+                    const card = document.getElementById(`t-card-${index}`);
+                    if (card) {
+                        const largeContent = card.querySelector('.large-content');
+                        const smallContent = card.querySelector('.small-content');
+
+                        // Update Large
+                        if (largeContent) {
+                            const img = largeContent.querySelector('img');
+                            if (img) img.alt = item.name;
+
+                            const h3 = largeContent.querySelector('h3');
+                            if (h3) h3.innerHTML = item.text;
+
+                            const h4 = largeContent.querySelector('h4');
+                            if (h4) h4.textContent = item.name;
+
+                            const pRole = largeContent.querySelector('p');
+                            if (pRole) pRole.textContent = item.role;
+                        }
+
+                        // Update Small
+                        if (smallContent) {
+                            const pText = smallContent.querySelector('.text-\\[1\\.05rem\\]'); // Specific selector for text
+                            if (pText) pText.innerHTML = item.text;
+
+                            // Fallback if specific class absent (though it is there line 828)
+                            // Note: line 828 class is "text-[1.05rem] text-[#444] leading-relaxed mb-8 relative z-10"
+
+                            const img = smallContent.querySelector('img');
+                            if (img) img.alt = item.name;
+                        }
+                    }
+                });
+
                 // Just update visuals
                 updateTestimonialsVisuals();
                 return;
@@ -732,20 +879,53 @@ document.addEventListener('DOMContentLoaded', function () {
             testimonialsData.forEach((item, index) => {
                 const card = document.createElement('div');
                 card.id = `t-card-${index}`;
-                // Apply view-transition-name to ENABLE Magic Move
+                // Apply view-transition-name to ENABLE Magic Move (Desktop Only mainly)
                 card.style.viewTransitionName = `testimonial-${index}`;
 
                 // Base classes
-                card.className = "bg-white rounded-[40px] shadow-[0_10px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] transition-shadow duration-300 overflow-hidden";
+                card.className = "bg-white rounded-[30px] shadow-[0_10px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] transition-shadow duration-300 overflow-hidden";
 
-                // Initial Visuals
+                // Insert BOTH Views (Small & Large)
+                card.innerHTML = `
+                    <!-- LARGE CONTENT (Default Hidden) -->
+                    <div class="large-content flex flex-col justify-between h-full p-8 md:p-12 animate-fade-in hidden">
+                        <div>
+                            <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gray-100 shadow-lg mb-8 md:mb-12 border-2 border-white overflow-hidden">
+                                <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
+                            </div>
+                            <h3 class="text-[1.8rem] md:text-[2.2rem] font-bold text-[#1a1a1a] leading-tight mb-8">
+                                ${item.text}
+                            </h3>
+                        </div>
+                        <div>
+                            <h4 class="text-[1.25rem] font-bold text-[#222] mb-1">${item.name}</h4>
+                            <p class="text-[1rem] text-[#888] font-medium">${item.role}</p>
+                        </div>
+                    </div>
+
+                    <!-- SMALL CONTENT (Default Hidden) -->
+                    <div class="small-content flex flex-col justify-between h-full p-8 animate-fade-in relative group hidden">
+                        <div>
+                            <span class="text-[60px] leading-none text-gray-100 font-serif block mb-2 transition-colors group-hover:text-gray-200">&ldquo;</span>
+                            <p class="text-[1.05rem] text-[#444] leading-relaxed mb-8 relative z-10">
+                                ${item.text}
+                            </p>
+                        </div>
+                        <div class="flex justify-end">
+                            <div class="w-14 h-14 rounded-full bg-gray-100 shadow-md border-2 border-white overflow-hidden">
+                                <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+                `;
+
                 grid.appendChild(card);
             });
 
             updateTestimonialsVisuals();
         };
 
-        // 2. Update: Changes classes and innerHTML based on state
+        // 2. Update: Toggles classes instead of replacing innerHTML (Fixes Scroll Jump)
         function updateTestimonialsVisuals() {
             const activeIndex = window.activeTestimonialIndex;
 
@@ -756,7 +936,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const isActive = index === activeIndex;
                 let layoutClasses = "";
 
-                // --- LAYOUT LOGIC (Same as before) ---
+                // --- LAYOUT LOGIC ---
                 if (activeIndex === 0) {
                     if (isActive) layoutClasses = "md:col-span-8 md:row-span-2";
                     else layoutClasses = "md:col-span-4";
@@ -768,46 +948,20 @@ document.addEventListener('DOMContentLoaded', function () {
                     else layoutClasses = "md:col-span-6";
                 }
 
-                // Apply Classes (Preserve base styles)
-                card.className = `${layoutClasses} bg-white rounded-[40px] shadow-[0_10px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] transition-shadow duration-300 overflow-hidden h-full cursor-${isActive ? 'default' : 'pointer'}`;
+                // Apply Classes
+                card.className = `${layoutClasses} bg-white rounded-[30px] shadow-[0_10px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] transition-shadow duration-300 overflow-hidden h-full cursor-${isActive ? 'default' : 'pointer'} min-w-[85vw] md:min-w-0 snap-center`;
 
-                // Apply Content
+                // Toggle Visibility via CSS Classes
+                const largeContent = card.querySelector('.large-content');
+                const smallContent = card.querySelector('.small-content');
+
                 if (isActive) {
-                    // LARGE CONTENT
-                    card.innerHTML = `
-                <div class="flex flex-col justify-between h-full p-8 md:p-12 animate-fade-in">
-                  <div>
-                    <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-[#e0f0ff] flex items-center justify-center text-[#0073e6] font-bold text-2xl md:text-3xl shadow-lg mb-8 md:mb-12 border-2 border-white">
-                      ${item.name.charAt(0)}
-                    </div>
-                    <h3 class="text-[1.8rem] md:text-[2.2rem] font-bold text-[#1a1a1a] leading-tight mb-8">
-                      ${item.text}
-                    </h3>
-                  </div>
-                  <div>
-                    <h4 class="text-[1.25rem] font-bold text-[#222] mb-1">${item.name}</h4>
-                    <p class="text-[1rem] text-[#888] font-medium">${item.role}</p>
-                  </div>
-                </div>
-            `;
+                    if (largeContent) largeContent.classList.remove('hidden');
+                    if (smallContent) smallContent.classList.add('hidden');
                     card.onclick = null;
                 } else {
-                    // SMALL CONTENT
-                    card.innerHTML = `
-                <div class="flex flex-col justify-between h-full p-8 animate-fade-in relative group">
-                  <div>
-                    <span class="text-[60px] leading-none text-gray-100 font-serif block mb-2 transition-colors group-hover:text-gray-200">“</span>
-                    <p class="text-[1.05rem] text-[#444] leading-relaxed mb-8 relative z-10">
-                      ${item.text}
-                    </p>
-                  </div>
-                  <div class="flex justify-end">
-                    <div class="w-14 h-14 rounded-full bg-[#e0f0ff] flex items-center justify-center text-[#0073e6] font-bold text-xl shadow-md border-2 border-white">
-                      ${item.name.charAt(0)}
-                    </div>
-                  </div>
-                </div>
-            `;
+                    if (largeContent) largeContent.classList.add('hidden');
+                    if (smallContent) smallContent.classList.remove('hidden');
                     card.onclick = () => swapTestimonial(index);
                 }
             });
@@ -817,17 +971,51 @@ document.addEventListener('DOMContentLoaded', function () {
         window.swapTestimonial = function (index) {
             if (index === window.activeTestimonialIndex) return;
 
-            // Use Native View Transition if available
+            // Check if Mobile
+            const isMobile = window.innerWidth < 768;
+
+            // Use Native View Transition if available (Enable on Mobile too for smoothness)
             if (document.startViewTransition) {
                 document.startViewTransition(() => {
                     window.activeTestimonialIndex = index;
                     updateTestimonialsVisuals();
                 });
             } else {
-                // Fallback for older browsers
+                // Fallback for older browsers OR Mobile (for performance)
                 window.activeTestimonialIndex = index;
                 updateTestimonialsVisuals();
             }
+        };
+
+        // 4. Scroll Observer for Mobile
+        window.setupMobileScrollObserver = function () {
+            const observerOptions = {
+                root: null, // viewport
+                // Create a "sweet spot" in the middle of the screen (vertically)
+                // Negative margins reduce the active area.
+                // -40% from top and -40% from bottom leaves the middle 20%.
+                rootMargin: '-40% 0px -40% 0px',
+                threshold: 0 // Trigger as soon as 1px enters this middle zone
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                if (window.innerWidth >= 768) return; // Disable on Desktop
+
+                entries.forEach(entry => {
+                    // logic: If a card ENTERS the sweet spot, make it active.
+                    if (entry.isIntersecting) {
+                        const index = parseInt(entry.target.id.replace('t-card-', ''));
+                        if (!isNaN(index)) {
+                            swapTestimonial(index);
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            testimonialsData.forEach((_, index) => {
+                const card = document.getElementById(`t-card-${index}`);
+                if (card) observer.observe(card);
+            });
         };
 
         // Function to calculate and lock the height of the ENTIRE GRID
@@ -865,14 +1053,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     if (isActive) {
                         tempHtml += `
-                <div class="${classes} bg-white rounded-[40px] p-8 md:p-12 mb-0 h-full">
+                <div class="${classes} bg-white rounded-[30px] p-8 md:p-12 mb-0 h-full">
                   <div class="h-[200px]"></div> <!-- Mock height content -->
                   <h3>${item.text}</h3>
                 </div>
             `;
                     } else {
                         tempHtml += `
-                <div class="${classes} bg-white rounded-[32px] p-8 h-full">
+                <div class="${classes} bg-white rounded-[30px] p-8 h-full">
                   <p>${item.text}</p>
                 </div>
             `;
@@ -894,6 +1082,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         };
         window.renderTestimonials();
+        window.setupMobileScrollObserver();
         requestAnimationFrame(() => {
             window.setFixedTestimonialHeight();
             if (window.setFixedWishSliderHeight) window.setFixedWishSliderHeight();
@@ -1012,27 +1201,33 @@ document.addEventListener('DOMContentLoaded', function () {
 
         function updateSlice(index) {
             activeIndex = index;
-            const story = stories[activeIndex];
+            const story = stories[index];
 
             // Sync Global Active Index
             window.wishSliderActiveIndex = activeIndex;
 
-            // 1. Animate Out (Image Slide Left, Text Fade Out Up)
-            sliderImage.style.transition = 'all 0.4s ease-in-out';
+            // 1. Slide Out (Fade Out & Move Left)
+            // Optimize: Animate only composite properties (opacity, transform)
+            const transitionString = 'opacity 0.3s ease-in-out, transform 0.3s ease-in-out';
+
+            sliderImage.style.transition = transitionString;
             sliderImage.style.opacity = '0';
             sliderImage.style.transform = 'translateX(-50px)';
 
             if (sliderTitle) {
+                sliderTitle.style.transition = transitionString;
                 sliderTitle.style.opacity = '0';
                 sliderTitle.style.transform = 'translateY(-10px)';
             }
             if (sliderDesc) {
+                sliderDesc.style.transition = transitionString;
                 sliderDesc.style.opacity = '0';
                 sliderDesc.style.transform = 'translateY(-10px)';
             }
 
+            // 2. Wait for Slide Out to finish (reduced to 300ms)
             setTimeout(() => {
-                // 2. Update Content
+                // 3. Update Content
                 sliderImage.src = story.image;
                 if (sliderTitle) sliderTitle.innerHTML = story.title;
                 if (sliderDesc) sliderDesc.innerHTML = story.desc;
@@ -1044,25 +1239,27 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (sliderTitle) sliderTitle.style.transform = 'translateY(10px)';
                 if (sliderDesc) sliderDesc.style.transform = 'translateY(10px)';
 
-                // Force Reflow
+                // Force Reflow - Necessary for restart
                 void sliderImage.offsetWidth;
 
-                // 4. Slide In to Center (Image Slide Left, Text Fade In Up)
-                sliderImage.style.transition = 'all 0.4s ease-in-out';
+                // 4. Slide In to Center
+                sliderImage.style.transition = transitionString;
                 sliderImage.style.opacity = '1';
                 sliderImage.style.transform = 'translateX(0)';
 
                 if (sliderTitle) {
+                    sliderTitle.style.transition = transitionString;
                     sliderTitle.style.opacity = '1';
                     sliderTitle.style.transform = 'translateY(0)';
                 }
                 if (sliderDesc) {
+                    sliderDesc.style.transition = transitionString;
                     sliderDesc.style.opacity = '1';
                     sliderDesc.style.transform = 'translateY(0)';
                 }
 
                 updateIndicators();
-            }, 400);
+            }, 300);
         }
 
         function renderIndicators() {
@@ -1157,6 +1354,43 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Initialize
         initSlider();
+
+        // --- SWIPE LOGIC FOR MOBILE ---
+        const sliderContainer = document.getElementById('wishSlider');
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        if (sliderContainer) {
+            sliderContainer.addEventListener('touchstart', (e) => {
+                // Store initial touch position
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+
+            sliderContainer.addEventListener('touchmove', (e) => {
+                // Optional: visual feedback during swipe could go here
+                // For now, just passive listening
+            }, { passive: true });
+
+            sliderContainer.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, { passive: true });
+        }
+
+        function handleSwipe() {
+            const threshold = 50; // Minimum distance to be considered a swipe
+            const swipeDistance = touchEndX - touchStartX;
+
+            if (Math.abs(swipeDistance) > threshold) {
+                if (swipeDistance > 0) {
+                    // Swiped Right -> Previous Slide
+                    if (prevBtn) prevBtn.click();
+                } else {
+                    // Swiped Left -> Next Slide
+                    if (nextBtn) nextBtn.click();
+                }
+            }
+        }
 
 
         // ========== Event Descriptions ==========
@@ -1395,16 +1629,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 // Real backend submission:
                 const submitBtn = joinForm.querySelector('button[type="submit"]');
-                const originalBtnText = submitBtn.innerHTML;
+                // Store original text
+                if (!submitBtn.getAttribute('data-original-text')) {
+                    submitBtn.setAttribute('data-original-text', submitBtn.innerHTML);
+                }
+                const originalBtnText = submitBtn.getAttribute('data-original-text');
+
                 submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Sending...';
                 submitBtn.disabled = true;
 
+                // Real Backend Submission
                 fetch("submit_cv.php", {
                     method: "POST",
-                    body: formData,
+                    body: formData
                 })
-                    .then(response => response.text())
-                    .then(result => {
+                    .then(response => {
+                        if (response.ok) {
+                            return response.text();
+                        } else {
+                            throw new Error("Server error");
+                        }
+                    })
+                    .then(data => {
                         if (successModal) {
                             successModal.classList.remove("hidden");
                             successModal.classList.add("flex");
@@ -1415,15 +1661,15 @@ document.addEventListener('DOMContentLoaded', function () {
                         fileChosenSpan.classList.add("text-gray-500", "italic");
                         fileChosenSpan.classList.remove("text-blue-600", "font-medium");
                         fileChosenSpan.setAttribute("data-i18n", "join.no_file_chosen");
-                        loadLanguage(currentLang);
                     })
                     .catch(error => {
                         console.error("Error:", error);
-                        alert("An error occurred. Please try again.");
+                        alert("There was a problem submitting your application. Please ensure you uploaded a valid file (PDF/DOC) and try again.");
                     })
                     .finally(() => {
-                        submitBtn.innerHTML = originalBtnText;
+                        // Restore button state
                         submitBtn.disabled = false;
+                        loadLanguage(currentLang);
                     });
             });
         }
@@ -1455,6 +1701,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 800);
         }
     });
+
     const modal = document.getElementById("modal");
     const modalImg = document.getElementById("modalImg");
     const modalDesc = document.getElementById("modalDesc");
@@ -1465,17 +1712,21 @@ document.addEventListener('DOMContentLoaded', function () {
     let filteredItems = [];
     let currentIndex = 0;
 
-    console.log("Debug: tabs", tabs.length);
-    console.log("Debug: carousel", !!carousel);
-    console.log("Debug: allItems", allItems.length);
-    console.log("Debug: modal", !!modal);
-    console.log("Debug: modalImg", !!modalImg);
-    console.log("Debug: modalDesc", !!modalDesc);
-    console.log("Debug: modalClose", !!modalClose);
-    console.log("Debug: modalPrev", !!modalPrev);
-    console.log("Debug: modalNext", !!modalNext);
+    // PRELOADER: Force load all carousel images immediately to prevent lag on tab switch
+    if (allItems.length > 0) {
+        setTimeout(() => {
+            console.log("Preloading carousel images...");
+            allItems.forEach(item => {
+                const img = item.querySelector('img');
+                if (img && img.src) {
+                    const preloadLink = new Image();
+                    preloadLink.src = img.src;
+                }
+            });
+        }, 1000); // Start shortly after initial render
+    }
 
-    if (tabs.length && carousel && allItems.length && modal && modalImg && modalDesc && modalClose && modalPrev && modalNext) {
+    if (tabs.length && carousel && allItems.length) {
 
         function updateCarousel(category) {
             // Filter items
@@ -1491,22 +1742,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 filteredItems = filteredItems.slice(0, 8);
             }
 
-            // Clear carousel and re-append filtered items (cloning to avoid moving original nodes if needed, but here we just append)
-            // Since we might have duplicates of the same node, we need to clone them
+            // Clear carousel and re-append filtered items
             carousel.innerHTML = '';
             filteredItems.forEach(item => {
-                // Clone the item so we can have duplicates in the DOM
                 const clone = item.cloneNode(true);
-                // Re-attach click listener to clone since we lost it
                 clone.addEventListener("click", () => {
-                    // Find the index of this clone in the current filteredItems list
-                    // We can't rely on item reference since it's a clone
-                    // We'll use the index in the carousel children
                     const index = Array.from(carousel.children).indexOf(clone);
-                    // Map back to original selectedItems index for modal? 
-                    // Actually, we can just open the modal with the clone's data
-                    // But navigateModal relies on filteredItems. 
-                    // Let's just use the index in the current carousel.
                     currentIndex = index;
                     openModal(currentIndex);
                 });
@@ -1519,22 +1760,27 @@ document.addEventListener('DOMContentLoaded', function () {
             // Reset animation by triggering reflow
             carousel.classList.remove('animating');
             void carousel.offsetWidth; // trigger reflow
-            carousel.classList.add('animating');
+
+            // Double rAF to ensure the browser has painted the static state
+            // before starting the heavy marquee animation.
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    carousel.classList.add('animating');
+                });
+            });
         }
 
         tabs.forEach((tab) => {
             tab.addEventListener("click", () => {
-                console.log("Tab clicked:", tab.getAttribute("data-category"));
-
                 // 1. Reset ALL tabs to inactive style
                 tabs.forEach((btn) => {
-                    btn.classList.remove("bg-indigo-600", "text-white");
-                    btn.classList.add("bg-white", "text-indigo-600");
+                    btn.classList.remove("bg-indigo-200", "text-indigo-600");
+                    btn.classList.add("bg-white", "text-indigo-400");
                 });
 
                 // 2. Set CURRENT tab to active style
-                tab.classList.remove("bg-white", "text-indigo-600");
-                tab.classList.add("bg-indigo-600", "text-white");
+                tab.classList.remove("bg-white", "text-indigo-400");
+                tab.classList.add("bg-indigo-200", "text-indigo-600");
 
                 const category = tab.getAttribute("data-category");
                 updateCarousel(category);
@@ -1543,9 +1789,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         // Initial load - Force click the first tab or the explicit Charity tab
-        // We use a small timeout to ensure the DOM is fully ready if script runs early
         setTimeout(() => {
-            // Find "Charity" tab specifically if possible, else first tab
             const charityTab = Array.from(tabs).find(t => t.getAttribute('data-category') === 'charity');
             if (charityTab) {
                 charityTab.click();
@@ -1553,8 +1797,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 tabs[0].click();
             }
         }, 100);
+    }
 
-        // Modal logic
+    // Modal logic
+    if (modal && modalImg && modalDesc && modalClose) {
         function openModal(index) {
             const item = filteredItems[index];
             if (item) {
@@ -1578,20 +1824,9 @@ document.addEventListener('DOMContentLoaded', function () {
             openModal(currentIndex);
         }
 
-        // Attach click events to ALL items (even if not currently in DOM, they are in allItems)
-        allItems.forEach((item) => {
-            item.addEventListener("click", () => {
-                // Re-calculate index based on currently filtered items
-                currentIndex = filteredItems.indexOf(item);
-                if (currentIndex !== -1) {
-                    openModal(currentIndex);
-                }
-            });
-        });
-
         modalClose.addEventListener("click", closeModal);
-        modalPrev.addEventListener("click", () => navigateModal(-1));
-        modalNext.addEventListener("click", () => navigateModal(1));
+        if (modalPrev) modalPrev.addEventListener("click", () => navigateModal(-1));
+        if (modalNext) modalNext.addEventListener("click", () => navigateModal(1));
         modal.addEventListener("click", (e) => {
             if (e.target === modal) closeModal();
         });
@@ -1606,11 +1841,11 @@ document.addEventListener('DOMContentLoaded', function () {
         contactForm.addEventListener("submit", function (e) {
             e.preventDefault();
 
-            // Basic Validation
-            const name = document.getElementById("contact_name").value.trim();
-            const email = document.getElementById("contact_email").value.trim();
-            const phone = document.getElementById("contact_phone").value.trim();
-            const category = document.getElementById("category").value;
+            // Basic Validation - Fix selectors to use form scope since IDs don't exist
+            const name = contactForm.querySelector('[name="name"]').value.trim();
+            const email = contactForm.querySelector('[name="email"]').value.trim();
+            const phone = contactForm.querySelector('[name="phone"]').value.trim();
+            const category = contactForm.querySelector('[name="category"]').value;
 
             if (!name || !email || !phone || !category) {
                 alert("Please fill in all required fields.");
@@ -1628,16 +1863,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Real backend submission:
             const submitBtn = contactForm.querySelector('button[type="submit"]');
-            const originalBtnText = submitBtn.innerHTML;
+
+            // Store original text
+            if (!submitBtn.getAttribute('data-original-text')) {
+                submitBtn.setAttribute('data-original-text', submitBtn.innerHTML);
+            }
+            const originalBtnText = submitBtn.getAttribute('data-original-text');
+
             submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Sending...';
             submitBtn.disabled = true;
 
+            // Real Backend Submission
             fetch("submit_contact.php", {
                 method: "POST",
                 body: formData
             })
-                .then((response) => response.text())
-                .then((result) => {
+                .then(response => {
+                    if (response.ok) {
+                        return response.text();
+                    } else {
+                        throw new Error("Server error");
+                    }
+                })
+                .then(data => {
                     // Show Success Modal
                     if (successModal) {
                         successModal.classList.remove("hidden");
@@ -1646,13 +1894,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     contactForm.reset();
                     if (otherInput) otherInput.style.display = "none";
                 })
-                .catch((error) => {
+                .catch(error => {
                     console.error("Error:", error);
-                    alert("Something went wrong. Please try again.");
+                    alert("There was an problem sending your message. Please try again.");
                 })
                 .finally(() => {
-                    submitBtn.innerHTML = originalBtnText;
+                    // Restore button state
                     submitBtn.disabled = false;
+                    loadLanguage(currentLang);
                 });
         });
     }
@@ -1773,4 +2022,24 @@ document.addEventListener('DOMContentLoaded', function () {
             icon.classList.add("fa-headset");
         }
     };
+    // ========== Mobile Footer Accordion Logic ==========
+    const accordionToggles = document.querySelectorAll(".accordion-toggle");
+
+    accordionToggles.forEach(toggle => {
+        toggle.addEventListener("click", () => {
+            // 1. Toggle Content Visibility
+            const content = toggle.nextElementSibling;
+            content.classList.toggle("hidden");
+
+            // 2. Rotate Icon
+            const icon = toggle.querySelector("i");
+            if (icon) {
+                if (content.classList.contains("hidden")) {
+                    icon.style.transform = "rotate(0deg)";
+                } else {
+                    icon.style.transform = "rotate(180deg)";
+                }
+            }
+        });
+    });
 });

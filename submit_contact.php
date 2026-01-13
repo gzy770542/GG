@@ -2,11 +2,13 @@
 require 'db.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-  $name     = $_POST['name'] ?? '';
-  $email    = $_POST['email'] ?? '';
-  $phone    = $_POST['phone'] ?? '';
+  $name = $_POST['name'] ?? '';
+  $email = $_POST['email'] ?? '';
+  $phone = $_POST['phone'] ?? '';
   $category = $_POST['category'] ?? '';
-  $other    = $_POST['other'] ?? '';
+  $other = $_POST['other'] ?? '';
+
+  $message = $_POST['message'] ?? '';
 
   // Optional: Basic validation
   if (empty($name) || empty($email) || empty($phone) || empty($category)) {
@@ -18,8 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $finalCategory = ($category === 'Other') ? $other : $category;
 
   try {
-    $stmt = $pdo->prepare("INSERT INTO contacts (name, email, phone, category) VALUES (?, ?, ?, ?)");
-    $stmt->execute([$name, $email, $phone, $finalCategory]);
+    $stmt = $pdo->prepare("INSERT INTO contacts (name, email, phone, category, message) VALUES (?, ?, ?, ?, ?)");
+    $stmt->execute([$name, $email, $phone, $finalCategory, $message]);
     echo "Success! Your contact request has been submitted.";
   } catch (PDOException $e) {
     // Log error instead of showing to user in production

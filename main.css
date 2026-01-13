@@ -368,3 +368,13 @@ html {
   animation: spin-pause 4s ease-in-out infinite;
   transform-origin: center;
 }
+
+/* Hide scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

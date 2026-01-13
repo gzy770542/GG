@@ -46,6 +46,38 @@
 
   <link rel="stylesheet" href="main.css" />
 
+  <!-- ✅ Auto-Scale Script for Desktop Consistency -->
+  <script>
+    (function () {
+      // Run immediately on the HTML element (available in head) to prevent CLS
+      if (window.innerWidth > 768) {
+        var baseWidth = 1440;
+        var zoomLevel = window.innerWidth / baseWidth;
+
+        // Cap visual zoom at 1 (don't zoom in, only out)
+        if (zoomLevel < 1) {
+          // Use documentElement (html tag) which exists in head
+          document.documentElement.style.zoom = zoomLevel;
+        }
+      }
+    })();
+
+    // Update on resize
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 768) {
+        var baseWidth = 1440;
+        var zoomLevel = window.innerWidth / baseWidth;
+        if (zoomLevel < 1) {
+          document.documentElement.style.zoom = zoomLevel;
+        } else {
+          document.documentElement.style.zoom = 1;
+        }
+      } else {
+        document.documentElement.style.zoom = 1;
+      }
+    });
+  </script>
+
   <!-- Additional styles for JavaScript functionality -->
 
 
@@ -96,8 +128,11 @@
       cursor: pointer;
       transition: transform 0.3s;
 
-      /* animation */
+      /* animation optimization */
       will-change: transform;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+      perspective: 1000px;
       animation-name: marquee;
       animation-duration: var(--carousel-duration);
       animation-timing-function: linear;
@@ -107,6 +142,61 @@
 
     .carousel-item:hover {
       transform: translateY(-5px);
+    }
+
+    /* Hamburger Animation & Mobile Menu */
+    .hamburger.active span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+
+    body.no-scroll {
+      overflow: hidden;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: white;
+        z-index: 40;
+        /* Behind hamburger (z-50) but above everything else */
+
+        /* Transition Logic */
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+
+        /* Layout */
+        display: flex;
+        /* Always flex, just hidden visually */
+        flex-direction: column;
+        justify-content: flex-start !important;
+        /* Force Align to top */
+        /* Force Align to top */
+        align-items: flex-start;
+        padding-left: 2rem;
+        /* Left Padding */
+        padding-top: 100px !important;
+        /* Force Items up */
+      }
+
+      nav.show {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
     }
 
     .carousel-item:nth-child(1) {
@@ -159,98 +249,81 @@
       <div class="loading-bar-progress"></div>
     </div>
   </div>
-  <header class="fixed top-0 w-full bg-white z-[999] transition-transform duration-300 ease-in-out shadow-lg">
+  <header class="fixed top-0 w-full bg-white z-[999] transition-transform duration-300 ease-in-out shadow-lg"
+    style="view-transition-name: page-header;">
     <div class="flex items-center px-[5%] py-2.5 relative">
       <div class="flex-none">
         <a href="#top">
-          <img class="h-[80px] " src="images/logo.webp" alt="Wish Group Logo" />
+          <img class="h-[80px] w-auto" src="images/logo.webp" alt="Wish Group Logo" width="200" height="80" />
         </a>
       </div>
 
       <nav class="flex-1 flex justify-center md:flex md:justify-center absolute 
-       md:relative top-full left-0 right-0 bg-white hidden flex-col items-center 
+       md:relative top-full left-0 right-0 bg-white flex-col items-center 
        shadow-[0_2px_8px_rgba(0,0,0,0.1)] md:shadow-none">
 
         <ul class="list-none flex gap-[15px] items-center m-0 p-0 md:flex-row flex-col w-full md:w-auto py-2.5 md:py-0">
 
-          <li class="w-full md:w-auto text-center md:text-left">
-            <a href="#about" class="nav-link no-underline font-sans text-[16px] text-[#333] font-normal 
+          <li class="w-full md:w-auto text-left md:text-left">
+            <a href="#about" class="nav-link no-underline font-sans text-2xl md:text-[16px] text-[#333] font-normal 
               px-3.5 py-2 rounded-lg transition-all duration-300 ease-in-out 
               hover:bg-[#e0f0ff] hover:text-[#0073e6] active:bg-[#e0f0ff] 
               active:text-[#0073e6] block w-full md:inline py-3 md:py-2 
-              text-center md:text-left rounded-none md:rounded-lg" data-i18n="nav_about">
+              text-left md:text-left rounded-none md:rounded-lg" data-i18n="nav_about">
               About Us
             </a>
           </li>
 
 
 
-          <li class="w-full md:w-auto text-center md:text-left">
-            <a href="#stories" class="nav-link no-underline font-sans text-[16px] text-[#333] font-normal 
-              px-3.5 py-2 rounded-lg transition-all duration-300 ease-in-out 
-              hover:bg-[#e0f0ff] hover:text-[#0073e6] active:bg-[#e0f0ff] 
-              active:text-[#0073e6] block w-full md:inline py-3 md:py-2 
-              text-center md:text-left rounded-none md:rounded-lg" data-i18n="nav_wish_for_good">
-              Wish for Good
-            </a>
-          </li>
 
-          <li class="w-full md:w-auto text-center md:text-left">
-            <a href="#services" class="nav-link no-underline font-sans text-[16px] text-[#333] font-normal px-3.5 
+
+          <li class="w-full md:w-auto text-left md:text-left">
+            <a href="#services" class="nav-link no-underline font-sans text-2xl md:text-[16px] text-[#333] font-normal px-3.5 
               py-2 rounded-lg transition-all duration-300 ease-in-out hover:bg-[#e0f0ff] 
               hover:text-[#0073e6] active:bg-[#e0f0ff] active:text-[#0073e6] 
-              block w-full md:inline py-3 md:py-2 text-center md:text-left 
+              block w-full md:inline py-3 md:py-2 text-left md:text-left 
               rounded-none md:rounded-lg" data-i18n="nav_services">
               Our Services
             </a>
           </li>
 
-          <li class="w-full md:w-auto text-center md:text-left">
-            <a href="#events" class="nav-link no-underline text-[16px] text-[#333] font-normal px-3.5 py-2 
-              rounded-lg transition-all duration-300 ease-in-out hover:bg-[#e0f0ff] hover:text-[#0073e6] 
-              active:bg-[#e0f0ff] active:text-[#0073e6] 
-              block w-full md:inline py-3 md:py-2 text-center md:text-left rounded-none md:rounded-lg"
-              data-i18n="nav_moments">
-              Wish.G Moments
-            </a>
-          </li>
 
-          <li class="w-full md:w-auto text-center md:text-left">
-            <a href="#testimonials" class="nav-link no-underline text-[16px] text-[#333] font-normal 
+          <li class="w-full md:w-auto text-left md:text-left">
+            <a href="#testimonials" class="nav-link no-underline text-2xl md:text-[16px] text-[#333] font-normal 
               px-3.5 py-2 rounded-lg transition-all duration-300 ease-in-out hover:bg-[#e0f0ff] 
               hover:text-[#0073e6] active:bg-[#e0f0ff] active:text-[#0073e6] 
-              block w-full md:inline py-3 md:py-2 text-center md:text-left 
+              block w-full md:inline py-3 md:py-2 text-left md:text-left 
               rounded-none md:rounded-lg" data-i18n="nav_testimonials">
               Testimonials
             </a>
           </li>
 
-          <li class="w-full md:w-auto text-center md:text-left">
-            <a href="contact.html" class="nav-link no-underline text-[16px] text-[#333] font-normal px-3.5 
+          <li class="w-full md:w-auto text-left md:text-left">
+            <a href="contact.html" class="nav-link no-underline text-2xl md:text-[16px] text-[#333] font-normal px-3.5 
               py-2 rounded-lg transition-all duration-300 ease-in-out hover:bg-[#e0f0ff] 
               hover:text-[#0073e6] active:bg-[#e0f0ff] active:text-[#0073e6] 
-              block w-full md:inline py-3 md:py-2 text-center md:text-left rounded-none md:rounded-lg"
+              block w-full md:inline py-3 md:py-2 text-left md:text-left rounded-none md:rounded-lg"
               data-i18n="nav_contact">
               Contact Us
             </a>
           </li>
 
-          <li class="w-full md:w-auto text-center md:text-left">
-            <a href="#contact" data-form-state="join" class="nav-link no-underline text-[16px] text-[#333] font-normal px-3.5 
+          <li class="w-full md:w-auto text-left md:text-left">
+            <a href="#contact" data-form-state="join" class="nav-link no-underline text-2xl md:text-[16px] text-[#333] font-normal px-3.5 
               py-2 rounded-lg transition-all duration-300 ease-in-out hover:bg-[#e0f0ff] 
               hover:text-[#0073e6] active:bg-[#e0f0ff] active:text-[#0073e6] 
-              block w-full md:inline py-3 md:py-2 text-center md:text-left rounded-none md:rounded-lg"
+              block w-full md:inline py-3 md:py-2 text-left md:text-left rounded-none md:rounded-lg"
               data-i18n="nav_join_us">
               Join Us
             </a>
           </li>
 
-          <li class="w-full md:w-auto text-center md:text-left">
-            <a href="#find-us"
-              class="nav-link no-underline text-[16px] text-[#333] font-normal px-3.5 
+          <li class="w-full md:w-auto text-left md:text-left">
+            <a href="#find-us" class="nav-link no-underline text-2xl md:text-[16px] text-[#333] font-normal px-3.5 
               py-2 rounded-lg transition-all duration-300 ease-in-out hover:bg-[#e0f0ff] 
               hover:text-[#0073e6] active:bg-[#e0f0ff] active:text-[#0073e6] 
-              block w-full md:inline py-3 md:py-2 text-center md:text-left rounded-none md:rounded-lg lg:hidden md:block"
+              block w-full md:inline py-3 md:py-2 text-left md:text-left rounded-none md:rounded-lg lg:hidden md:block"
               data-i18n="nav_find_us">
               Find Us
             </a>
@@ -336,12 +409,12 @@
     <!-- Mobile: Bottom Half (Natural Flow). Desktop: Centered Container Overlay. -->
     <div
       class="container relative z-[2] w-full max-w-[1200px] mx-auto px-4 md:px-8 pointer-events-auto md:pointer-events-auto grow flex flex-col justify-center">
-      <div class="w-full md:w-[55%] flex flex-col items-start text-left py-10 md:py-0 md:-ml-12">
+      <div
+        class="w-full md:w-[70%] flex flex-col items-center text-center md:items-start md:text-left py-10 md:py-0 md:-ml-32">
 
         <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-sans text-[#1a1a1a] mb-6 leading-tight"
           data-i18n="hero.title">
-          Your One-Stop<br />
-          <span class="text-[#0073e6]">Financial Partner</span>
+          Your One-Stop <span class="text-[#0073e6]">Financial Partner</span>
         </h1>
 
         <p class="text-lg md:text-xl text-[#555] mb-10 max-w-[500px] leading-relaxed" data-i18n="hero.subtitle">
@@ -349,7 +422,7 @@
           wealth.
         </p>
 
-        <div class="hero-buttons flex items-center gap-5 flex-wrap">
+        <div class="hero-buttons flex items-center justify-center md:justify-start gap-5 flex-wrap">
           <a href="contact.html" class="btn primary inline-block px-10 py-4 text-lg 
             rounded-full bg-[#1A2B4C] text-white font-bold no-underline transition-all
             duration-300 hover:bg-[#005bb5] hover:shadow-xl hover:-translate-y-1" data-i18n="hero.getStarted">
@@ -357,7 +430,7 @@
           </a>
           <a href="#about" class="btn secondary inline-block px-10 py-4 text-lg 
             rounded-full bg-white text-[#1A2B4C] border border-[#1A2B4C] font-bold no-underline transition-all
-            duration-300 hover:bg-[#ebf5ff] hover:shadow-lg hover:-translate-y-1">
+            duration-300 hover:bg-[#ebf5ff] hover:shadow-lg hover:-translate-y-1" data-i18n="hero.how_it_works">
             How it works?
           </a>
         </div>
@@ -392,7 +465,7 @@
       </div>
 
       <!-- Timeline Container -->
-      <div class="relative max-w-4xl mx-auto mt-12 px-4 flex flex-col gap-12">
+      <div class="relative w-full mx-auto mt-12 flex flex-col gap-12">
         <!-- Vertical Line -->
         <div
           class="absolute top-0 bottom-0 left-[2rem] md:left-[2.25rem] w-px bg-gradient-to-b from-blue-200 via-purple-200 to-transparent">
@@ -407,7 +480,7 @@
           </div>
           <!-- Content -->
           <div
-            class="ml-6 md:ml-10 bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-100 flex-grow transition-shadow duration-300 group-hover:shadow-md">
+            class="ml-6 md:ml-10 bg-white p-6 md:p-8 rounded-[30px] shadow-sm border border-gray-100 flex-grow transition-shadow duration-300 group-hover:shadow-md">
             <h3 class="text-xl md:text-2xl font-bold text-[#1a1a1a] mb-3" data-i18n="about.mission_title">Our Mission
             </h3>
             <p class="text-[#555] leading-relaxed text-sm md:text-base" data-i18n="about.mission_text">
@@ -428,7 +501,7 @@
           </div>
           <!-- Content -->
           <div
-            class="ml-6 md:ml-10 bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-100 flex-grow transition-shadow duration-300 group-hover:shadow-md">
+            class="ml-6 md:ml-10 bg-white p-6 md:p-8 rounded-[30px] shadow-sm border border-gray-100 flex-grow transition-shadow duration-300 group-hover:shadow-md">
             <h3 class="text-xl md:text-2xl font-bold text-[#1a1a1a] mb-3" data-i18n="about.vision_title">Our Vision</h3>
             <p class="text-[#555] leading-relaxed text-sm md:text-base" data-i18n="about.vision_text">
               To be a leading young financial services agency in Malaysia — the
@@ -447,7 +520,7 @@
           </div>
           <!-- Content -->
           <div
-            class="ml-6 md:ml-10 bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-100 flex-grow transition-shadow duration-300 group-hover:shadow-md">
+            class="ml-6 md:ml-10 bg-white p-6 md:p-8 rounded-[30px] shadow-sm border border-gray-100 flex-grow transition-shadow duration-300 group-hover:shadow-md">
             <h3 class="text-xl md:text-2xl font-bold text-[#1a1a1a] mb-3" data-i18n="about.values_title">Our Core Values
             </h3>
             <p class="text-[#555] leading-relaxed text-sm md:text-base" data-i18n="about.values_text_paragraph">
@@ -468,7 +541,7 @@
 
       <!-- Premium Slider Container -->
       <div id="wishSlider"
-        class="relative w-full h-auto md:h-[600px] bg-[#f5f5f5] rounded-[20px] md:rounded-[30px] overflow-hidden shadow-2xl flex flex-col-reverse md:flex-row group">
+        class="relative w-full h-auto md:h-[600px] bg-[#f5f5f5] rounded-[30px] overflow-hidden shadow-2xl flex flex-col-reverse md:flex-row group">
 
         <div
           class="w-full md:w-[45%] p-6 md:pt-8 md:px-12 md:pb-24 flex flex-col bg-white/90 backdrop-blur-sm z-10 relative">
@@ -494,12 +567,25 @@
             <div id="mainProgressBar" class="h-full bg-[#FE435E] w-0 transition-all duration-300"></div>
           </div>
 
-          <!-- Story List (Clickable) -->
           <div class="slider-indicators hidden md:flex flex-col gap-4 mb-8 select-none" id="sliderIndicators">
-            <!-- Injected by JS: 
-                 1. 15 Years...
-                 2. One Kindness... 
-                 -->
+            <!-- 1. 15 Years... -->
+            <div class="cursor-pointer transition-all duration-300 flex items-center group py-2">
+              <div class="text-base text-gray-500 group-hover:text-[#1a1a1a] transition-colors font-medium select-none">
+                15 Years One Mission: Save Lives
+              </div>
+            </div>
+            <!-- 2. One Kindness... -->
+            <div class="cursor-pointer transition-all duration-300 flex items-center group py-2">
+              <div class="text-base text-gray-500 group-hover:text-[#1a1a1a] transition-colors font-medium select-none">
+                One Kindness A Month
+              </div>
+            </div>
+            <!-- 3. A New Year... -->
+            <div class="cursor-pointer transition-all duration-300 flex items-center group py-2">
+              <div class="text-base text-gray-500 group-hover:text-[#1a1a1a] transition-colors font-medium select-none">
+                A New Year, A Gift of Love
+              </div>
+            </div>
           </div>
 
           <!-- Controls -->
@@ -526,7 +612,7 @@
 
         <!-- Right Side: Image Area -->
         <div class="w-full md:w-[60%] h-[250px] md:h-full relative overflow-hidden bg-gray-200">
-          <img id="sliderImage" src="" alt="Wish for Good"
+          <img id="sliderImage" src="images/bdonation.webp" alt="Wish for Good"
             class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
           <div class="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent pointer-events-none"></div>
         </div>
@@ -540,7 +626,7 @@
     class="story-popup fixed inset-0 bg-black/80 hidden items-center justify-center z-[9999] backdrop-blur-sm transition-opacity duration-300"
     id="storyPopup">
     <div
-      class="story-popup-content bg-white w-full max-w-[1000px] h-auto md:max-h-[85vh] rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row relative mx-4 animate-scaleIn">
+      class="story-popup-content bg-white w-full max-w-[1000px] h-auto md:max-h-[85vh] rounded-[30px] shadow-2xl overflow-hidden flex flex-col md:flex-row relative mx-4 animate-scaleIn">
 
       <button
         class="close-btn absolute top-4 right-4 z-50 w-10 h-10 bg-white/10 hover:bg-black/10 rounded-full flex items-center justify-center text-black text-2xl transition-all"
@@ -593,20 +679,20 @@
 
       <!-- Right Grid -->
       <div class="flex-grow">
-        <div class="services-grid grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 justify-items-center">
+        <div class="services-grid grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
 
           <!-- Service 1 -->
           <div
-            class="service-card w-full max-w-[300px] bg-white rounded-lg overflow-hidden shadow-xl transform transition hover:-translate-y-2 border border-gray-100">
+            class="service-card w-full bg-white rounded-[30px] overflow-hidden shadow-xl transform transition hover:-translate-y-2 border border-gray-100">
             <div class="h-[160px] w-full clip-v-bottom bg-gray-100">
-              <img src="images/banking & finance.webp" alt="Banking & Finance" class="w-full h-full object-cover" />
+              <img src="images/banking & finance.jpg" alt="Banking & Finance" class="w-full h-full object-cover" />
             </div>
             <div class="p-5 text-center -mt-2">
               <h3 class="text-[#1A2B4C] font-bold text-lg mb-1 uppercase leading-tight"
                 data-i18n="services.banking.title">
                 Banking & Finance</h3>
               <ul
-                class="text-gray-600 text-[15px] list-disc list-inside text-left inline-block space-y-1 mt-3 border-t border-gray-200 pt-3">
+                class="text-gray-600 text-sm list-disc list-inside text-left inline-block space-y-1 mt-3 border-t border-gray-200 pt-3">
                 <li data-i18n="services.banking.item1">Loan Consultation</li>
                 <li data-i18n="services.banking.item2">Mortgage Planning</li>
                 <li data-i18n="services.banking.item3">Debt Restructuring</li>
@@ -616,7 +702,7 @@
 
           <!-- Service 2 -->
           <div
-            class="service-card w-full max-w-[300px] bg-white rounded-lg overflow-hidden shadow-xl transform transition hover:-translate-y-2 border border-gray-100">
+            class="service-card w-full bg-white rounded-[30px] overflow-hidden shadow-xl transform transition hover:-translate-y-2 border border-gray-100">
             <div class="h-[160px] w-full clip-v-bottom bg-gray-100">
               <img src="images/risk.webp" alt="Risk Management" class="w-full h-full object-cover" />
             </div>
@@ -624,26 +710,29 @@
               <h3 class="text-[#1A2B4C] font-bold text-lg mb-1 uppercase leading-tight" data-i18n="services.risk.title">
                 Risk Management</h3>
               <ul
-                class="text-gray-600 text-[15px] list-disc list-inside text-left inline-block space-y-1 mt-3 border-t border-gray-200 pt-3">
+                class="text-gray-600 text-sm list-disc list-inside text-left inline-block space-y-1 mt-3 border-t border-gray-200 pt-3">
                 <li data-i18n="services.risk.item1">Insurance Analysis</li>
                 <li data-i18n="services.risk.item2">Protection Planning</li>
-                <li data-i18n="services.risk.item3">Critical Illness Coverage</li>
+                <li data-i18n="services.risk.item3">Critical Illness</li>
               </ul>
             </div>
           </div>
 
           <!-- Service 3 -->
           <div
-            class="service-card w-full max-w-[300px] bg-white rounded-lg overflow-hidden shadow-xl transform transition hover:-translate-y-2 border border-gray-100">
+            class="service-card w-full bg-white rounded-[30px] overflow-hidden shadow-xl transform transition hover:-translate-y-2 border border-gray-100">
             <div class="h-[160px] w-full clip-v-bottom bg-gray-100">
               <img src="images/legal (1).webp" alt="Legal Advisory" class="w-full h-full object-cover" />
             </div>
-            <div class="p-5 text-center -mt-2">
+            <div class="p-5 text-center -mt-2 relative">
               <h3 class="text-[#1A2B4C] font-bold text-lg mb-1 uppercase leading-tight"
                 data-i18n="services.legal.title">
                 Legal Advisory</h3>
+              <p class="absolute w-full left-0 top-[2.8rem] text-[12px] text-[#1A2B4C] font-medium leading-none">
+                <span data-i18n="services.trusted_partner">(Trusted Partner)</span>
+              </p>
               <ul
-                class="text-gray-600 text-[15px] list-disc list-inside text-left inline-block space-y-1 mt-3 border-t border-gray-200 pt-3">
+                class="text-gray-600 text-sm list-disc list-inside text-left inline-block space-y-1 mt-3 border-t border-gray-200 pt-3">
                 <li data-i18n="services.legal.item1">Legal Documentation</li>
                 <li data-i18n="services.legal.item2">Contract Review</li>
                 <li data-i18n="services.legal.item3">Will Writing</li>
@@ -653,7 +742,7 @@
 
           <!-- Service 4 -->
           <div
-            class="service-card w-full max-w-[300px] bg-white rounded-lg overflow-hidden shadow-xl transform transition hover:-translate-y-2 border border-gray-100">
+            class="service-card w-full bg-white rounded-[30px] overflow-hidden shadow-xl transform transition hover:-translate-y-2 border border-gray-100">
             <div class="h-[160px] w-full clip-v-bottom bg-gray-100">
               <img src="images/tax.webp" alt="Tax Advisory" class="w-full h-full object-cover" />
             </div>
@@ -661,9 +750,9 @@
               <h3 class="text-[#1A2B4C] font-bold text-lg mb-1 uppercase leading-tight" data-i18n="services.tax.title">
                 Tax Advisory</h3>
               <ul
-                class="text-gray-600 text-[15px] list-disc list-inside text-left inline-block space-y-1 mt-3 border-t border-gray-200 pt-3">
-                <li data-i18n="services.tax.item1">Personal Tax Planning</li>
-                <li data-i18n="services.tax.item2">Business Tax Consultation</li>
+                class="text-gray-600 text-sm list-disc list-inside text-left inline-block space-y-1 mt-3 border-t border-gray-200 pt-3">
+                <li data-i18n="services.tax.item1">Personal Tax</li>
+                <li data-i18n="services.tax.item2">Business Tax</li>
                 <li data-i18n="services.tax.item3">Tax Optimization</li>
               </ul>
             </div>
@@ -671,7 +760,7 @@
 
           <!-- Service 5 -->
           <div
-            class="service-card w-full max-w-[300px] bg-white rounded-lg overflow-hidden shadow-xl transform transition hover:-translate-y-2 border border-gray-100">
+            class="service-card w-full bg-white rounded-[30px] overflow-hidden shadow-xl transform transition hover:-translate-y-2 border border-gray-100">
             <div class="h-[160px] w-full clip-v-bottom bg-gray-100">
               <img src="images/investment.webp" alt="Investment" class="w-full h-full object-cover" />
             </div>
@@ -679,9 +768,9 @@
               <h3 class="text-[#1A2B4C] font-bold text-lg mb-1 uppercase leading-tight"
                 data-i18n="services.investment.title">Investment</h3>
               <ul
-                class="text-gray-600 text-[15px] list-disc list-inside text-left inline-block space-y-1 mt-3 border-t border-gray-200 pt-3">
+                class="text-gray-600 text-sm list-disc list-inside text-left inline-block space-y-1 mt-3 border-t border-gray-200 pt-3">
                 <li data-i18n="services.investment.item1">Portfolio Design</li>
-                <li data-i18n="services.investment.item2">Unit Trust Investment</li>
+                <li data-i18n="services.investment.item2">Unit Trusts</li>
                 <li data-i18n="services.investment.item3">Retirement Planning</li>
               </ul>
             </div>
@@ -689,17 +778,17 @@
 
           <!-- Service 6 -->
           <div
-            class="service-card w-full max-w-[300px] bg-white rounded-lg overflow-hidden shadow-xl transform transition hover:-translate-y-2 border border-gray-100">
+            class="service-card w-full bg-white rounded-[30px] overflow-hidden shadow-xl transform transition hover:-translate-y-2 border border-gray-100">
             <div class="h-[160px] w-full clip-v-bottom bg-gray-100">
-              <img src="images/estate planning.webp" alt="Estate Planning" class="w-full h-full object-cover" />
+              <img src="images/estate planning.jpg" alt="Estate Planning" class="w-full h-full object-cover" />
             </div>
             <div class="p-5 text-center -mt-2">
               <h3 class="text-[#1A2B4C] font-bold text-lg mb-1 uppercase leading-tight"
                 data-i18n="services.estate.title">
                 Estate Planning</h3>
               <ul
-                class="text-gray-600 text-[15px] list-disc list-inside text-left inline-block space-y-1 mt-3 border-t border-gray-200 pt-3">
-                <li data-i18n="services.estate.item1">Will Planning & Trust Setup</li>
+                class="text-gray-600 text-sm list-disc list-inside text-left inline-block space-y-1 mt-3 border-t border-gray-200 pt-3">
+                <li data-i18n="services.estate.item1">Will Planning</li>
                 <li data-i18n="services.estate.item2">Asset Distribution</li>
                 <li data-i18n="services.estate.item3">Inheritance Protection</li>
               </ul>
@@ -720,24 +809,24 @@
       <div
         class="event-tabs grid grid-cols-2 gap-3 w-full md:w-auto md:flex md:justify-center md:gap-[15px] md:flex-wrap">
         <button class="event-tab w-full md:w-auto px-5 py-2.5 rounded-[25px] 
-        bg-white text-indigo-600 font-bold cursor-pointer transition duration-300 
-        hover:bg-indigo-600 hover:text-white" data-category="charity" data-i18n="events.tab_charity">
+        bg-white text-indigo-400 font-bold cursor-pointer transition duration-300 
+        hover:bg-indigo-200 hover:text-indigo-600" data-category="charity" data-i18n="events.tab_charity">
           Charity
         </button>
         <button class="event-tab w-full md:w-auto px-5 py-2.5 rounded-[25px] 
-        bg-white text-indigo-600 font-bold cursor-pointer transition 
-        duration-300 hover:bg-indigo-600 hover:text-white" data-category="celebration"
+        bg-white text-indigo-400 font-bold cursor-pointer transition 
+        duration-300 hover:bg-indigo-200 hover:text-indigo-600" data-category="celebration"
           data-i18n="events.tab_celebration">
           Celebration
         </button>
         <button class="event-tab w-full md:w-auto px-5 py-2.5 rounded-[25px] 
-        bg-white text-indigo-600 font-bold cursor-pointer transition 
-        duration-300 hover:bg-indigo-600 hover:text-white" data-category="team" data-i18n="events.tab_team">
+        bg-white text-indigo-400 font-bold cursor-pointer transition 
+        duration-300 hover:bg-indigo-200 hover:text-indigo-600" data-category="team" data-i18n="events.tab_team">
           Team Building
         </button>
         <button class="event-tab w-full md:w-auto px-5 py-2.5 rounded-[25px] 
-        bg-white text-indigo-600 font-bold cursor-pointer transition duration-300 
-        hover:bg-indigo-600 hover:text-white" data-category="training" data-i18n="events.tab_training">
+        bg-white text-indigo-400 font-bold cursor-pointer transition duration-300 
+        hover:bg-indigo-200 hover:text-indigo-600" data-category="training" data-i18n="events.tab_training">
           Training
         </button>
       </div>
@@ -746,15 +835,15 @@
         <div class="carousel">
           <div class="carousel-item" data-category="celebration" data-description="Wish Annual Dinner"
             data-i18n-description="events.celebration_desc1">
-            <img class="w-full h-full object-cover" src="images/WishDinner.webp" alt="Wish Annual Dinner" />
+            <img class="w-full h-full object-cover" src="images/WishDinner.jpg" alt="Wish Annual Dinner" />
           </div>
           <div class="carousel-item" data-category="celebration" data-description="Wish Annual Dinner"
             data-i18n-description="events.celebration_desc1">
-            <img class="w-full h-full object-cover" src="images/WishDinner1.webp" alt="Wish Annual Dinner" />
+            <img class="w-full h-full object-cover" src="images/WishDinner1.jpg" alt="Wish Annual Dinner" />
           </div>
           <div class="carousel-item" data-category="celebration" data-description="Wish Annual Dinner"
             data-i18n-description="events.celebration_desc1">
-            <img class="w-full h-full object-cover" src="images/WishDinner2.webp" alt="Wish Annual Dinner" />
+            <img class="w-full h-full object-cover" src="images/WishDinner2.jpg" alt="Wish Annual Dinner" />
           </div>
           <div class="carousel-item" data-category="team" data-description="🏓 Pickleball"
             data-i18n-description="events.team_desc1">
@@ -798,7 +887,7 @@
           </div>
           <div class="carousel-item" data-category="celebration" data-description="Wish Annual Dinner"
             data-i18n-description="events.celebration_desc1">
-            <img class="w-full h-full object-cover" src="images/Gratitude.webp" alt="Wish Annual Dinner" />
+            <img class="w-full h-full object-cover" src="images/Gratitude.jpg" alt="Wish Annual Dinner" />
           </div>
           <div class="carousel-item" data-category="charity" data-description="Charity Event"
             data-i18n-description="events.charity_desc1">
@@ -880,7 +969,8 @@
 
       <!-- Why Choose Us Pillars -->
       <div>
-        <h3 class="text-2xl md:text-3xl font-bold text-center text-[#1a1a1a] mb-8" data-i18n="join.why_title">Why Choose
+        <h3 class="text-2rem md:text-3xl font-bold text-center text-[#1a1a1a] mb-8" data-i18n="join.why_title">Why
+          Choose
           Wish Group?</h3>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-[1000px] mx-auto">
           <!-- Pillar 1 -->
@@ -933,7 +1023,7 @@
           <!-- Bar 1: Intern (40%) -->
           <div class="w-full md:w-1/4 flex flex-col items-center group">
             <div
-              class="w-full bg-gradient-to-t from-indigo-500 to-indigo-400 rounded-t-2xl shadow-lg relative overflow-hidden transition-all duration-500 hover:scale-[1.02] flex flex-col justify-start p-4 h-[180px] md:h-[160px]">
+              class="w-full bg-gradient-to-t from-indigo-500 to-indigo-400 rounded-t-[30px] shadow-lg relative overflow-hidden transition-all duration-500 hover:scale-[1.02] flex flex-col justify-start p-4 h-[180px] md:h-[160px]">
               <div class="text-white/90 font-bold text-lg mb-1">01</div>
               <div class="text-white font-bold text-lg leading-tight mb-2" data-i18n="join.growth_stage1_title">
                 Intern/Junior</div>
@@ -945,7 +1035,7 @@
           <!-- Bar 2: Senior (60%) -->
           <div class="w-full md:w-1/4 flex flex-col items-center group">
             <div
-              class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-2xl shadow-lg relative overflow-hidden transition-all duration-500 hover:scale-[1.02] flex flex-col justify-start p-4 h-[180px] md:h-[240px]">
+              class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-[30px] shadow-lg relative overflow-hidden transition-all duration-500 hover:scale-[1.02] flex flex-col justify-start p-4 h-[180px] md:h-[240px]">
               <div class="text-white/90 font-bold text-lg mb-1">02</div>
               <div class="text-white font-bold text-lg leading-tight mb-2" data-i18n="join.growth_stage2_title">Senior
                 Consultant</div>
@@ -957,7 +1047,7 @@
           <!-- Bar 3: Leader (80%) -->
           <div class="w-full md:w-1/4 flex flex-col items-center group">
             <div
-              class="w-full bg-gradient-to-t from-purple-500 to-purple-400 rounded-t-2xl shadow-lg relative overflow-hidden transition-all duration-500 hover:scale-[1.02] flex flex-col justify-start p-4 h-[180px] md:h-[320px]">
+              class="w-full bg-gradient-to-t from-purple-500 to-purple-400 rounded-t-[30px] shadow-lg relative overflow-hidden transition-all duration-500 hover:scale-[1.02] flex flex-col justify-start p-4 h-[180px] md:h-[320px]">
               <div class="text-white/90 font-bold text-lg mb-1">03</div>
               <div class="text-white font-bold text-lg leading-tight mb-2" data-i18n="join.growth_stage3_title">Team
                 Leader</div>
@@ -969,7 +1059,7 @@
           <!-- Bar 4: Partner (100%) -->
           <div class="w-full md:w-1/4 flex flex-col items-center group">
             <div
-              class="w-full bg-gradient-to-t from-amber-500 to-amber-400 rounded-t-2xl shadow-lg relative overflow-hidden transition-all duration-500 hover:scale-[1.02] flex flex-col justify-start p-4 h-[180px] md:h-[400px]">
+              class="w-full bg-gradient-to-t from-amber-500 to-amber-400 rounded-t-[30px] shadow-lg relative overflow-hidden transition-all duration-500 hover:scale-[1.02] flex flex-col justify-start p-4 h-[180px] md:h-[400px]">
               <div class="text-white/90 font-bold text-lg mb-1">04</div>
               <div class="text-white font-bold text-lg leading-tight mb-2" data-i18n="join.growth_stage4_title">Partner
               </div>
@@ -987,13 +1077,18 @@
 
             <div style="position: sticky; top: 100px; z-index: 10; margin-bottom: 230px;">
               <div
-                class="bg-gradient-to-r from-indigo-500 to-indigo-400 text-white p-6 rounded-2xl shadow-lg border border-indigo-300/20 h-[420px] flex flex-col justify-start">
+                class="bg-gradient-to-r from-indigo-500 to-indigo-400 text-white p-6 rounded-[30px] shadow-lg border border-indigo-300/20 h-[500px] flex flex-col justify-start">
                 <div class="flex items-start justify-between mb-2">
                   <span class="text-indigo-100 font-bold text-lg">01</span>
                   <i class="fa-solid fa-graduation-cap opacity-50 text-2xl animate-spin-pause"></i>
                 </div>
-                <h4 class="text-xl font-bold mb-1">Intern/Junior</h4>
-                <p class="text-indigo-50 text-sm">Kickstart your financial career with professional mentorship. Focus on
+                <img src="images/growth_1.jpg" alt="Intern Growth"
+                  class="w-full h-40 object-cover rounded-[20px] mb-4 shadow-md border-2 border-white/20">
+                <h4 class="text-xl font-bold mb-1" data-i18n="join.growth_stage1_title">Intern/Junior</h4>
+                <p class="text-indigo-50 text-sm mb-4" data-i18n="join.growth_stage1_desc_mobile">Kickstart your
+                  financial
+                  career with professional mentorship.
+                  Focus on
                   mastering essential products, building client trust, and establishing a solid professional foundation.
                 </p>
               </div>
@@ -1001,39 +1096,52 @@
 
             <div style="position: sticky; top: 170px; z-index: 20; margin-bottom: 160px;">
               <div
-                class="bg-gradient-to-r from-blue-500 to-blue-400 text-white p-6 rounded-2xl shadow-lg border border-blue-300/20 h-[420px] flex flex-col justify-start">
+                class="bg-gradient-to-r from-blue-500 to-blue-400 text-white p-6 rounded-[30px] shadow-lg border border-blue-300/20 h-[500px] flex flex-col justify-start">
                 <div class="flex items-start justify-between mb-2">
                   <span class="text-blue-100 font-bold text-lg">02</span>
                   <i class="fa-solid fa-briefcase opacity-50 text-2xl animate-spin-pause"></i>
                 </div>
-                <h4 class="text-xl font-bold mb-1">Senior Consultant</h4>
-                <p class="text-blue-50 text-sm">Achieve professional independence by managing diverse high-net-worth
+                <img src="images/growth_2.jpg" alt="Senior Growth"
+                  class="w-full h-40 object-cover rounded-[20px] mb-4 shadow-md border-2 border-white/20">
+                <h4 class="text-xl font-bold mb-1" data-i18n="join.growth_stage2_title">Senior Consultant</h4>
+                <p class="text-blue-50 text-sm mb-4" data-i18n="join.growth_stage2_desc_mobile">Achieve professional
+                  independence by managing diverse
+                  high-net-worth
                   portfolios. Deliver expert financial solutions and build your personal brand in the industry.</p>
               </div>
             </div>
 
             <div style="position: sticky; top: 240px; z-index: 30; margin-bottom: 90px;">
               <div
-                class="bg-gradient-to-r from-purple-500 to-purple-400 text-white p-6 rounded-2xl shadow-lg border border-purple-300/20 h-[420px] flex flex-col justify-start">
+                class="bg-gradient-to-r from-purple-500 to-purple-400 text-white p-6 rounded-[30px] shadow-lg border border-purple-300/20 h-[500px] flex flex-col justify-start">
                 <div class="flex items-start justify-between mb-2">
                   <span class="text-purple-100 font-bold text-lg">03</span>
                   <i class="fa-solid fa-users opacity-50 text-2xl animate-spin-pause"></i>
                 </div>
-                <h4 class="text-xl font-bold mb-1">Team Leader</h4>
-                <p class="text-purple-50 text-sm">Empower others to succeed by leading a high-performance team. Focus on
+                <img src="images/growth_3.jpg" alt="Leader Growth"
+                  class="w-full h-40 object-cover rounded-[20px] mb-4 shadow-md border-2 border-white/20">
+                <h4 class="text-xl font-bold mb-1" data-i18n="join.growth_stage3_title">Team Leader</h4>
+                <p class="text-purple-50 text-sm mb-4" data-i18n="join.growth_stage3_desc_mobile">Empower others to
+                  succeed by
+                  leading a high-performance team.
+                  Focus on
                   talent recruitment, management, and enjoying rewarding overriding commissions as your team grows.</p>
               </div>
             </div>
 
             <div style="position: sticky; top: 310px; z-index: 40; margin-bottom: 20px;">
               <div
-                class="bg-gradient-to-r from-amber-500 to-amber-400 text-white p-6 rounded-2xl shadow-lg border border-amber-300/20 h-[420px] flex flex-col justify-start">
+                class="bg-gradient-to-r from-amber-500 to-amber-400 text-white p-6 rounded-[30px] shadow-lg border border-amber-300/20 h-[500px] flex flex-col justify-start">
                 <div class="flex items-start justify-between mb-2">
                   <span class="text-amber-100 font-bold text-lg">04</span>
                   <i class="fa-solid fa-hand-holding-dollar opacity-50 text-2xl animate-spin-pause"></i>
                 </div>
-                <h4 class="text-xl font-bold mb-1">Partner</h4>
-                <p class="text-amber-50 text-sm">Reach the pinnacle of your career as a strategic business partner.
+                <img src="images/growth_4.jpg" alt="Partner Growth"
+                  class="w-full h-40 object-cover rounded-[20px] mb-4 shadow-md border-2 border-white/20">
+                <h4 class="text-xl font-bold mb-1" data-i18n="join.growth_stage4_title">Partner</h4>
+                <p class="text-amber-50 text-sm mb-4" data-i18n="join.growth_stage4_desc_mobile">Reach the pinnacle of
+                  your
+                  career as a strategic business partner.
                   Participate in corporate profit-sharing, equity ownership, and shape the future vision of Wish Group.
                 </p>
               </div>
@@ -1041,8 +1149,8 @@
 
           </div>
 
-          <div class="relative z-50 px-8 mt-8 mb-12">
-            <p class="text-center text-[#555] text-lg leading-relaxed">
+          <div class="relative z-50 mt-8 mb-12">
+            <p class="text-center text-[#555] text-lg leading-relaxed" data-i18n="join.culture_p2">
               If you are passionate about the financial industry and eager to grow in a transparent and fair
               environment, we look forward to having you join us.
             </p>
@@ -1159,7 +1267,7 @@
 
     <!-- Join Us Section - DESKTOP VERSION (New 2-Column Layout) -->
     <div
-      class="hidden md:block max-w-[1200px] mx-auto bg-white rounded-[40px] shadow-[0_20px_60px_rgba(0,0,0,0.05)] overflow-hidden border border-[#f0f0f0]">
+      class="hidden md:block max-w-[1200px] mx-auto bg-white rounded-[30px] shadow-[0_20px_60px_rgba(0,0,0,0.05)] overflow-hidden border border-[#f0f0f0]">
       <div class="grid grid-cols-1 lg:grid-cols-12">
 
         <!-- Left Column: Info & Context -->
@@ -1185,7 +1293,7 @@
                   <i class="fa-solid fa-location-dot"></i>
                 </div>
                 <div>
-                  <h4 class="font-bold text-[#1a1a1a] mb-1">Our Office</h4>
+                  <h4 class="font-bold text-[#1a1a1a] mb-1" data-i18n="join.our_office">Our Office</h4>
                   <p class="text-sm text-[#666]">32A-1, Jalan Nautika B U20/B,
                     Pusat Komersial TSB,
                     47000 Shah Alam, Selangor</p>
@@ -1197,8 +1305,8 @@
                   <i class="fa-solid fa-envelope"></i>
                 </div>
                 <div>
-                  <h4 class="font-bold text-[#1a1a1a] mb-1">Email Us</h4>
-                  <p class="text-sm text-[#666]">info@wishgroup.com</p>
+                  <h4 class="font-bold text-[#1a1a1a] mb-1" data-i18n="join.email_us">Email Us</h4>
+                  <p class="text-[0.95rem] text-[#666] font-medium">info@wishgroup.com</p>
                 </div>
               </div>
             </div>
@@ -1206,7 +1314,8 @@
 
           <div class="mt-12 relative z-10">
             <p class="text-[#666] text-sm">
-              Have questions? <a href="contact.html" class="text-[#0073e6] font-semibold hover:underline">Contact
+              <span data-i18n="join.have_questions">Have questions?</span> <a href="contact.html"
+                class="text-[#0073e6] font-semibold hover:underline" data-i18n="join.contact_support">Contact
                 Support</a>
             </p>
           </div>
@@ -1294,91 +1403,249 @@
     </div>
   </section>
 
-  <footer id="find-us" class="site-footer bg-slate-50 text-slate-800 py-[100px]">
-    <div class="footer-container w-full max-w-[1200px] mx-auto px-4 md:px-8 flex flex-col items-center gap-10">
+  <footer class="bg-slate-50 text-slate-600 py-16 font-sans border-t border-slate-200">
+    <div class="container mx-auto px-6 md:px-12 max-w-[1200px]">
 
-      <!-- Top Row: Address & Map -->
-      <div class="w-full flex flex-wrap justify-center gap-10 lg:gap-20 md:flex-row flex-col">
-        <!-- Address Section -->
-        <div
-          class="footer-left w-full md:w-auto flex flex-col gap-10 items-center md:items-start text-center md:text-left">
-          <!-- Address -->
-          <div class="flex items-start gap-4 text-left">
-            <img src="images/map.webp" alt="Address"
-              class="w-[24px] h-[24px] mt-1 object-contain grayscale opacity-80" />
-            <p class="text-[1rem] leading-[1.6] text-slate-700" data-i18n="footer.address">
-              32A-1, Jalan Nautika B U20/B,<br />
-              Pusat Komersial TSB,<br />
-              47000 Shah Alam, Selangor
-            </p>
-          </div>
+      <!-- ========================================= -->
+      <!-- MOBILE FOOTER (Accordions) - Visible only on mobile -->
+      <!-- ========================================= -->
+      <div class="flex flex-col gap-6 md:hidden">
 
-          <!-- Phone -->
-          <div class="flex items-center gap-4">
-            <img src="images/whatsapp.webp" alt="Phone" class="w-[24px] h-[24px] object-contain grayscale opacity-80" />
-            <a href="tel:+60123270392" class="text-[1rem] text-slate-700 no-underline hover:text-slate-900">
-              +60 12-327 0392
-            </a>
-          </div>
+        <!-- Brand (Centered) -->
+        <div class="flex flex-col items-center text-center gap-4">
+          <a href="#top" class="block w-[140px]">
+            <img src="images/logo.webp" alt="Wish Group" class="w-full h-auto" />
+          </a>
+          <p class="text-sm leading-relaxed text-slate-500">
+            Your One-Stop Financial Partner. <br>
+            All-in-one solution for growth and protection.
+          </p>
+        </div>
 
-          <!-- Email -->
-          <div class="flex items-center gap-4">
-            <img src="images/mail.webp" alt="Email" class="w-[24px] h-[24px] object-contain grayscale opacity-80" />
-            <a href="mailto:info@wishgroup.com" class="text-[1rem] text-slate-700 no-underline hover:text-slate-900">
-              info@wishgroup.com
-            </a>
+        <!-- Accordion 1: Company -->
+        <div class="border-b border-slate-200">
+          <button
+            class="w-full py-4 flex justify-between items-center text-slate-900 font-bold text-lg accordion-toggle">
+            <span data-i18n="nav_culture">Company</span>
+            <i class="fa-solid fa-chevron-down transition-transform duration-300"></i>
+          </button>
+          <div class="accordion-content hidden pb-4">
+            <ul class="flex flex-col gap-4 text-sm font-medium items-start text-left">
+              <li><a href="#top" class="hover:text-blue-600 transition-colors block py-2"
+                  data-i18n="page_title">Home</a></li>
+              <li><a href="#about" class="hover:text-blue-600 transition-colors block py-2" data-i18n="nav_about">About
+                  Us</a></li>
+              <li><a href="#services" class="hover:text-blue-600 transition-colors block py-2"
+                  data-i18n="nav_services">Our
+                  Services</a></li>
+              <li><a href="#events" class="hover:text-blue-600 transition-colors block py-2"
+                  data-i18n="events.title">Life at Wish
+                  Group</a></li>
+              <li><a href="#testimonials" class="hover:text-blue-600 transition-colors block py-2"
+                  data-i18n="nav_testimonials">Testimonials</a></li>
+              <li><a href="#stories" class="hover:text-blue-600 transition-colors block py-2"
+                  data-i18n="nav_wish_for_good">Wish
+                  for Good</a></li>
+              <li><a href="privacy.html" class="hover:text-blue-600 transition-colors block py-2"
+                  data-i18n="nav_privacy">Privacy
+                  Policy</a></li>
+            </ul>
           </div>
         </div>
 
-        <!-- Map Section -->
-        <div
-          class="footer-center w-full md:w-[400px] h-[250px] rounded-xl overflow-hidden shadow-lg border border-slate-200 mx-auto md:mx-0">
-          <iframe width="100%" height="100%" frameborder="0" style="border:0"
-            src="https://maps.google.com/maps?q=Wish+Group+Resources,32A-1,Jalan+Nautika+B+U20/B,Pusat+Komersial+TSB,47000+Shah+Alam,Selangor&t=&z=15&ie=UTF8&iwloc=&output=embed"
-            allowfullscreen>
-          </iframe>
+        <!-- Accordion 2: Contact Us (Join + Contact) -->
+        <div class="border-b border-slate-200">
+          <button
+            class="w-full py-4 flex justify-between items-center text-slate-900 font-bold text-lg accordion-toggle">
+            <span data-i18n="nav_contact">Contact Us</span>
+            <i class="fa-solid fa-chevron-down transition-transform duration-300"></i>
+          </button>
+          <div class="accordion-content hidden pb-4">
+            <ul class="flex flex-col gap-4 text-sm font-medium items-start text-left">
+              <li><a href="#join" class="hover:text-blue-600 transition-colors block py-2" data-i18n="nav_join_us">Join
+                  Us</a></li>
+              <li><a href="contact.html" class="hover:text-blue-600 transition-colors block py-2"
+                  data-i18n="nav_contact">Contact
+                  Us</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Accordion 3: Details (Address, Email, Phone, Map) -->
+        <div class="border-b border-slate-200">
+          <button
+            class="w-full py-4 flex justify-between items-center text-slate-900 font-bold text-lg accordion-toggle">
+            <span>Details</span>
+            <i class="fa-solid fa-chevron-down transition-transform duration-300"></i>
+          </button>
+          <div class="accordion-content hidden pb-4">
+            <ul class="flex flex-col gap-6 text-sm items-start text-left">
+              <!-- Address -->
+              <li class="flex flex-col gap-2 items-start py-1">
+                <img src="images/map.webp" class="w-5 h-5 opacity-70 grayscale">
+                <span data-i18n="footer.address" class="leading-relaxed">
+                  32A-1, Jalan Nautika B U20/B,<br />
+                  Pusat Komersial TSB,<br />
+                  47000 Shah Alam, Selangor
+                </span>
+              </li>
+              <!-- Phone -->
+              <li class="flex gap-2 items-center py-2">
+                <img src="images/whatsapp.webp" class="w-5 h-5 opacity-70 grayscale">
+                <a href="tel:+60123270392" class="hover:text-blue-600 transition-colors font-medium">+60 12-327 0392</a>
+              </li>
+              <!-- Email -->
+              <li class="flex gap-2 items-center py-2">
+                <img src="images/mail.webp" class="w-5 h-5 opacity-70 grayscale">
+                <a href="mailto:info@wishgroup.com"
+                  class="hover:text-blue-600 transition-colors font-medium">info@wishgroup.com</a>
+              </li>
+              <!-- Map -->
+              <li class="w-full h-[200px] rounded-lg overflow-hidden border border-slate-200 mt-2">
+                <iframe width="100%" height="100%" frameborder="0" style="border:0"
+                  src="https://maps.google.com/maps?q=Wish+Group+Resources,32A-1,Jalan+Nautika+B+U20/B,Pusat+Komersial+TSB,47000+Shah+Alam,Selangor&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                  allowfullscreen>
+                </iframe>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Social Icons (Bottom) -->
+        <div class="flex justify-center gap-4 mt-6 mb-4">
+          <a href="https://www.facebook.com/WishGroupResources/" target="_blank" style="width: 50px; height: 50px;"
+            class="shrink-0 w-20 h-20 rounded-full bg-white shadow-sm border border-slate-200 flex items-center justify-center hover:bg-blue-50 transition-colors text-slate-600 overflow-hidden p-2">
+            <img src="images/facebook.webp" class="w-full h-full object-contain">
+          </a>
+          <a href="https://www.xiaohongshu.com/user/profile/635d5bd9000000001802343f" target="_blank"
+            style="width: 50px; height: 50px;"
+            class="shrink-0 w-20 h-20 rounded-full bg-white shadow-sm border border-slate-200 flex items-center justify-center hover:bg-blue-50 transition-colors text-slate-600 overflow-hidden p-2">
+            <img src="images/rednote.webp" class="w-full h-full object-contain">
+          </a>
+          <a href="https://maps.app.goo.gl/1zybQ5witWNAeurf7" target="_blank" style="width: 50px; height: 50px;"
+            class="shrink-0 w-20 h-20 rounded-full bg-white shadow-sm border border-slate-200 flex items-center justify-center hover:bg-blue-50 transition-colors text-slate-600 overflow-hidden p-2">
+            <img src="images/map.webp" class="w-full h-full object-contain">
+          </a>
+          <a href="https://waze.com/ul/hw284r268t" target="_blank" style="width: 50px; height: 50px;"
+            class="shrink-0 w-20 h-20 rounded-full bg-white shadow-sm border border-slate-200 flex items-center justify-center hover:bg-blue-50 transition-colors text-slate-600 overflow-hidden p-2">
+            <img src="images/waze.webp" class="w-full h-full object-contain">
+          </a>
         </div>
       </div>
 
-      <!-- Bottom Row: Follow Us -->
+      <!-- ========================================= -->
+      <!-- DESKTOP FOOTER (Grid) - Hidden on mobile -->
+      <!-- ========================================= -->
+      <div class="hidden md:grid md:grid-cols-2 lg:grid-cols-5 gap-10 mb-10">
+
+        <!-- Col 1: Brand -->
+        <div class="flex flex-col gap-6 md:items-start md:text-left">
+          <a href="#top" class="block w-[160px]">
+            <img src="images/logo.webp" alt="Wish Group" class="w-full h-auto" />
+          </a>
+          <p class="text-sm leading-relaxed text-slate-500" data-i18n="footer.tagline">
+            Your One-Stop Financial Partner. <br>
+            All-in-one solution for growth and protection.
+          </p>
+        </div>
+
+        <!-- Col 2: Company (All Links) -->
+        <div class="flex flex-col md:items-start md:text-left">
+          <h3 class="text-slate-900 font-bold mb-6 text-lg" data-i18n="nav_culture">Company</h3>
+          <ul class="flex flex-col gap-3 text-sm font-medium md:items-start">
+            <li><a href="#top" class="hover:text-blue-600 transition-colors" data-i18n="nav_home">Home</a></li>
+            <li><a href="#about" class="hover:text-blue-600 transition-colors" data-i18n="nav_about">About Us</a></li>
+            <li><a href="#services" class="hover:text-blue-600 transition-colors" data-i18n="nav_services">Our
+                Services</a></li>
+            <li><a href="#events" class="hover:text-blue-600 transition-colors" data-i18n="events.title">Life at Wish
+                Group</a></li>
+            <li><a href="#testimonials" class="hover:text-blue-600 transition-colors"
+                data-i18n="nav_testimonials">Testimonials</a></li>
+            <li><a href="#stories" class="hover:text-blue-600 transition-colors" data-i18n="nav_wish_for_good">Wish for
+                Good</a></li>
+            <li><a href="#contact" class="hover:text-blue-600 transition-colors footer-join-link" data-form-state="join"
+                data-i18n="nav_join_us">Join Us</a></li>
+            <li><a href="contact.html" class="hover:text-blue-600 transition-colors" data-i18n="nav_contact">Contact
+                Us</a></li>
+            <li><a href="privacy.html" class="hover:text-blue-600 transition-colors" data-i18n="nav_privacy">Privacy
+                Policy</a></li>
+          </ul>
+        </div>
+
+
+        <!-- Col 3: Get in touch -->
+        <div>
+          <h3 class="text-slate-900 font-bold mb-6 text-lg" data-i18n="nav_contact">Get in touch</h3>
+          <ul class="flex flex-col gap-5 text-sm">
+            <!-- Address -->
+            <li class="flex gap-3 items-start">
+              <img src="images/map.webp" class="w-5 h-5 opacity-70 grayscale mt-0.5">
+              <span data-i18n="footer.address" class="leading-relaxed">
+                32A-1, Jalan Nautika B U20/B,<br />
+                Pusat Komersial TSB,<br />
+                47000 Shah Alam, Selangor
+              </span>
+            </li>
+            <!-- Phone -->
+            <li class="flex gap-3 items-center">
+              <img src="images/whatsapp.webp" class="w-5 h-5 opacity-70 grayscale">
+              <a href="tel:+60123270392" class="hover:text-blue-600 transition-colors font-medium">+60 12-327 0392</a>
+            </li>
+            <!-- Email -->
+            <li class="flex gap-3 items-center">
+              <img src="images/mail.webp" class="w-5 h-5 opacity-70 grayscale">
+              <a href="mailto:info@wishgroup.com"
+                class="hover:text-blue-600 transition-colors font-medium">info@wishgroup.com</a>
+            </li>
+          </ul>
+
+          <!-- Social Icons -->
+          <div class="flex gap-3 mt-8">
+            <a href="https://www.facebook.com/WishGroupResources/" target="_blank"
+              class="w-10 h-10 rounded-full bg-white shadow-sm border border-slate-200 flex items-center justify-center hover:bg-blue-50 transition-colors text-slate-600 overflow-hidden p-2">
+              <img src="images/facebook.webp" class="w-full h-full object-contain">
+            </a>
+            <a href="https://www.xiaohongshu.com/user/profile/635d5bd9000000001802343f" target="_blank"
+              class="w-10 h-10 rounded-full bg-white shadow-sm border border-slate-200 flex items-center justify-center hover:bg-blue-50 transition-colors text-slate-600 overflow-hidden p-2">
+              <img src="images/rednote.webp" class="w-full h-full object-contain">
+            </a>
+            <a href="https://maps.app.goo.gl/1zybQ5witWNAeurf7" target="_blank"
+              class="w-10 h-10 rounded-full bg-white shadow-sm border border-slate-200 flex items-center justify-center hover:bg-blue-50 transition-colors text-slate-600 overflow-hidden p-2">
+              <img src="images/map.webp" class="w-full h-full object-contain">
+            </a>
+            <a href="https://waze.com/ul/hw284r268t" target="_blank"
+              class="w-10 h-10 rounded-full bg-white shadow-sm border border-slate-200 flex items-center justify-center hover:bg-blue-50 transition-colors text-slate-600 overflow-hidden p-2">
+              <img src="images/waze.webp" class="w-full h-full object-contain">
+            </a>
+          </div>
+        </div>
+
+        <!-- Col 4: Map (Spans 2 columns) -->
+        <div class="flex flex-col h-full lg:col-span-2">
+          <div class="rounded-xl overflow-hidden shadow-md border border-slate-200 h-[300px] w-full bg-gray-100">
+            <iframe width="100%" height="100%" frameborder="0" style="border:0"
+              src="https://maps.google.com/maps?q=Wish+Group+Resources,32A-1,Jalan+Nautika+B+U20/B,Pusat+Komersial+TSB,47000+Shah+Alam,Selangor&t=&z=15&ie=UTF8&iwloc=&output=embed"
+              allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Section: Copyright -->
       <div
-        class="footer-right w-full flex flex-col gap-6 items-center justify-center mt-4 border-t border-slate-200 pt-10 w-full max-w-[800px]">
-        <h3 class="text-slate-900 text-[1.5rem] font-bold tracking-wide uppercase" data-i18n="footer.follow_us">
-          FOLLOW US
-        </h3>
-        <div class="flex gap-4">
-          <a href="https://www.facebook.com/WishGroupResources/" target="_blank" title="Facebook">
-            <div
-              class="w-[50px] h-[50px] bg-white rounded-full flex items-center justify-center hover:opacity-80 transition-opacity shadow-md ring-1 ring-slate-200">
-              <img src="images/facebook.webp" alt="Facebook" class="w-[28px] h-[28px] object-contain" />
-            </div>
-          </a>
-          <a href="https://www.xiaohongshu.com/user/profile/635d5bd9000000001802343f" target="_blank" title="Rednote">
-            <div
-              class="w-[50px] h-[50px] bg-white rounded-full flex items-center justify-center hover:opacity-80 transition-opacity shadow-md ring-1 ring-slate-200">
-              <img src="images/rednote.webp" alt="Rednote" class="w-[28px] h-[28px] object-contain rounded-full" />
-            </div>
-          </a>
-          <a href="https://maps.app.goo.gl/1zybQ5witWNAeurf7" target="_blank" title="Google Maps">
-            <div
-              class="w-[50px] h-[50px] bg-white rounded-full flex items-center justify-center hover:opacity-80 transition-opacity shadow-md ring-1 ring-slate-200">
-              <img src="images/map.webp" alt="Google Maps" class="w-[28px] h-[28px] object-contain" />
-            </div>
-          </a>
-          <a href="https://waze.com/ul/hw284r268t" target="_blank" title="Waze">
-            <div
-              class="w-[50px] h-[50px] bg-white rounded-full flex items-center justify-center hover:opacity-80 transition-opacity shadow-md ring-1 ring-slate-200">
-              <img src="images/waze.webp" alt="Waze" class="w-[28px] h-[28px] object-contain" />
-            </div>
-          </a>
+        class="border-t border-slate-200 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
+        <p data-i18n="footer.copyright">
+          &copy;2010-2026 Wish Group. All rights reserved.
+        </p>
+
+        <!-- Language Select -->
+        <div class="flex items-center gap-3 font-medium">
+          <button onclick="window.switchLanguage('en')" class="hover:text-blue-600 transition-colors">English</button>
+          <span class="text-slate-300">|</span>
+          <button onclick="window.switchLanguage('zh')" class="hover:text-blue-600 transition-colors">中文</button>
         </div>
       </div>
-    </div>
-
-    <div class="footer-bottom mt-10 text-center text-[0.9rem] text-slate-500 border-t border-slate-300 pt-5">
-      <p data-i18n="footer.copyright">
-        &copy;2025 Wish Group. All rights reserved.
-      </p>
     </div>
   </footer>
 
@@ -1435,7 +1702,7 @@
   </div>
 
   <!-- Floating Action Menu (Mobile Collapsible, Desktop Always Visible) -->
-  <div id="floatingWrapper"
+  <div id="floatingWrapper" style="view-transition-name: floating-menu;"
     class="fixed bottom-6 right-4 md:bottom-8 md:right-8 z-[9900] flex flex-col items-end gap-3 pointer-events-none opacity-0 translate-y-10 transition-all duration-300">
 
     <!-- Menu Items -->
@@ -1474,7 +1741,7 @@
   </div>
 
   <script src="https://cdn.tailwindcss.com"></script>
-  <script defer src="index.js?v=1"></script>
+  <script defer src="index.js?v=3"></script>
 </body>
 
 <style>
@@ -1523,24 +1790,7 @@
     }
   }
 
-  /* Footer icons responsive styling */
-  @media (max-width: 768px) {
-    .footer-icons {
-      flex-wrap: wrap;
-      justify-content: flex-start;
-      margin-bottom: 20px;
-    }
 
-    .icon-circle {
-      width: 52px !important;
-      height: 52px !important;
-    }
-
-    .icon-circle img {
-      width: 34px !important;
-      height: 34px !important;
-    }
-  }
 
   /* Manual Fallback for Dynamic Tailwind Classes (Fixes GitHub Pages issue) */
   @media (min-width: 768px) {
@@ -1580,7 +1830,7 @@
 </div>
 
 <!-- Scripts -->
-<script src="index.js"></script>
+
 </body>
 
 </html>

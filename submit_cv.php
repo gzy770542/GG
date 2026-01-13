@@ -2,11 +2,11 @@
 require 'db.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-  $name    = $_POST['name'] ?? '';
-  $email   = $_POST['email'] ?? '';
-  $phone   = $_POST['phone'] ?? '';
+  $name = $_POST['name'] ?? '';
+  $email = $_POST['email'] ?? '';
+  $phone = $_POST['phone'] ?? '';
   $message = $_POST['message'] ?? '';
-  $cv      = $_FILES['cv'];
+  $cv = $_FILES['cv'];
 
   // Validate file upload
   $allowedTypes = ['pdf', 'doc', 'docx'];
@@ -27,15 +27,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
   if (move_uploaded_file($cv['tmp_name'], $uploadPath)) {
     try {
-        // Insert into DB
-        $stmt = $pdo->prepare("INSERT INTO cv_submissions (name, email, phone, message, filename) VALUES (?, ?, ?, ?, ?)");
-        $stmt->execute([$name, $email, $phone, $message, $uniqueFilename]);
+      // Insert into DB
+      $stmt = $pdo->prepare("INSERT INTO cv_submissions (name, email, phone, filename) VALUES (?, ?, ?, ?)");
+      $stmt->execute([$name, $email, $phone, $uniqueFilename]);
 
-        echo "Success! Your CV has been submitted.";
+      echo "Success! Your CV has been submitted.";
     } catch (PDOException $e) {
-        error_log("Database error: " . $e->getMessage());
-        http_response_code(500);
-        echo "Database error occurred.";
+      error_log("Database error: " . $e->getMessage());
+      http_response_code(500);
+      echo "Database error occurred.";
     }
   } else {
     http_response_code(500);

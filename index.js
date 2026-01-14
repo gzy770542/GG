@@ -489,6 +489,7 @@
                 "message_placeholder": "Any Message To Our Company",
                 "cv_label": "Attach your CV Here",
                 "choose_file": "Choose A File",
+                "upload_title": "Upload CV (PDF/DOCX)",
                 "no_file_chosen": "No File Chosen",
                 "position_default": "Select Position",
                 "our_office": "Our Office",
@@ -715,11 +716,12 @@
                 "message_placeholder": "给公司的留言",
                 "cv_label": "在此附上简历",
                 "choose_file": "选择文件",
+                "upload_title": "上载简历 (PDF/DOCX)",
                 "no_file_chosen": "未选择文件",
                 "position_default": "选择职位",
                 "our_office": "地址",
                 "email_us": "邮箱",
-                "have_questions": "有任何问题？",
+                "have_questions": "如有任何问题？",
                 "contact_support": "联系我们"
             },
             "footer": {
@@ -908,7 +910,7 @@
                 // Insert BOTH Views (Small & Large)
                 card.innerHTML = `
                     <!-- LARGE CONTENT (Transition Wrapper) -->
-                    <div class="large-content transition-all duration-500 ease-in-out overflow-hidden p-0" style="max-height: 0; opacity: 0;">
+                    <div class="large-content h-full transition-all duration-500 ease-in-out overflow-hidden p-0" style="max-height: 0; opacity: 0;">
                         <div class="p-8 md:p-12 h-full flex flex-col justify-between">
                             <div>
                                 <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gray-100 shadow-lg mb-8 md:mb-12 border-2 border-white overflow-hidden">

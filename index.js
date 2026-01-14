@@ -905,34 +905,39 @@
                 card.className = "bg-white rounded-[30px] shadow-[0_10px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] transition-shadow duration-300 overflow-hidden";
 
                 // Insert BOTH Views (Small & Large)
+                // Insert BOTH Views (Small & Large)
                 card.innerHTML = `
-                    <!-- LARGE CONTENT (Default Hidden) -->
-                    <div class="large-content flex flex-col justify-between h-full p-8 md:p-12 animate-fade-in hidden">
-                        <div>
-                            <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gray-100 shadow-lg mb-8 md:mb-12 border-2 border-white overflow-hidden">
-                                <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
+                    <!-- LARGE CONTENT (Transition Wrapper) -->
+                    <div class="large-content transition-all duration-500 ease-in-out overflow-hidden p-0" style="max-height: 0; opacity: 0;">
+                        <div class="p-8 md:p-12 h-full flex flex-col justify-between">
+                            <div>
+                                <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gray-100 shadow-lg mb-8 md:mb-12 border-2 border-white overflow-hidden">
+                                    <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
+                                </div>
+                                <h3 class="text-[1.8rem] md:text-[2.2rem] font-bold text-[#1a1a1a] leading-tight mb-8">
+                                    ${item.text}
+                                </h3>
                             </div>
-                            <h3 class="text-[1.8rem] md:text-[2.2rem] font-bold text-[#1a1a1a] leading-tight mb-8">
-                                ${item.text}
-                            </h3>
-                        </div>
-                        <div>
-                            <h4 class="text-[1.25rem] font-bold text-[#222] mb-1">${item.name}</h4>
-                            <p class="text-[1rem] text-[#888] font-medium">${item.role}</p>
+                            <div>
+                                <h4 class="text-[1.25rem] font-bold text-[#222] mb-1">${item.name}</h4>
+                                <p class="text-[1rem] text-[#888] font-medium">${item.role}</p>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- SMALL CONTENT (Default Hidden) -->
-                    <div class="small-content flex flex-col justify-between h-full p-8 animate-fade-in relative group hidden">
-                        <div>
-                            <span class="text-[60px] leading-none text-gray-100 font-serif block mb-2 transition-colors group-hover:text-gray-200">&ldquo;</span>
-                            <p class="text-[1.05rem] text-[#444] leading-relaxed mb-8 relative z-10">
-                                ${item.text}
-                            </p>
-                        </div>
-                        <div class="flex justify-end">
-                            <div class="w-14 h-14 rounded-full bg-gray-100 shadow-md border-2 border-white overflow-hidden">
-                                <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
+                    <!-- SMALL CONTENT (Transition Wrapper) -->
+                    <div class="small-content transition-all duration-500 ease-in-out overflow-hidden p-0 relative group" style="max-height: 0; opacity: 0;">
+                        <div class="p-8 h-full flex flex-col justify-between">
+                            <div>
+                                <span class="text-[60px] leading-none text-gray-100 font-serif block mb-2 transition-colors group-hover:text-gray-200">&ldquo;</span>
+                                <p class="text-[1.05rem] text-[#444] leading-relaxed mb-8 relative z-10">
+                                    ${item.text}
+                                </p>
+                            </div>
+                            <div class="flex justify-end">
+                                <div class="w-14 h-14 rounded-full bg-gray-100 shadow-md border-2 border-white overflow-hidden">
+                                    <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -947,98 +952,277 @@
         // 2. Update: Toggles classes instead of replacing innerHTML (Fixes Scroll Jump)
         function updateTestimonialsVisuals() {
             const activeIndex = window.activeTestimonialIndex;
+            const isMobile = window.innerWidth < 768;
 
             testimonialsData.forEach((item, index) => {
                 const card = document.getElementById(`t-card-${index}`);
                 if (!card) return;
 
                 const isActive = index === activeIndex;
-                let layoutClasses = "";
 
-                // --- LAYOUT LOGIC ---
-                if (activeIndex === 0) {
-                    if (isActive) layoutClasses = "md:col-span-8 md:row-span-2";
-                    else layoutClasses = "md:col-span-4";
-                } else if (activeIndex === 1) {
-                    if (isActive) layoutClasses = "md:col-span-8 md:row-span-2";
-                    else layoutClasses = "md:col-span-4";
-                } else { // 2
-                    if (isActive) layoutClasses = "md:col-span-12";
-                    else layoutClasses = "md:col-span-6";
-                }
+                if (isMobile) {
+                    // === MOBILE: VISUALS MANAGED BY SCROLL LOOP ===
+                    // Force "Large" content visible, "Small" hidden for consistency
+                    const largeContent = card.querySelector('.large-content');
+                    const smallContent = card.querySelector('.small-content');
 
-                // Apply Classes
-                card.className = `${layoutClasses} bg-white rounded-[30px] shadow-[0_10px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] transition-shadow duration-300 overflow-hidden h-full cursor-${isActive ? 'default' : 'pointer'} min-w-[85vw] md:min-w-0 snap-center`;
+                    if (largeContent) {
+                        largeContent.style.maxHeight = 'none'; // Allow full expansion
+                        largeContent.style.opacity = '1';
+                        largeContent.classList.remove('hidden');
+                    }
+                    if (smallContent) {
+                        smallContent.style.maxHeight = '0';
+                        smallContent.style.opacity = '0';
+                        smallContent.classList.add('hidden');
+                    }
 
-                // Toggle Visibility via CSS Classes
-                const largeContent = card.querySelector('.large-content');
-                const smallContent = card.querySelector('.small-content');
+                    // Reset grid classes for mobile stack (Full Width - Parallel to Grid - Tighter Spacing)
+                    card.className = "bg-white rounded-[30px] shadow-[0_10px_40px_rgba(0,0,0,0.04)] mb-4 mx-auto w-full transition-transform duration-100 ease-out will-change-transform";
 
-                if (isActive) {
-                    if (largeContent) largeContent.classList.remove('hidden');
-                    if (smallContent) smallContent.classList.add('hidden');
+                    // Disable click
                     card.onclick = null;
+
                 } else {
-                    if (largeContent) largeContent.classList.add('hidden');
-                    if (smallContent) smallContent.classList.remove('hidden');
-                    card.onclick = () => swapTestimonial(index);
+                    // === DESKTOP: GRID & TOGGLE ===
+                    let layoutClasses = "";
+                    if (activeIndex === 0) {
+                        if (isActive) layoutClasses = "md:col-span-8 md:row-span-2"; else layoutClasses = "md:col-span-4";
+                    } else if (activeIndex === 1) {
+                        if (isActive) layoutClasses = "md:col-span-8 md:row-span-2"; else layoutClasses = "md:col-span-4";
+                    } else {
+                        if (isActive) layoutClasses = "md:col-span-12"; else layoutClasses = "md:col-span-6";
+                    }
+
+                    // Apply Classes
+                    card.className = `${layoutClasses} bg-white rounded-[30px] shadow-[0_10px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] transition-shadow duration-300 overflow-hidden h-full cursor-${isActive ? 'default' : 'pointer'} min-w-[85vw] md:min-w-0 snap-center`;
+
+                    // Toggle Visibility via Inline Styles
+                    const largeContent = card.querySelector('.large-content');
+                    const smallContent = card.querySelector('.small-content');
+
+                    // Reset Mobile Transforms
+                    card.style.transform = '';
+                    card.style.opacity = '';
+
+                    if (isActive) {
+                        // Show Large
+                        if (largeContent) {
+                            largeContent.style.maxHeight = '1000px';
+                            largeContent.style.opacity = '1';
+                            largeContent.classList.remove('hidden');
+                        }
+                        // Hide Small
+                        if (smallContent) {
+                            smallContent.style.maxHeight = '0px';
+                            smallContent.style.opacity = '0';
+                            smallContent.classList.add('hidden');
+                        }
+                        card.onclick = null;
+                    } else {
+                        // Hide Large
+                        if (largeContent) {
+                            largeContent.style.maxHeight = '0px';
+                            largeContent.style.opacity = '0';
+                            largeContent.classList.add('hidden');
+                        }
+                        // Show Small
+                        if (smallContent) {
+                            smallContent.style.maxHeight = '1000px';
+                            smallContent.style.opacity = '1';
+                            smallContent.classList.remove('hidden');
+                        }
+                        card.onclick = () => swapTestimonial(index);
+                    }
                 }
             });
         }
 
-        // 3. Swap: Uses View Transitions API
+        // 3. Swap: Uses View Transitions API (Restored)
         window.swapTestimonial = function (index) {
             if (index === window.activeTestimonialIndex) return;
 
-            // Check if Mobile
-            const isMobile = window.innerWidth < 768;
-
-            // PERFORMANCE FIX: Disable View Transitions on Mobile
-            // On mobile, the scroll observer triggers this rapidly. 
-            // View Transitions (snapshotting DOM) are too heavy for scroll-based interaction.
-            if (!isMobile && document.startViewTransition) {
+            // Use View Transition if valid (Desktop only usually)
+            if (document.startViewTransition) {
                 document.startViewTransition(() => {
                     window.activeTestimonialIndex = index;
                     updateTestimonialsVisuals();
                 });
             } else {
-                // Fast path for Mobile (just update classes instantly)
+                // Fallback
                 window.activeTestimonialIndex = index;
                 updateTestimonialsVisuals();
             }
         };
 
-        // 4. Scroll Observer for Mobile
+        // 4. Scroll Animation Loop (Responsive & Self-Cleaning)
         window.setupMobileScrollObserver = function () {
-            const observerOptions = {
-                root: null, // viewport
-                // Create a "sweet spot" in the middle of the screen (vertically)
-                // Negative margins reduce the active area.
-                // -40% from top and -40% from bottom leaves the middle 20%.
-                rootMargin: '-40% 0px -40% 0px',
-                threshold: 0 // Trigger as soon as 1px enters this middle zone
+
+            const handleResize = () => {
+                if (window.innerWidth >= 768) {
+                    // === DESKTOP MODE: CLEANUP ===
+                    // 1. Restore Grid
+                    const grid = document.getElementById("testimonialGrid");
+                    if (grid) {
+                        grid.className = "grid grid-cols-1 md:grid-cols-12 md:gap-8 transition-all duration-300 w-full";
+                        grid.style.transform = '';
+                    }
+
+                    // 2. Clean Cards
+                    testimonialsData.forEach((_, index) => {
+                        const card = document.getElementById(`t-card-${index}`);
+                        if (!card) return;
+
+                        // Remove Mobile Classes
+                        card.classList.remove("mb-4", "w-full", "mx-auto", "relative");
+                        // Clear Inline Styles (Transforms/Opacity)
+                        card.style.transform = '';
+                        card.style.opacity = '';
+                        card.style.transition = '';
+
+                        // Reset Content (Let updateTestimonialsVisuals handle it)
+                        const largeContent = card.querySelector('.large-content');
+                        const smallContent = card.querySelector('.small-content');
+                        if (largeContent) { largeContent.style = ''; largeContent.classList.remove('hidden'); }
+                        if (smallContent) { smallContent.style = ''; smallContent.classList.remove('hidden'); }
+                    });
+
+                    // Trigger Desktop Render
+                    updateTestimonialsVisuals();
+
+                } else {
+                    // === MOBILE MODE: INIT ===
+                    const grid = document.getElementById("testimonialGrid");
+                    if (grid) grid.className = "flex flex-col md:grid md:grid-cols-12 md:gap-8 md:auto-rows-[minmax(300px,auto)] w-full transition-all duration-300";
+                    onScroll(); // Force one run
+                }
             };
 
-            const observer = new IntersectionObserver((entries) => {
-                if (window.innerWidth >= 768) return; // Disable on Desktop
+            const onScroll = () => {
+                if (window.innerWidth >= 768) return;
 
-                entries.forEach(entry => {
-                    // logic: If a card ENTERS the sweet spot, make it active.
-                    if (entry.isIntersecting) {
-                        const index = parseInt(entry.target.id.replace('t-card-', ''));
-                        if (!isNaN(index)) {
-                            swapTestimonial(index);
+                const viewportCenter = window.innerHeight / 2;
+
+                testimonialsData.forEach((_, index) => {
+                    const card = document.getElementById(`t-card-${index}`);
+                    if (!card) return;
+
+                    // Enforce Card Layout
+                    card.style.transition = 'transform 0.15s ease-out';
+                    card.classList.add("mb-4", "w-full", "mx-auto", "relative");
+                    // REMOVED max-w constraints to match "Parallel to Grid" request
+                    card.classList.remove("mr-4", "min-w-[85vw]", "snap-center", "shadow-xl", "max-w-[90%]", "max-w-[95%]");
+
+                    const rect = card.getBoundingClientRect();
+                    const cardCenter = rect.top + (rect.height / 2);
+
+                    const distance = Math.abs(viewportCenter - cardCenter);
+                    const maxDistance = window.innerHeight / 2;
+
+                    let progress = 1 - (distance / maxDistance);
+                    progress = Math.max(0, Math.min(1, progress));
+                    const eased = progress * (2 - progress);
+
+                    // 1. Scale
+                    const scale = 0.85 + (0.15 * eased);
+                    card.style.transform = `scale(${scale})`;
+                    card.style.opacity = '1';
+
+                    // 2. Crossfade Content (Clean - No Overlap)
+                    const largeContent = card.querySelector('.large-content');
+                    const smallContent = card.querySelector('.small-content');
+
+                    if (largeContent) {
+                        largeContent.style.transition = 'opacity 0.15s ease-out';
+                        largeContent.style.opacity = eased;
+                        largeContent.style.maxHeight = 'none';
+                        largeContent.classList.remove('hidden');
+                        largeContent.style.position = 'relative';
+                    }
+                    if (smallContent) {
+                        // PREVENT GHOSTING: Fade out Small Content VERY FAST
+                        const fastFade = Math.max(0, 1 - (eased * 4));
+
+                        smallContent.style.transition = 'opacity 0.15s ease-out';
+                        smallContent.style.opacity = fastFade;
+                        smallContent.style.maxHeight = 'none';
+
+                        if (fastFade <= 0.05) {
+                            smallContent.classList.add('hidden');
+                        } else {
+                            smallContent.classList.remove('hidden');
                         }
+
+                        // Force Absolute Overlay
+                        smallContent.style.position = 'absolute';
+                        smallContent.style.top = '0';
+                        smallContent.style.left = '0';
+                        smallContent.style.width = '100%';
+                        smallContent.style.height = '100%';
+                        smallContent.style.zIndex = '10';
                     }
                 });
-            }, observerOptions);
+            };
 
-            testimonialsData.forEach((_, index) => {
-                const card = document.getElementById(`t-card-${index}`);
-                if (card) observer.observe(card);
-            });
+            window.addEventListener('scroll', () => {
+                if (window.innerWidth < 768) requestAnimationFrame(onScroll);
+            }, { passive: true });
+
+            // Resize Listener
+            window.addEventListener('resize', handleResize);
+
+            // Initial Check
+            setTimeout(handleResize, 100);
         };
 
+
+        /* OLD Logic Disabled
+        // 4. Scroll Animation Loop (Replaces Observer)
+        window.setupMobileScrollObserver = function () {
+            // "Observer" name kept for compatibility, but implements Animation Loop
+            if (window.innerWidth >= 768) return;
+        
+            const onScroll = () => {
+                if (window.innerWidth >= 768) return;
+        
+                const viewportCenter = window.innerHeight / 2;
+        
+                testimonialsData.forEach((_, index) => {
+                    const card = document.getElementById(`t-card-${index}`);
+                    if (!card) return;
+        
+                    const rect = card.getBoundingClientRect();
+                    const cardCenter = rect.top + (rect.height / 2);
+        
+                    // Calculate distance from center
+                    const distance = Math.abs(viewportCenter - cardCenter);
+                    const maxDistance = window.innerHeight / 2.5; // Range of effect
+        
+                    // Calculate Scale/Opacity
+                    let progress = 1 - (distance / maxDistance);
+                    progress = Math.max(0, Math.min(1, progress)); // Clamp 0-1
+        
+                    // Easing for smoother feel
+                    const eased = progress * (2 - progress); // Ease out quad
+        
+                    const scale = 0.9 + (0.1 * eased); // 0.9 -> 1.0
+                    const opacity = 0.5 + (0.5 * eased); // 0.5 -> 1.0
+        
+                    card.style.transform = `scale(${scale})`;
+                    card.style.opacity = opacity;
+                });
+            };
+        
+            // Start loop
+            window.addEventListener('scroll', () => {
+                requestAnimationFrame(onScroll);
+            }, { passive: true });
+        
+            // Initial call
+            onScroll();
+        };
+        
+        */
         // Function to calculate and lock the height of the ENTIRE GRID
         window.setFixedTestimonialHeight = function () {
             if (!grid) return;

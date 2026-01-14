@@ -296,27 +296,33 @@
             "privacy": {
                 "title": "Privacy Policy & Terms",
                 "intro_title": "1. Introduction",
-                "intro_text": "Welcome to Wish Group Resources. We are committed to protecting your personal data and privacy. This policy explains how we collect, use, and safeguard your information in compliance with the Personal Data Protection Act 2010 (PDPA) of Malaysia.",
-                "collect_title": "2. Information We Collect",
-                "collect_text": "To provide comprehensive financial solutions (Insurance, Risk Management, Estate Planning), we may collect:",
-                "collect_list_1": "<strong>Personal Identity:</strong> Name, NRIC/Passport number, date of birth.",
-                "collect_list_2": "<strong>Contact Info:</strong> Phone number, email, residential address.",
-                "collect_list_3": "<strong>Financial Profile:</strong> Income range, employment details, existing insurance policies, and asset information for Will writing.",
-                "purpose_title": "3. Purpose of Data Collection",
-                "purpose_text": "Your data is used for:",
-                "purpose_list_1": "<strong>Consultation:</strong> Assessing your financial needs and risk profile.",
-                "purpose_list_2": "<strong>Application:</strong> Processing insurance policies or legal documents (Wills/Trusts) with our partners.",
-                "purpose_list_3": "<strong>Updates:</strong> Sending important policy updates or financial planning tips.",
+                "intro_text": "Wish Group Resources (\"the Company\", \"we\", \"us\", or \"our\") values the privacy of our clients. This Privacy Policy outlines how we collect, process, use, and disclose your personal data in accordance with the Personal Data Protection Act 2010 (PDPA) of Malaysia. By engaging with our services, you consent to the practices described in this policy.",
+                "collect_title": "2. Nature of Personal Data",
+                "collect_text": "To provide our one-stop financial solutions, we may collect a comprehensive range of information, including but not limited to:",
+                "collect_list_1": "<strong>Identification:</strong> Full name, NRIC/Passport number, gender, and nationality.",
+                "collect_list_2": "<strong>Contact Details:</strong> Residential and mailing addresses, phone numbers, and email addresses.",
+                "collect_list_3": "<strong>Financial Information:</strong> Income statements, employment history, bank account details, and credit history.",
+                "collect_list_4": "<strong>Special Categories:</strong> Medical history (for insurance), family tree details (for Will writing), and asset inventory.",
+                "purpose_title": "3. Purpose of Collection",
+                "purpose_text": "Your data is processed for the following purposes:",
+                "purpose_list_1": "<strong>Financial Assessment:</strong> To evaluate your financial health and provide tailored risk management advice.",
+                "purpose_list_2": "<strong>Policy & Contract Administration:</strong> To facilitate applications for insurance, investment products, and legal documentation.",
+                "purpose_list_3": "<strong>Legal Compliance:</strong> To verify your identity and prevent fraudulent activities or money laundering.",
+                "purpose_list_4": "<strong>Estate Planning:</strong> To draft and manage Wills, Trusts, and inheritance-related documents.",
                 "disclosure_title": "4. Disclosure to Third Parties",
-                "disclosure_text": "We may share your information with authorized partners to fulfill your service requests, such as:",
-                "disclosure_list_1": "Insurance Providers (e.g., Great Eastern).",
-                "disclosure_list_2": "Trust & Legal Entities (for Estate Planning).",
-                "disclosure_list_3": "Regulatory Authorities (as required by law).",
-                "disclosure_note": "Note: We never sell your data to external marketing companies.",
-                "security_title": "5. Data Security",
-                "security_text": "We implement strict technical and organizational security measures to protect your data from unauthorized access or leakage.",
+                "disclosure_text": "In the course of providing our services, we may disclose your information to:",
+                "disclosure_list_1": "<strong>Insurance Partners:</strong> Authorized insurance providers (e.g., Great Eastern) for underwriting purposes.",
+                "disclosure_list_2": "<strong>Legal & Trust Entities:</strong> Law firms and trust companies involved in your estate planning.",
+                "disclosure_list_3": "<strong>Regulatory Bodies:</strong> Bank Negara Malaysia, Inland Revenue Board (LHDN), or other government agencies as required by law.",
+                "disclosure_list_4": "<strong>Service Providers:</strong> IT support, auditors, and professional advisors.",
+                "security_title": "5. Data Security & Retention",
+                "security_text": "We implement advanced administrative and technical security measures (such as encryption and restricted access) to safeguard your personal data. Your information will be retained only for as long as necessary to fulfill the purposes outlined above or to comply with statutory requirements (typically 7 years for financial records).",
                 "rights_title": "6. Your Rights",
-                "rights_text": "Under PDPA, you have the right to access, correct, or withdraw your consent for us to use your data at any time."
+                "rights_text": "As a data subject under the PDPA, you have the right to request access to the personal data we hold about you, request correction of inaccurate or outdated information, or withdraw consent for marketing communications or data processing.",
+                "contact_title": "7. Contact Us",
+                "contact_text": "If you have any questions regarding this Privacy Policy or wish to exercise your rights, please contact our Data Protection Officer:",
+                "contact_email": "Email: info@wishgroup.com",
+                "contact_address": "Office Address: 32A-1, Jalan Nautika B U20/B, Pusat Komersial TSB, 47000 Shah Alam, Selangor"
             },
             "hero": {
                 "title": "Your One-Stop Financial Partner",
@@ -493,6 +499,7 @@
             "footer": {
                 "tagline": "Your One-Stop Financial Partner. <br>All-in-one solution for growth and protection.",
                 "address": "32A-1, Jalan Nautika B U20/B,<br />Pusat Komersial TSB,<br />47000 Shah Alam, Selangor",
+                "details": "Details",
                 "follow_us": "FOLLOW US",
                 "copyright": "&copy;2025 Wish Group. All rights reserved."
             }
@@ -514,28 +521,34 @@
             "nav_privacy": "隐私政策",
             "privacy": {
                 "title": "隐私政策与条款",
-                "intro_title": "1. 简介",
-                "intro_text": "欢迎来到 Wish Group Resources。我们致力于保护您的个人数据与隐私。本政策说明了我们如何根据马来西亚 2010年个人资料保护法 (PDPA) 收集、使用和保护您的信息。",
-                "collect_title": "2. 我们收集的信息",
-                "collect_text": "为了提供全方位的金融解决方案（保险、风险管理、财产规划），我们可能会收集：",
-                "collect_list_1": "<strong>身份信息：</strong> 姓名、身份证/护照号码、出生日期。",
-                "collect_list_2": "<strong>联系方式：</strong> 电话、电邮、住址。",
-                "collect_list_3": "<strong>财务概况：</strong> 收入范围、职业信息、现有保单、以及用于撰写遗嘱的资产信息。",
-                "purpose_title": "3. 收集目的",
-                "purpose_text": "您的数据将用于：",
-                "purpose_list_1": "<strong>提供咨询：</strong> 评估您的财务需求和风险状况。",
-                "purpose_list_2": "<strong>处理申请：</strong> 与合作伙伴办理保单或法律文件如遗嘱/信托。",
-                "purpose_list_3": "<strong>更新通知：</strong> 发送重要的保单更新或理财建议。",
+                "intro_title": "1. 序言",
+                "intro_text": "Wish Group Resources（“本公司”或“我们”）高度重视客户的隐私。本隐私政策概述了我们如何根据马来西亚 2010年个人资料保护法 (PDPA) 收集、处理、使用和披露您的个人资料。通过使用我们的服务，您同意本政策中描述的做法。",
+                "collect_title": "2. 收集资料的性质",
+                "collect_text": "为了提供一站式金融解决方案，我们可能会收集以下信息，包括但不限于：",
+                "collect_list_1": "<strong>身份识别：</strong> 姓名、身份证/护照号码、性别、国籍。",
+                "collect_list_2": "<strong>联系方式：</strong> 住址、电话、电邮。",
+                "collect_list_3": "<strong>财务信息：</strong> 收入证明、职业背景、银行账户及信用记录。",
+                "collect_list_4": "<strong>特殊类别：</strong> 病史（保险用途）、家族成员信息（遗嘱用途）及资产清单。",
+                "purpose_title": "3. 收集之目的",
+                "purpose_text": "您的数据处理目的如下：",
+                "purpose_list_1": "<strong>财务评估：</strong> 评估财务状况并提供定制的风险管理建议。",
+                "purpose_list_2": "<strong>行政管理：</strong> 处理保险申请、投资产品及法律文件。",
+                "purpose_list_3": "<strong>法律合规：</strong> 核实身份并预防欺诈或洗黑钱。",
+                "purpose_list_4": "<strong>遗产规划：</strong> 撰写及管理遗嘱、信托及继承相关文件。",
                 "disclosure_title": "4. 第三方披露",
-                "disclosure_text": "我们可能会与授权的合作伙伴共享您的信息，以完成您的服务请求，例如：",
-                "disclosure_list_1": "保险供应商 (例如：Great Eastern)。",
-                "disclosure_list_2": "信托及法律机构 (用于财产规划)。",
-                "disclosure_list_3": "监管机构 (按法律要求)。",
-                "disclosure_note": "注意：我们决不会将您的数据出售给外部营销公司。",
-                "security_title": "5. 数据安全",
-                "security_text": "我们实施严格的技术和组织安全措施，保护您的数据免受未经授权的访问或泄露。",
+                "disclosure_text": "在提供服务过程中，我们可能会将您的信息披露给：",
+                "disclosure_list_1": "<strong>保险合作伙伴：</strong> 授权保险提供商（如：Great Eastern）用于承保目的。",
+                "disclosure_list_2": "<strong>法律与信托机构：</strong> 参与您的遗产规划的律师事务所和信托公司。",
+                "disclosure_list_3": "<strong>监管机构：</strong> 马来西亚国家银行、内陆税收局（LHDN）或法律要求的其他政府机构。",
+                "disclosure_list_4": "<strong>服务供应商：</strong> IT支持、审计师和专业顾问。",
+                "security_title": "5. 数据安全与保留",
+                "security_text": "我们实施先进的技术安全措施（如加密和访问限制）以保护您的数据。您的信息仅在必要期间或法律要求（通常为7年财务记录要求）内保留。",
                 "rights_title": "6. 您的权利",
-                "rights_text": "根据 PDPA，您有权随时访问、更正或撤销您对我们使用您数据的同意。"
+                "rights_text": "作为 PDPA 下的数据主体，您有权要求访问我们持有的个人资料、要求更正不准确或过时的信息、撤回对营销或数据处理的同意。",
+                "contact_title": "7. 联系我们",
+                "contact_text": "若您对本政策有任何疑问，请联系我们的数据保护专员：",
+                "contact_email": "电邮: info@wishgroup.com",
+                "contact_address": "地址: 32A-1, Jalan Nautika B U20/B, Pusat Komersial TSB, 47000 Shah Alam, Selangor"
             },
             "hero": {
                 "title": "您的一站式金融合作伙伴",
@@ -712,6 +725,7 @@
             "footer": {
                 "tagline": "您的一站式金融合作伙伴。<br>一站式增长与保障解决方案。",
                 "address": "32A-1, Jalan Nautika B U20/B,<br />Pusat Komersial TSB,<br />47000 Shah Alam, Selangor",
+                "details": "详情",
                 "follow_us": "关注我们",
                 "copyright": "&copy;2025 Wish Group. 版权所有。"
             }
@@ -822,6 +836,11 @@
                 image: "images/emily_wong.jpg"
             }
         ];
+
+        // --- INIT WISH SLIDER IF DATA READY ---
+        if (window.initSlider) {
+            window.initSlider();
+        }
 
         // --- REFACTORED TESTIMONIALS (Persistent DOM + View Transitions) ---
 
@@ -974,14 +993,16 @@
             // Check if Mobile
             const isMobile = window.innerWidth < 768;
 
-            // Use Native View Transition if available (Enable on Mobile too for smoothness)
-            if (document.startViewTransition) {
+            // PERFORMANCE FIX: Disable View Transitions on Mobile
+            // On mobile, the scroll observer triggers this rapidly. 
+            // View Transitions (snapshotting DOM) are too heavy for scroll-based interaction.
+            if (!isMobile && document.startViewTransition) {
                 document.startViewTransition(() => {
                     window.activeTestimonialIndex = index;
                     updateTestimonialsVisuals();
                 });
             } else {
-                // Fallback for older browsers OR Mobile (for performance)
+                // Fast path for Mobile (just update classes instantly)
                 window.activeTestimonialIndex = index;
                 updateTestimonialsVisuals();
             }
@@ -1094,7 +1115,7 @@
 
 
         // Use local reference for convenience in this scope if needed, but rely on global for popup
-        const stories = window.wishStories;
+        // REMOVED const stories = window.wishStories; to avoid stale reference
 
         // DOM Elements
         const sliderTitle = document.getElementById("sliderTitle");
@@ -1124,7 +1145,7 @@
         // --- NEW: Fix Wish Slider Height (Like Testimonials) ---
         window.setFixedWishSliderHeight = function () {
             const slider = document.getElementById("wishSlider");
-            const stories = window.wishStories;
+            const stories = window.wishStories; // Get fresh data
             if (!slider || !stories || stories.length === 0) return;
 
             // Desktop: Reset and let CSS handle it (md:h-[600px])
@@ -1171,8 +1192,10 @@
         };
 
 
-        function initSlider() {
-            if (!sliderIndicators) return;
+        window.initSlider = function () {
+            const stories = window.wishStories;
+            if (!sliderIndicators || !stories || stories.length === 0) return;
+
             renderIndicators();
             // Force first update immediately without animation for initial load
             const story = stories[activeIndex];
@@ -1200,6 +1223,9 @@
         }
 
         function updateSlice(index) {
+            const stories = window.wishStories;
+            if (!stories) return;
+
             activeIndex = index;
             const story = stories[index];
 
@@ -1263,7 +1289,8 @@
         }
 
         function renderIndicators() {
-            if (!sliderIndicators) return;
+            const stories = window.wishStories;
+            if (!sliderIndicators || !stories) return;
             sliderIndicators.innerHTML = '';
             stories.forEach((story, index) => {
                 const item = document.createElement('div');
@@ -1318,6 +1345,9 @@
         function startAutoPlay() {
             if (window.wishSliderInterval) clearInterval(window.wishSliderInterval);
             window.wishSliderInterval = setInterval(() => {
+                const stories = window.wishStories;
+                if (!stories) return;
+
                 let nextIndex = activeIndex + 1;
                 if (nextIndex >= stories.length) nextIndex = 0;
                 updateSlice(nextIndex);
@@ -1331,6 +1361,9 @@
         // Event Listeners
         if (prevBtn) {
             prevBtn.onclick = () => {
+                const stories = window.wishStories;
+                if (!stories) return;
+
                 let newIndex = activeIndex - 1;
                 if (newIndex < 0) newIndex = stories.length - 1;
                 updateSlice(newIndex);
@@ -1340,6 +1373,9 @@
 
         if (nextBtn) {
             nextBtn.onclick = () => {
+                const stories = window.wishStories;
+                if (!stories) return;
+
                 let newIndex = activeIndex + 1;
                 if (newIndex >= stories.length) newIndex = 0;
                 updateSlice(newIndex);
@@ -1353,7 +1389,10 @@
         // to ensure it works regardless of DOM updates.
 
         // Initialize
-        initSlider();
+        // REMOVED initSlider() from here. checking if window.wishStories exists first
+        if (window.wishStories && window.wishStories.length > 0) {
+            window.initSlider();
+        }
 
         // --- SWIPE LOGIC FOR MOBILE ---
         const sliderContainer = document.getElementById('wishSlider');
